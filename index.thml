@@ -1,0 +1,1916 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Masajes con Nury — Reservas</title>
+  <meta name="description" content="Masajes con Nury — reserva online con disponibilidad en calendario. Servicios, galería, opiniones y contacto." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#070A12;
+      --panel:#0E1223;
+      --panel2:#0B0F1D;
+      --card:#101633;
+      --card2:#0F1736;
+      --stroke:rgba(255,255,255,.10);
+      --text:#F2F4FF;
+      --muted:rgba(242,244,255,.68);
+      --muted2:rgba(242,244,255,.46);
+      --grad1:#FBBF24; /* amber */
+      --grad2:#FB7185; /* rose */
+      --ok:#34d399;
+      --bad:#fb7185;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --container: 1140px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 20% 15%, rgba(251,191,36,.09), transparent 55%),
+                  radial-gradient(1000px 600px at 85% 20%, rgba(251,113,133,.09), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .container{max-width:var(--container); margin:0 auto; padding:0 18px;}
+    .pill{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 14px;border:1px solid var(--stroke);
+      border-radius:999px;background:rgba(255,255,255,.03);
+      color:var(--muted); backdrop-filter: blur(10px);
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--grad1),var(--grad2)); box-shadow:0 0 18px rgba(251,191,36,.35)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:14px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.04);
+      color:var(--text);font-weight:700;
+      transition:.25s transform, .25s opacity, .25s background, .25s border;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.26)}
+    .btn.primary{
+      border:0;
+      background:linear-gradient(90deg,var(--grad1),var(--grad2));
+      color:#09101f;
+      box-shadow: 0 16px 40px rgba(251,191,36,.14);
+    }
+    .btn.primary:hover{opacity:.95}
+    .btn.ghost{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.16);
+      color:var(--text);
+    }
+
+    /* NAV */
+    .nav{
+      position:fixed; inset: 0 0 auto 0;
+      z-index:50;
+      background:linear-gradient(180deg, rgba(7,10,18,.78), rgba(7,10,18,.18));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:12px;
+      background:linear-gradient(135deg,var(--grad1),var(--grad2));
+      box-shadow:0 14px 30px rgba(251,113,133,.12);
+    }
+    .brand span{
+      background:linear-gradient(90deg,var(--grad1),var(--grad2));
+      -webkit-background-clip:text;background-clip:text;
+      color:transparent;
+      font-size:18px;
+      white-space:nowrap;
+    }
+
+    .nav-links{display:flex;align-items:center;gap:6px}
+    .nav-links a{
+      position:relative;
+      padding:10px 14px;
+      color:var(--muted);
+      font-weight:600;
+      border-radius:999px;
+      transition:.2s;
+    }
+    .nav-links a:hover{color:var(--text); background:rgba(255,255,255,.04)}
+    .nav-links a.active{color:var(--text)}
+    .nav-links a.active:after{
+      content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px;
+      background:linear-gradient(90deg,var(--grad1),var(--grad2));
+      border-radius:999px;
+    }
+    .nav-cta{display:flex;align-items:center;gap:10px}
+    .burger{display:none}
+
+    @media (max-width: 980px){
+      .nav-links{display:none}
+      .burger{display:inline-flex}
+      .nav-cta .btn.ghost{display:none}
+    }
+
+    /* HERO */
+    .hero{
+      min-height: 100vh;
+      display:flex;align-items:center;
+      padding-top: 90px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-10%;
+      background:
+        radial-gradient(900px 520px at 18% 22%, rgba(251,191,36,.10), transparent 60%),
+        radial-gradient(900px 520px at 82% 18%, rgba(251,113,133,.10), transparent 60%);
+      pointer-events:none;
+      filter: blur(0px);
+    }
+    .gridbg{
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity:.15;
+      mask-image: radial-gradient(420px 260px at 50% 25%, black 40%, transparent 75%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:24px;
+      align-items:center;
+      position:relative;
+    }
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr; gap:18px}
+    }
+
+    .hero h1{
+      margin:14px 0 10px;
+      font-size: clamp(38px, 5vw, 74px);
+      letter-spacing:-.04em;
+      line-height:1.02;
+    }
+    .script{
+      font-family: Caveat, cursive;
+      font-weight:700;
+      font-size: clamp(22px, 2.2vw, 34px);
+      color: var(--grad1);
+      opacity:.95;
+    }
+    .hero p{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size: 16px;
+      line-height:1.6;
+      max-width: 58ch;
+    }
+    .hero-actions{display:flex;flex-wrap:wrap; gap:10px; align-items:center}
+    .hero-stats{
+      display:flex; gap:12px; flex-wrap:wrap; margin-top:22px;
+    }
+    .stat{
+      padding:12px 14px; border:1px solid rgba(255,255,255,.10);
+      border-radius: 14px; background:rgba(255,255,255,.03);
+      min-width: 160px;
+    }
+    .stat b{display:block; font-size:16px}
+    .stat small{color:var(--muted2)}
+    .hero-card{
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: var(--radius2);
+      padding:16px;
+      box-shadow: var(--shadow);
+    }
+    .media-frame{
+      border-radius: 20px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      position:relative;
+      aspect-ratio: 4/3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:var(--muted);
+    }
+    .media-frame .badge{
+      position:absolute; top:12px; left:12px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.25);
+      font-weight:700; color:var(--text);
+      backdrop-filter: blur(10px);
+      font-size:12px;
+    }
+    .media-frame .hint{padding:0 18px}
+    .media-frame .hint b{display:block; color:var(--text); margin-bottom:6px}
+    .media-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .media-mini{
+      border-radius:16px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      aspect-ratio: 1.4/1;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted2);
+      text-align:center;
+      padding:10px;
+    }
+
+    /* SECTION */
+    section{padding: 90px 0}
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:22px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: clamp(26px, 3.2vw, 44px);
+      letter-spacing:-.03em;
+    }
+    .section-head p{margin:0; color:var(--muted); max-width: 70ch; line-height:1.6}
+    .section-tag{
+      display:inline-flex;align-items:center;gap:10px;
+      color:var(--muted);
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      padding:10px 12px;
+      background:rgba(255,255,255,.03);
+      white-space:nowrap;
+    }
+
+    /* SERVICES */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .cards{grid-template-columns:1fr; gap:12px}
+    }
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(16,22,51,.72), rgba(14,18,35,.62));
+      padding:18px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      transition: .25s transform, .25s border;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:hover{transform: translateY(-3px); border-color: rgba(251,191,36,.28)}
+    .card:before{
+      content:"";
+      position:absolute; inset:-80px -80px auto auto;
+      width:220px;height:220px;border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(251,191,36,.16), transparent 60%);
+      filter: blur(2px);
+      transform: rotate(12deg);
+    }
+    .card h3{margin:0 0 6px; font-size:18px; letter-spacing:-.02em}
+    .price{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:8px 10px;border-radius:999px;
+      background: rgba(251,191,36,.10);
+      border:1px solid rgba(251,191,36,.18);
+      color: #ffdca1;
+      font-weight:800; font-size:12px;
+    }
+    .meta{display:flex; align-items:center; justify-content:space-between; gap:12px}
+    .desc{color:var(--muted); line-height:1.6; margin:10px 0 12px}
+    .chips{display:flex;flex-wrap:wrap; gap:8px}
+    .chip{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+    }
+    .card .line{
+      margin-top:14px;height:2px;border-radius:99px;
+      background:linear-gradient(90deg,var(--grad1),var(--grad2));
+      opacity:.9;
+    }
+
+    /* GALLERY */
+    .gallery{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .gallery{grid-template-columns:1fr}
+    }
+    .gallery-left{
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      position:relative;
+      min-height: 380px;
+      box-shadow: var(--shadow);
+    }
+    .gallery-left .overlay{
+      position:absolute; inset:auto 0 0 0;
+      padding:16px;
+      background: linear-gradient(180deg, transparent, rgba(7,10,18,.85));
+      display:flex; justify-content:space-between; align-items:flex-end; gap:14px;
+    }
+    .gallery-left .overlay .txt b{display:block; font-size:18px}
+    .gallery-left .overlay .txt small{color:var(--muted)}
+    .gallery-left .placeholder{
+      position:absolute; inset:0;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted);
+      text-align:center;
+      padding:20px;
+    }
+    .gallery-right{
+      display:grid;
+      gap:14px;
+    }
+    .gallery-tile{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      aspect-ratio: 16/10;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted2);
+      text-align:center;
+      padding:12px;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 980px){
+      .testimonials{grid-template-columns:1fr}
+    }
+    .quote{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(16,22,51,.68), rgba(14,18,35,.58));
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .quote .mark{
+      position:absolute; top:10px; left:14px;
+      font-size:58px; line-height:1;
+      opacity:.12;
+      color:var(--grad1);
+      font-weight:900;
+    }
+    .quote p{margin:18px 0 14px; color:var(--muted); line-height:1.65}
+    .who{display:flex;align-items:center;gap:10px}
+    .avatar{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg,var(--grad1),var(--grad2));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;color:#081024;
+    }
+    .who b{display:block}
+    .who small{color:var(--muted2)}
+
+    /* ABOUT + BOOKING */
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .two{grid-template-columns:1fr}
+    }
+    .panel{
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .about-media{
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      aspect-ratio: 4/3;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted);
+      text-align:center;
+      padding:18px;
+    }
+    .about-media b{display:block;color:var(--text); margin-bottom:6px}
+    .about-text p{color:var(--muted); line-height:1.7; margin:0 0 12px}
+    .bullets{display:grid; gap:10px; margin-top:10px}
+    .bullet{
+      display:flex; gap:10px; align-items:flex-start;
+      color:var(--muted);
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+    }
+    .bullet i{
+      width:26px;height:26px;border-radius:10px;
+      background:rgba(251,191,36,.10);
+      border:1px solid rgba(251,191,36,.18);
+      display:inline-flex;align-items:center;justify-content:center;
+      color:#ffdca1; font-style:normal; font-weight:900;
+      flex:none;
+    }
+
+    /* BOOKING UI */
+    .booking-head{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap}
+    .booking-head small{color:var(--muted)}
+    .calendar{
+      margin-top:12px;
+      border-radius: 20px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      padding:14px;
+    }
+    .cal-top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .cal-title{
+      display:flex; flex-direction:column;
+      gap:3px;
+    }
+    .cal-title b{font-size:16px}
+    .cal-title span{color:var(--muted2); font-size:13px}
+    .cal-nav{display:flex; gap:8px}
+    .cal-grid{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+    .dow{
+      text-align:center;
+      color:var(--muted2);
+      font-size:12px;
+      padding:6px 0;
+    }
+    .day{
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      padding:10px;
+      min-height: 74px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      cursor:pointer;
+      transition:.2s transform, .2s border, .2s background;
+      position:relative;
+    }
+    .day:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18)}
+    .day.muted{opacity:.45; cursor:not-allowed}
+    .day.selected{
+      border-color: rgba(251,191,36,.32);
+      background: rgba(251,191,36,.06);
+    }
+    .day .n{font-weight:800}
+    .day .hint{
+      font-size:12px;color:var(--muted2);
+      margin-top:auto;
+    }
+    .day .badge{
+      position:absolute; top:10px; right:10px;
+      font-size:11px; font-weight:800;
+      padding:6px 8px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      color:var(--muted);
+    }
+    .slots{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 980px){
+      .slots{grid-template-columns: 1fr 1fr}
+    }
+    .slot{
+      border-radius: 14px;
+      padding:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      color:var(--muted);
+      cursor:pointer;
+      transition:.2s transform, .2s border, .2s background, .2s opacity;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    .slot:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18)}
+    .slot.disabled{opacity:.38; cursor:not-allowed}
+    .slot.selected{
+      border-color: rgba(251,113,133,.32);
+      background: rgba(251,113,133,.06);
+      color:var(--text);
+    }
+    .slot b{color:var(--text)}
+    .form{
+      margin-top:12px;
+      display:grid;
+      gap:10px;
+    }
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    @media(max-width:980px){.row{grid-template-columns:1fr}}
+    .field label{display:block; font-weight:700; font-size:12px; color:var(--muted2); margin:0 0 6px}
+    .field input, .field select, .field textarea{
+      width:100%;
+      background: rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      padding:12px 12px;
+      color: var(--text);
+      outline:none;
+      transition: .2s border, .2s background;
+      font-family: inherit;
+    }
+    .field textarea{min-height: 90px; resize: vertical}
+    .field input:focus, .field select:focus, .field textarea:focus{
+      border-color: rgba(251,191,36,.30);
+      background: rgba(255,255,255,.05);
+    }
+    .err{color:var(--bad); font-size:12px; margin-top:6px}
+    .note{color:var(--muted2); font-size:12px; line-height:1.5}
+
+    .success{
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      padding:26px 12px;
+      gap:10px;
+    }
+    .tick{
+      width:62px;height:62px;border-radius:20px;
+      background: linear-gradient(90deg,var(--grad1),var(--grad2));
+      color:#081024;
+      display:flex;align-items:center;justify-content:center;
+      font-size:28px; font-weight:900;
+      box-shadow: 0 18px 50px rgba(251,191,36,.14);
+    }
+    .success p{color:var(--muted); margin:0; max-width: 56ch; line-height:1.6}
+
+    /* CONTACT */
+    .contact-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media(max-width:980px){.contact-grid{grid-template-columns:1fr}}
+    .contact-card{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding:18px;
+      text-align:center;
+    }
+    .icon{
+      width:48px;height:48px;border-radius: 16px;
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 10px;
+      background: rgba(251,191,36,.10);
+      border:1px solid rgba(251,191,36,.18);
+      color:#ffdca1;
+      font-weight:900;
+    }
+    .contact-card b{display:block; margin-bottom:6px}
+    .contact-card span{color:var(--muted); line-height:1.5}
+
+    /* FOOTER */
+    footer{
+      padding:40px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.20);
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: 1.4fr .8fr .8fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media(max-width:980px){.footer-grid{grid-template-columns:1fr}}
+    .social{
+      display:flex; gap:10px; margin-top:10px;
+    }
+    .social a{
+      width:42px;height:42px;border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted);
+      transition:.2s;
+    }
+    .social a:hover{border-color: rgba(251,191,36,.25); color:var(--text); transform: translateY(-1px)}
+    .links{display:grid; gap:8px}
+    .links a{color:var(--muted); font-weight:600}
+    .links a:hover{color:var(--text)}
+    .tiny{margin-top:20px; color:var(--muted2); font-size:12px; line-height:1.6}
+
+    /* MOBILE MENU */
+    .sheet{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.45);
+      display:none;
+      z-index:60;
+    }
+    .sheet.show{display:block}
+    .sheet-card{
+      position:absolute; right:14px; top:70px;
+      width: min(360px, calc(100% - 28px));
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(7,10,18,.88);
+      backdrop-filter: blur(18px);
+      padding:12px;
+      box-shadow: var(--shadow);
+    }
+    .sheet-card a{
+      display:block;
+      padding:12px 12px;
+      border-radius: 14px;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .sheet-card a:hover{background: rgba(255,255,255,.05); color:var(--text)}
+  </style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#hero" aria-label="Ir al inicio">
+          <div class="logo"></div>
+          <span>Masajes con Nury</span>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+          <a href="#services" data-section="services">Servicios</a>
+          <a href="#gallery" data-section="gallery">Galería</a>
+          <a href="#testimonials" data-section="testimonials">Opiniones</a>
+          <a href="#about" data-section="about">Sobre Nury</a>
+          <a href="#booking" data-section="booking">Reservar</a>
+          <a href="#contact" data-section="contact">Contacto</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a class="btn ghost" href="#contact">WhatsApp</a>
+          <a class="btn primary" href="#booking">Reservar ahora →</a>
+          <button class="btn burger" id="burger" aria-label="Abrir menú">☰</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE SHEET -->
+  <div class="sheet" id="sheet">
+    <div class="sheet-card">
+      <a href="#services" class="sheetLink">Servicios</a>
+      <a href="#gallery" class="sheetLink">Galería</a>
+      <a href="#testimonials" class="sheetLink">Opiniones</a>
+      <a href="#about" class="sheetLink">Sobre Nury</a>
+      <a href="#booking" class="sheetLink">Reservar</a>
+      <a href="#contact" class="sheetLink">Contacto</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="gridbg"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="pill">
+            <span class="dot"></span>
+            <span>Reservas online con disponibilidad real · Atención profesional</span>
+          </div>
+
+          <div class="script" style="margin-top:14px;">Bienestar real. Resultados reales.</div>
+          <h1>
+            Vuelve a sentir<br />
+            <span style="background:linear-gradient(90deg,var(--grad1),var(--grad2)); -webkit-background-clip:text; background-clip:text; color:transparent;">
+              tu mejor versión
+            </span>
+          </h1>
+
+          <p>
+            En <b>Masajes con Nury</b> combinamos técnica, experiencia y un ambiente sereno.
+            Elige tu masaje, selecciona una fecha y reserva en segundos con confirmación y recordatorio.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#booking">Reservar mi sesión →</a>
+            <a class="btn" href="#services">Ver servicios</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <b>+15 años</b>
+              <small>Experiencia en terapias manuales</small>
+            </div>
+            <div class="stat">
+              <b>Agenda online</b>
+              <small>Horarios disponibles en tiempo real</small>
+            </div>
+            <div class="stat">
+              <b>Atención 1:1</b>
+              <small>Sesión personalizada</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <!-- MAIN MEDIA PLACEHOLDER -->
+          <div class="media-frame" id="heroMedia">
+            <div class="badge">ESPACIO FOTO / VIDEO</div>
+            <div class="hint">
+              <b>Coloca aquí un vídeo</b>
+              <div style="color:var(--muted); line-height:1.55">
+                Ej: vídeo del ambiente, camilla, manos trabajando, o presentación de Nury.
+              </div>
+              <div style="margin-top:10px; font-size:12px; color:var(--muted2)">
+                (Luego puedes reemplazar este bloque por un &lt;img&gt; o &lt;video&gt;)
+              </div>
+            </div>
+          </div>
+
+          <div class="media-grid">
+            <div class="media-mini">Foto 1 (antes/después, sala, etc.)</div>
+            <div class="media-mini">Foto 2 (detalle, producto, aromaterapia)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-tag"><span class="dot"></span> Servicios</div>
+          <h2>Tipos de masaje disponibles</h2>
+          <p>
+            Selecciona el servicio y reserva directamente en el calendario.
+            Cada masaje tiene duración y precio claros para evitar confusión.
+          </p>
+        </div>
+        <a class="btn" href="#booking">Ir a reservar →</a>
+      </div>
+
+      <div class="cards" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-tag"><span class="dot"></span> Galería</div>
+          <h2>Fotos y vídeos (espacios listos)</h2>
+          <p>
+            Sustituye los placeholders por imágenes reales del local, camilla, aceites, y un vídeo corto.
+          </p>
+        </div>
+      </div>
+
+      <div class="gallery">
+        <div class="gallery-left">
+          <!-- PLACEHOLDER LARGE MEDIA -->
+          <div class="placeholder">
+            <div>
+              <b style="display:block; font-size:18px; color:var(--text); margin-bottom:8px;">
+                Video principal / foto grande
+              </b>
+              <div style="color:var(--muted); line-height:1.6">
+                Recomendación: un vídeo vertical o horizontal de 10–20s mostrando el ambiente.
+              </div>
+            </div>
+          </div>
+          <div class="overlay">
+            <div class="txt">
+              <b>Ambiente & experiencia</b>
+              <small>Diseñado para bajar estrés desde el minuto 1</small>
+            </div>
+            <a class="btn primary" href="#booking">Reservar →</a>
+          </div>
+        </div>
+
+        <div class="gallery-right">
+          <div class="gallery-tile">Foto / vídeo 1 (miniatura)</div>
+          <div class="gallery-tile">Foto / vídeo 2 (miniatura)</div>
+          <div class="gallery-tile">Foto / vídeo 3 (miniatura)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-tag"><span class="dot"></span> Opiniones</div>
+          <h2>Clientes reales, resultados reales</h2>
+          <p>
+            Puedes cambiar nombres y textos. Ideal si el cliente tiene reseñas de Google: copiarlas aquí.
+          </p>
+        </div>
+      </div>
+
+      <div class="testimonials" id="testimonialsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT + BOOKING -->
+  <section id="about">
+    <div class="container">
+      <div class="two">
+        <div class="panel">
+          <div class="section-tag"><span class="dot"></span> Sobre Nury</div>
+          <h2 style="margin:10px 0 8px;">Técnica, cuidado y detalle</h2>
+          <div class="about-text">
+            <p>
+              Con una atención totalmente personalizada, Nury adapta cada sesión al estado del cuerpo:
+              tensión muscular, estrés, descanso, carga deportiva o necesidades específicas.
+            </p>
+            <p>
+              El objetivo no es “pasar un rato”, sino <b>salir mejor</b>: menos dolor, más movilidad y más calma.
+            </p>
+          </div>
+
+          <div class="bullets">
+            <div class="bullet"><i>✓</i> Evaluación rápida antes de empezar (tensión, molestias, objetivo)</div>
+            <div class="bullet"><i>✓</i> Técnicas profesionales + estiramientos suaves si aplica</div>
+            <div class="bullet"><i>✓</i> Recomendaciones simples al final para mantener el resultado</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="about-media">
+            <div>
+              <b>Foto de Nury / sala</b>
+              <div style="color:var(--muted); line-height:1.6">
+                Sustituye este bloque por una imagen:
+                <br />
+                <code style="color:var(--muted2)">&lt;img src="nury.jpg" alt="Nury"&gt;</code>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn" href="#services">Ver servicios</a>
+            <a class="btn primary" href="#booking">Reservar →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking">
+    <div class="container">
+      <div class="panel">
+        <div class="booking-head">
+          <div>
+            <div class="section-tag"><span class="dot"></span> Reserva</div>
+            <h2 style="margin:10px 0 8px;">Agenda tu visita</h2>
+            <small>Elige servicio → día → hora disponible → completa tus datos → confirmar</small>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" id="btnReset">Limpiar selección</button>
+            <button class="btn ghost" id="btnAdmin">Ver reservas (admin)</button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div id="successBox" style="display:none;">
+          <div class="success">
+            <div class="tick">✓</div>
+            <h3 style="margin:0;">¡Reserva confirmada!</h3>
+            <p>
+              Te guardamos la cita. Puedes descargar el recordatorio para tu calendario
+              y también recibir confirmación por WhatsApp/Email si conectas un backend más adelante.
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+              <button class="btn primary" id="btnDownloadIcs">Descargar .ics</button>
+              <a class="btn" href="#services">Ver servicios</a>
+              <button class="btn" id="btnNewBooking">Reservar otra</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOOKING APP -->
+        <div id="bookingApp">
+          <div class="two" style="margin-top:14px;">
+            <!-- LEFT: Calendar + slots -->
+            <div>
+              <div class="field">
+                <label for="serviceSelect">Servicio</label>
+                <select id="serviceSelect">
+                  <option value="">Selecciona un servicio</option>
+                </select>
+                <div class="note" id="serviceNote" style="margin-top:6px;">Selecciona un servicio para ver duración y slots.</div>
+                <div class="err" id="serviceErr" style="display:none;"></div>
+              </div>
+
+              <div class="calendar" style="margin-top:14px;">
+                <div class="cal-top">
+                  <div class="cal-title">
+                    <b id="calMonthLabel">Mes</b>
+                    <span id="calSubLabel">Selecciona un día</span>
+                  </div>
+                  <div class="cal-nav">
+                    <button class="btn" id="prevMonth" type="button">←</button>
+                    <button class="btn" id="todayBtn" type="button">Hoy</button>
+                    <button class="btn" id="nextMonth" type="button">→</button>
+                  </div>
+                </div>
+
+                <div class="cal-grid" id="dowRow"></div>
+                <div class="cal-grid" id="calGrid"></div>
+              </div>
+
+              <div style="margin-top:14px;">
+                <div class="pill" style="width:fit-content;">
+                  <span class="dot"></span>
+                  <span id="slotsTitle">Horarios disponibles</span>
+                </div>
+                <div class="slots" id="slotsGrid"></div>
+                <div class="err" id="slotErr" style="display:none;"></div>
+              </div>
+            </div>
+
+            <!-- RIGHT: Form -->
+            <div>
+              <form class="form" id="bookingForm">
+                <div class="row">
+                  <div class="field">
+                    <label for="name">Nombre</label>
+                    <input id="name" name="name" placeholder="Tu nombre completo" />
+                    <div class="err" id="nameErr" style="display:none;"></div>
+                  </div>
+                  <div class="field">
+                    <label for="phone">Teléfono</label>
+                    <input id="phone" name="phone" placeholder="+34 6XX XXX XXX" />
+                    <div class="err" id="phoneErr" style="display:none;"></div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" placeholder="tu@email.com" />
+                  <div class="err" id="emailErr" style="display:none;"></div>
+                </div>
+
+                <div class="field">
+                  <label for="notes">Notas (opcional)</label>
+                  <textarea id="notes" name="notes" placeholder="Alergias, zonas sensibles, objetivo del masaje, etc."></textarea>
+                </div>
+
+                <div class="panel" style="padding:14px; background:rgba(255,255,255,.02); border-radius:18px;">
+                  <b style="display:block; margin-bottom:6px;">Resumen</b>
+                  <div style="color:var(--muted); line-height:1.6;" id="summary">
+                    Selecciona servicio, día y hora para ver el resumen.
+                  </div>
+                </div>
+
+                <button class="btn primary" type="submit" style="width:100%; padding:16px 18px;">
+                  Confirmar reserva
+                </button>
+
+                <div class="note">
+                  Al confirmar, se guarda la reserva en este dispositivo (localStorage).
+                  Para producción real, conecta esto a un backend / Google Calendar.
+                </div>
+
+                <div class="err" id="submitErr" style="display:none;"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADMIN MODAL -->
+        <div id="adminModal" style="display:none; margin-top:14px;">
+          <div class="panel" style="background:rgba(0,0,0,.22)">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+              <b>Reservas guardadas</b>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn" id="btnExport">Exportar JSON</button>
+                <button class="btn" id="btnClearAll" style="border-color: rgba(251,113,133,.35);">Borrar todas</button>
+                <button class="btn" id="btnCloseAdmin">Cerrar</button>
+              </div>
+            </div>
+            <div style="margin-top:10px; color:var(--muted2); font-size:12px;">
+              (Esto es solo demo. En producción, esto debería estar protegido y guardado en servidor.)
+            </div>
+            <div style="margin-top:10px; overflow:auto; border:1px solid rgba(255,255,255,.08); border-radius:14px;">
+              <pre id="adminList" style="margin:0; padding:12px; color:var(--muted); font-size:12px; line-height:1.5;"></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-tag"><span class="dot"></span> Contacto</div>
+          <h2>¿Te ayudamos?</h2>
+          <p>Si tienes dudas sobre el servicio ideal, escríbenos y te recomendamos la mejor opción.</p>
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="icon">📍</div>
+          <b>Ubicación</b>
+          <span id="addr"></span>
+        </div>
+        <div class="contact-card">
+          <div class="icon">📞</div>
+          <b>Teléfono</b>
+          <span id="phone"></span>
+          <div class="tiny" id="hours" style="margin-top:10px;"></div>
+        </div>
+        <div class="contact-card">
+          <div class="icon">✉️</div>
+          <b>Email</b>
+          <span id="email"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="gap:10px;">
+            <div class="logo"></div>
+            <span>Masajes con Nury</span>
+          </div>
+          <div class="tiny">
+            Tu santuario de bienestar. Reservas online con disponibilidad real.
+          </div>
+          <div class="social">
+            <a id="ig" href="#" aria-label="Instagram">IG</a>
+            <a id="fb" href="#" aria-label="Facebook">FB</a>
+            <a id="wa" href="#" aria-label="WhatsApp">WA</a>
+          </div>
+        </div>
+
+        <div>
+          <b style="display:block; margin-bottom:10px;">Enlaces</b>
+          <div class="links">
+            <a href="#services">Servicios</a>
+            <a href="#gallery">Galería</a>
+            <a href="#booking">Reservar</a>
+            <a href="#contact">Contacto</a>
+          </div>
+        </div>
+
+        <div>
+          <b style="display:block; margin-bottom:10px;">Nota</b>
+          <div class="tiny">
+            Esta versión guarda reservas en el dispositivo (demo).
+            Si quieres producción real: conectar Google Calendar / servidor para disponibilidad multi-usuario.
+          </div>
+        </div>
+      </div>
+
+      <div class="tiny" style="margin-top:20px; border-top:1px solid rgba(255,255,255,.08); padding-top:16px;">
+        © <span id="year"></span> Masajes con Nury · Todos los derechos reservados
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===========================
+    // DATA (EDITABLE)
+    // ===========================
+    const BRAND = {
+      name: "Masajes con Nury",
+      tagline: "Bienestar real. Resultados reales.",
+      phone: "+34 600 000 000",
+      email: "hola@masajesconnury.com",
+      address: "Calle Serenidad 123, Barcelona",
+      hours: "Lun–Sáb: 09:00–20:00",
+      social: { instagram:"#", facebook:"#", whatsapp:"#"}
+    };
+
+    const SERVICES = [
+      { id:"relajante", name:"Masaje Relajante", duration:60, price:"50€",
+        description:"Masaje suave y profundo para bajar estrés, mejorar circulación y soltar tensión acumulada.",
+        tags:["60 min","Relajación","Aromaterapia opcional"]
+      },
+      { id:"descontracturante", name:"Descontracturante", duration:75, price:"65€",
+        description:"Trabajo focalizado en contracturas y puntos de tensión con presión progresiva y estiramientos suaves.",
+        tags:["75 min","Espalda/ cuello","Tensión muscular"]
+      },
+      { id:"deportivo", name:"Masaje Deportivo", duration:90, price:"80€",
+        description:"Ideal para deportistas: descarga, movilidad, prevención de sobrecarga y recuperación post entreno.",
+        tags:["90 min","Recuperación","Rendimiento"]
+      },
+      { id:"piedras", name:"Piedras Calientes", duration:75, price:"75€",
+        description:"Experiencia sensorial con calor terapéutico para soltar tensión profunda y relajar el sistema nervioso.",
+        tags:["75 min","Calor","Relax profundo"]
+      },
+      { id:"facial", name:"Masaje Facial", duration:45, price:"45€",
+        description:"Masaje facial para liberar tensión mandibular/ceño, mejorar aspecto y aportar calma.",
+        tags:["45 min","Rostro","Descanso"]
+      },
+      { id:"prenatal", name:"Masaje Prenatal", duration:60, price:"55€",
+        description:"Sesión adaptada para embarazadas (según trimestre), alivia molestias y mejora bienestar.",
+        tags:["60 min","Embarazo","Suave"]
+      }
+    ];
+
+    const TESTIMONIALS = [
+      { name:"Ana Martínez", role:"Empresaria",
+        quote:"Salí con la espalda totalmente distinta. El ambiente es increíble y Nury trabaja con una técnica muy cuidada."
+      },
+      { name:"Carlos López", role:"Atleta",
+        quote:"El masaje deportivo me ayudó muchísimo con la recuperación. Se nota experiencia real y profesionalidad."
+      },
+      { name:"Sofía Ramírez", role:"Ejecutiva",
+        quote:"Piedras calientes espectacular. Te desconectas por completo y el resultado dura días."
+      }
+    ];
+
+    const WORKING_RULES = {
+      workingDays: [1,2,3,4,5,6], // Lun-Sáb
+      startHour: 9,
+      endHour: 20,
+      slotMinutes: 30,
+      breaks: [{start:"13:00", end:"14:00"}],
+      blockedDatesISO: [] // ej: ["2026-01-01"]
+    };
+
+    const LS_KEY = "nury_bookings_v1";
+
+    // ===========================
+    // HELPERS
+    // ===========================
+    const pad2 = (n) => String(n).padStart(2,"0");
+    const toISODate = (d) => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+    const startOfDay = (d) => { const x=new Date(d); x.setHours(0,0,0,0); return x; };
+    const addDays = (d,days) => { const x=new Date(d); x.setDate(x.getDate()+days); return x; };
+    const addMinutes = (d,mins) => { const x=new Date(d); x.setMinutes(x.getMinutes()+mins); return x; };
+    const sameDay = (a,b)=> a.getFullYear()==b.getFullYear() && a.getMonth()==b.getMonth() && a.getDate()==b.getDate();
+    const formatTime = (d)=> `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+    const overlaps = (aStart,aEnd,bStart,bEnd) => (aStart < bEnd && aEnd > bStart);
+    const uid = () => (Math.random().toString(16).slice(2) + Date.now().toString(16));
+
+    function downloadTextFile(filename, content, mime="text/plain"){
+      const blob = new Blob([content], {type:mime});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href=url; a.download=filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function buildICS({ title, description, location, start, end, organizerEmail }){
+      const dt = (d)=>{
+        const z=new Date(d);
+        return z.getUTCFullYear()
+          + pad2(z.getUTCMonth()+1)
+          + pad2(z.getUTCDate())
+          + "T"
+          + pad2(z.getUTCHours())
+          + pad2(z.getUTCMinutes())
+          + pad2(z.getUTCSeconds())
+          + "Z";
+      };
+      const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Masajes con Nury//Booking//ES",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "BEGIN:VEVENT",
+        `UID:${uid()}@masajesconnury`,
+        `DTSTAMP:${dt(new Date())}`,
+        `DTSTART:${dt(start)}`,
+        `DTEND:${dt(end)}`,
+        `SUMMARY:${title}`,
+        `DESCRIPTION:${String(description||"").replace(/\\n/g,"\\\\n")}`,
+        location ? `LOCATION:${location}` : "",
+        organizerEmail ? `ORGANIZER:MAILTO:${organizerEmail}` : "",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].filter(Boolean);
+      return lines.join("\\r\\n");
+    }
+
+    // ===========================
+    // NAV ACTIVE SECTION + MOBILE
+    // ===========================
+    const navLinks = document.querySelectorAll(".nav-links a");
+    const sections = ["hero","services","gallery","testimonials","about","booking","contact"];
+
+    function setActive(sectionId){
+      navLinks.forEach(a=>{
+        a.classList.toggle("active", a.dataset.section === sectionId);
+      });
+    }
+
+    window.addEventListener("scroll", ()=>{
+      const scrollPos = window.scrollY + 120;
+      for(const id of sections){
+        const el = document.getElementById(id);
+        if(!el) continue;
+        const top = el.offsetTop;
+        const bottom = top + el.offsetHeight;
+        if(scrollPos >= top && scrollPos < bottom){
+          setActive(id === "hero" ? "" : id);
+          break;
+        }
+      }
+    });
+
+    // Mobile sheet
+    const burger = document.getElementById("burger");
+    const sheet = document.getElementById("sheet");
+    burger.addEventListener("click", ()=>{
+      sheet.classList.toggle("show");
+    });
+    sheet.addEventListener("click",(e)=>{
+      if(e.target === sheet) sheet.classList.remove("show");
+    });
+    document.querySelectorAll(".sheetLink").forEach(a=>{
+      a.addEventListener("click", ()=> sheet.classList.remove("show"));
+    });
+
+    // ===========================
+    // RENDER SERVICES / TESTIMONIALS
+    // ===========================
+    const servicesGrid = document.getElementById("servicesGrid");
+    SERVICES.forEach(s=>{
+      const el = document.createElement("div");
+      el.className = "card";
+      el.innerHTML = `
+        <div class="meta">
+          <h3>${s.name}</h3>
+          <span class="price">${s.price}</span>
+        </div>
+        <div class="desc">${s.description}</div>
+        <div class="chips">
+          ${s.tags.map(t=>`<span class="chip">${t}</span>`).join("")}
+          <span class="chip"><b style="color:var(--text)">${s.duration}</b>&nbsp;min</span>
+        </div>
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" type="button" data-pick="${s.id}">Elegir este servicio</button>
+          <a class="btn primary" href="#booking">Reservar →</a>
+        </div>
+        <div class="line"></div>
+      `;
+      servicesGrid.appendChild(el);
+    });
+
+    const testimonialsGrid = document.getElementById("testimonialsGrid");
+    TESTIMONIALS.forEach(t=>{
+      const el = document.createElement("div");
+      el.className = "quote";
+      const initial = (t.name||"?").trim().slice(0,1).toUpperCase();
+      el.innerHTML = `
+        <div class="mark">“</div>
+        <p>${t.quote}</p>
+        <div class="who">
+          <div class="avatar">${initial}</div>
+          <div>
+            <b>${t.name}</b>
+            <small>${t.role}</small>
+          </div>
+        </div>
+      `;
+      testimonialsGrid.appendChild(el);
+    });
+
+    // ===========================
+    // BRAND FILL
+    // ===========================
+    document.getElementById("addr").textContent = BRAND.address;
+    document.getElementById("phone").textContent = BRAND.phone;
+    document.getElementById("email").textContent = BRAND.email;
+    document.getElementById("hours").textContent = BRAND.hours;
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("ig").href = BRAND.social.instagram;
+    document.getElementById("fb").href = BRAND.social.facebook;
+    document.getElementById("wa").href = BRAND.social.whatsapp;
+
+    // ===========================
+    // BOOKING APP
+    // ===========================
+    const serviceSelect = document.getElementById("serviceSelect");
+    const serviceNote = document.getElementById("serviceNote");
+    const serviceErr = document.getElementById("serviceErr");
+    const slotErr = document.getElementById("slotErr");
+    const submitErr = document.getElementById("submitErr");
+    const summary = document.getElementById("summary");
+
+    const calMonthLabel = document.getElementById("calMonthLabel");
+    const calSubLabel = document.getElementById("calSubLabel");
+    const dowRow = document.getElementById("dowRow");
+    const calGrid = document.getElementById("calGrid");
+    const slotsGrid = document.getElementById("slotsGrid");
+    const slotsTitle = document.getElementById("slotsTitle");
+
+    const bookingForm = document.getElementById("bookingForm");
+
+    const successBox = document.getElementById("successBox");
+    const bookingApp = document.getElementById("bookingApp");
+
+    const btnReset = document.getElementById("btnReset");
+    const btnAdmin = document.getElementById("btnAdmin");
+    const adminModal = document.getElementById("adminModal");
+    const adminList = document.getElementById("adminList");
+    const btnCloseAdmin = document.getElementById("btnCloseAdmin");
+    const btnClearAll = document.getElementById("btnClearAll");
+    const btnExport = document.getElementById("btnExport");
+
+    const btnDownloadIcs = document.getElementById("btnDownloadIcs");
+    const btnNewBooking = document.getElementById("btnNewBooking");
+
+    const prevMonth = document.getElementById("prevMonth");
+    const nextMonth = document.getElementById("nextMonth");
+    const todayBtn = document.getElementById("todayBtn");
+
+    // Form inputs
+    const nameI = document.getElementById("name");
+    const phoneI = document.getElementById("phone");
+    const emailI = document.getElementById("email");
+    const notesI = document.getElementById("notes");
+
+    // Errors
+    const nameErr = document.getElementById("nameErr");
+    const phoneErr = document.getElementById("phoneErr");
+    const emailErr = document.getElementById("emailErr");
+
+    // State
+    let bookings = loadBookings();
+    let selectedServiceId = "";
+    let selectedDay = startOfDay(new Date());
+    let selectedSlot = null; // {start,end}
+    let currentMonth = new Date(selectedDay.getFullYear(), selectedDay.getMonth(), 1);
+
+    let lastConfirmed = null; // store for .ics download
+
+    // Populate service dropdown
+    SERVICES.forEach(s=>{
+      const opt = document.createElement("option");
+      opt.value = s.id;
+      opt.textContent = `${s.name} · ${s.duration} min · ${s.price}`;
+      serviceSelect.appendChild(opt);
+    });
+
+    // service pick buttons in cards
+    document.querySelectorAll("[data-pick]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        selectedServiceId = btn.dataset.pick;
+        serviceSelect.value = selectedServiceId;
+        document.getElementById("booking").scrollIntoView({behavior:"smooth"});
+        selectedSlot = null;
+        clearAllErrors();
+        renderCalendar();
+        renderSlots();
+        renderSummary();
+      });
+    });
+
+    // DOW row
+    ["L","M","X","J","V","S","D"].forEach(d=>{
+      const el = document.createElement("div");
+      el.className="dow";
+      el.textContent=d;
+      dowRow.appendChild(el);
+    });
+
+    serviceSelect.addEventListener("change", ()=>{
+      selectedServiceId = serviceSelect.value;
+      selectedSlot = null;
+      clearAllErrors();
+      renderSlots();
+      renderSummary();
+      renderCalendar();
+    });
+
+    prevMonth.addEventListener("click", ()=>{
+      currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth()-1, 1);
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    });
+    nextMonth.addEventListener("click", ()=>{
+      currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth()+1, 1);
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    });
+    todayBtn.addEventListener("click", ()=>{
+      selectedDay = startOfDay(new Date());
+      currentMonth = new Date(selectedDay.getFullYear(), selectedDay.getMonth(), 1);
+      selectedSlot = null;
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    });
+
+    btnReset.addEventListener("click", ()=>{
+      selectedServiceId = "";
+      serviceSelect.value = "";
+      selectedDay = startOfDay(new Date());
+      currentMonth = new Date(selectedDay.getFullYear(), selectedDay.getMonth(), 1);
+      selectedSlot = null;
+      bookingForm.reset();
+      clearAllErrors();
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    });
+
+    // Admin view
+    btnAdmin.addEventListener("click", ()=>{
+      adminModal.style.display = (adminModal.style.display === "none") ? "block" : "none";
+      renderAdmin();
+    });
+    btnCloseAdmin.addEventListener("click", ()=>{
+      adminModal.style.display = "none";
+    });
+    btnClearAll.addEventListener("click", ()=>{
+      if(confirm("¿Seguro que quieres borrar todas las reservas?")){
+        bookings = [];
+        saveBookings(bookings);
+        selectedSlot = null;
+        renderAdmin();
+        renderSlots();
+        renderCalendar();
+        renderSummary();
+      }
+    });
+    btnExport.addEventListener("click", ()=>{
+      downloadTextFile("reservas-masajes-connury.json", JSON.stringify(bookings,null,2), "application/json");
+    });
+
+    // Submit
+    bookingForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      clearAllErrors();
+      submitErr.style.display="none";
+      submitErr.textContent="";
+
+      const valid = validate();
+      if(!valid) return;
+
+      // Check if slot still available (avoid double booking)
+      const service = SERVICES.find(s=>s.id===selectedServiceId);
+      const slotStart = new Date(selectedSlot.start);
+      const slotEnd = new Date(selectedSlot.end);
+
+      if(isSlotTaken(slotStart, slotEnd)){
+        slotErr.style.display="block";
+        slotErr.textContent="Este horario ya no está disponible. Elige otro, por favor.";
+        selectedSlot = null;
+        renderSlots();
+        renderSummary();
+        return;
+      }
+
+      // Create booking
+      const booking = {
+        id: uid(),
+        createdAt: new Date().toISOString(),
+        serviceId: service.id,
+        serviceName: service.name,
+        duration: service.duration,
+        price: service.price,
+        startISO: slotStart.toISOString(),
+        endISO: slotEnd.toISOString(),
+        client: {
+          name: nameI.value.trim(),
+          phone: phoneI.value.trim(),
+          email: emailI.value.trim(),
+          notes: notesI.value.trim()
+        }
+      };
+
+      bookings.push(booking);
+      saveBookings(bookings);
+
+      // Store for ICS
+      lastConfirmed = booking;
+
+      // Success UI
+      bookingApp.style.display="none";
+      successBox.style.display="block";
+
+      // Reset selection but keep month/day in case they book again
+      selectedSlot = null;
+      bookingForm.reset();
+      renderCalendar();
+      renderSlots();
+      renderSummary();
+    });
+
+    btnDownloadIcs.addEventListener("click", ()=>{
+      if(!lastConfirmed) return;
+      const ics = buildICS({
+        title: `Masaje — ${lastConfirmed.serviceName}`,
+        description:
+          `Reserva confirmada\\n\\nServicio: ${lastConfirmed.serviceName}\\nDuración: ${lastConfirmed.duration} min\\nPrecio: ${lastConfirmed.price}\\n\\nCliente: ${lastConfirmed.client.name}\\nTel: ${lastConfirmed.client.phone}\\nEmail: ${lastConfirmed.client.email}\\n\\nNotas: ${lastConfirmed.client.notes || "-"}\\n`,
+        location: BRAND.address,
+        start: new Date(lastConfirmed.startISO),
+        end: new Date(lastConfirmed.endISO),
+        organizerEmail: BRAND.email
+      });
+      downloadTextFile("reserva-masajes-connury.ics", ics, "text/calendar");
+    });
+
+    btnNewBooking.addEventListener("click", ()=>{
+      successBox.style.display="none";
+      bookingApp.style.display="block";
+      lastConfirmed = null;
+      document.getElementById("booking").scrollIntoView({behavior:"smooth"});
+    });
+
+    // Initial render
+    renderCalendar();
+    renderSlots();
+    renderSummary();
+
+    // ===========================
+    // Booking functions
+    // ===========================
+    function loadBookings(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){
+        return [];
+      }
+    }
+    function saveBookings(arr){
+      localStorage.setItem(LS_KEY, JSON.stringify(arr));
+    }
+
+    function validate(){
+      let ok = true;
+
+      if(!selectedServiceId){
+        serviceErr.style.display="block";
+        serviceErr.textContent="Selecciona un servicio.";
+        ok=false;
+      }
+
+      if(!selectedSlot){
+        slotErr.style.display="block";
+        slotErr.textContent="Selecciona un horario disponible.";
+        ok=false;
+      }
+
+      const name = nameI.value.trim();
+      const phone = phoneI.value.trim();
+      const email = emailI.value.trim();
+
+      if(!name){
+        nameErr.style.display="block";
+        nameErr.textContent="El nombre es obligatorio.";
+        ok=false;
+      }
+
+      if(!phone){
+        phoneErr.style.display="block";
+        phoneErr.textContent="El teléfono es obligatorio.";
+        ok=false;
+      }
+
+      if(!email){
+        emailErr.style.display="block";
+        emailErr.textContent="El email es obligatorio.";
+        ok=false;
+      } else if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){
+        emailErr.style.display="block";
+        emailErr.textContent="Email inválido.";
+        ok=false;
+      }
+
+      // Block booking on non-working day or blocked date
+      const iso = toISODate(selectedDay);
+      const dow = getMondayBasedDayOfWeek(selectedDay); // 1..7
+      const isWorking = WORKING_RULES.workingDays.includes(dow);
+      const isBlocked = WORKING_RULES.blockedDatesISO.includes(iso);
+      if(!isWorking || isBlocked){
+        submitErr.style.display="block";
+        submitErr.textContent="Ese día no está disponible para reservas.";
+        ok=false;
+      }
+
+      return ok;
+    }
+
+    function clearAllErrors(){
+      serviceErr.style.display="none";
+      slotErr.style.display="none";
+      submitErr.style.display="none";
+      nameErr.style.display="none";
+      phoneErr.style.display="none";
+      emailErr.style.display="none";
+
+      serviceErr.textContent="";
+      slotErr.textContent="";
+      submitErr.textContent="";
+      nameErr.textContent="";
+      phoneErr.textContent="";
+      emailErr.textContent="";
+    }
+
+    function renderSummary(){
+      const service = SERVICES.find(s=>s.id===selectedServiceId);
+      const iso = toISODate(selectedDay);
+
+      if(!service || !selectedSlot){
+        summary.textContent = "Selecciona servicio, día y hora para ver el resumen.";
+        return;
+      }
+
+      const start = new Date(selectedSlot.start);
+      const end = new Date(selectedSlot.end);
+
+      summary.innerHTML = `
+        <div><b>Servicio:</b> ${service.name} (${service.duration} min) · <b>${service.price}</b></div>
+        <div><b>Fecha:</b> ${iso}</div>
+        <div><b>Hora:</b> ${formatTime(start)} — ${formatTime(end)}</div>
+        <div style="margin-top:8px; color:var(--muted2); font-size:12px;">
+          Si este horario se llena, el sistema lo bloqueará automáticamente.
+        </div>
+      `;
+    }
+
+    function renderAdmin(){
+      adminList.textContent = bookings.length
+        ? JSON.stringify(bookings, null, 2)
+        : "No hay reservas guardadas.";
+    }
+
+    function renderCalendar(){
+      calGrid.innerHTML = "";
+      const month = currentMonth.getMonth();
+      const year = currentMonth.getFullYear();
+
+      const monthName = new Intl.DateTimeFormat("es-ES",{month:"long", year:"numeric"}).format(currentMonth);
+      calMonthLabel.textContent = capitalize(monthName);
+
+      const today = startOfDay(new Date());
+
+      // Monday-first calendar
+      const first = new Date(year, month, 1);
+      const last = new Date(year, month+1, 0);
+
+      const firstDow = getMondayBasedDayOfWeek(first); // 1..7
+      const leading = firstDow - 1; // number of days before 1st
+
+      // start from Monday of the first week cell
+      const startDate = addDays(first, -leading);
+
+      // 6 rows * 7 days = 42 cells
+      for(let i=0;i<42;i++){
+        const day = addDays(startDate, i);
+        const iso = toISODate(day);
+
+        const inMonth = day.getMonth() === month;
+        const isPast = day < today;
+        const dow = getMondayBasedDayOfWeek(day);
+        const isWorking = WORKING_RULES.workingDays.includes(dow);
+        const isBlocked = WORKING_RULES.blockedDatesISO.includes(iso);
+
+        const selectable = inMonth && !isPast && isWorking && !isBlocked;
+
+        const dayEl = document.createElement("div");
+        dayEl.className = "day" + (selectable ? "" : " muted") + (sameDay(day, selectedDay) ? " selected" : "");
+        dayEl.innerHTML = `
+          <div class="n">${day.getDate()}</div>
+          <div class="hint">${selectable ? hintForDay(day) : (isBlocked ? "Bloqueado" : (!isWorking ? "No disponible" : (isPast ? "Pasado" : "")) )}</div>
+          ${countBookingsOnDay(day) ? `<div class="badge">${countBookingsOnDay(day)} reserv.</div>` : ""}
+        `;
+
+        if(selectable){
+          dayEl.addEventListener("click", ()=>{
+            selectedDay = startOfDay(day);
+            selectedSlot = null;
+            clearAllErrors();
+            renderCalendar();
+            renderSlots();
+            renderSummary();
+          });
+        }
+
+        calGrid.appendChild(dayEl);
+      }
+
+      const sub = new Intl.DateTimeFormat("es-ES",{weekday:"long", day:"2-digit", month:"short"}).format(selectedDay);
+      calSubLabel.textContent = `Día seleccionado: ${capitalize(sub)}`;
+    }
+
+    function hintForDay(day){
+      // Quick hint: show "Disponible"
+      return "Disponible";
+    }
+
+    function renderSlots(){
+      slotsGrid.innerHTML = "";
+      slotErr.style.display="none";
+      slotErr.textContent="";
+
+      const service = SERVICES.find(s=>s.id===selectedServiceId);
+
+      if(!service){
+        slotsTitle.textContent = "Horarios disponibles (elige servicio)";
+        serviceNote.textContent = "Selecciona un servicio para ver duración y slots.";
+        return;
+      }
+
+      serviceNote.textContent = `Duración: ${service.duration} min · Precio: ${service.price}`;
+      slotsTitle.textContent = `Horarios disponibles (${service.duration} min)`;
+
+      // Validate day availability
+      const iso = toISODate(selectedDay);
+      const dow = getMondayBasedDayOfWeek(selectedDay);
+      const isWorking = WORKING_RULES.workingDays.includes(dow);
+      const isBlocked = WORKING_RULES.blockedDatesISO.includes(iso);
+
+      if(!isWorking || isBlocked){
+        const msg = document.createElement("div");
+        msg.className = "note";
+        msg.style.marginTop = "10px";
+        msg.textContent = "Este día no está disponible. Elige otro en el calendario.";
+        slotsGrid.appendChild(msg);
+        return;
+      }
+
+      const slots = generateSlotsForDay(selectedDay, service.duration);
+
+      if(!slots.length){
+        const msg = document.createElement("div");
+        msg.className="note";
+        msg.style.marginTop="10px";
+        msg.textContent="No hay horarios disponibles para este día.";
+        slotsGrid.appendChild(msg);
+        return;
+      }
+
+      slots.forEach(slot=>{
+        const start = new Date(slot.start);
+        const end = new Date(slot.end);
+        const taken = isSlotTaken(start, end);
+
+        const el = document.createElement("button");
+        el.type="button";
+        el.className = "slot" + (taken ? " disabled" : "") + (selectedSlot && selectedSlot.start===slot.start ? " selected" : "");
+        el.innerHTML = `
+          <div><b>${formatTime(start)}</b><div style="font-size:12px; color:var(--muted2); margin-top:3px;">Hasta ${formatTime(end)}</div></div>
+          <div style="font-size:12px; font-weight:800; color:${taken ? "var(--muted2)" : "var(--ok)"}">${taken ? "Ocupado" : "Libre"}</div>
+        `;
+
+        if(!taken){
+          el.addEventListener("click", ()=>{
+            selectedSlot = slot;
+            clearAllErrors();
+            renderSlots();
+            renderSummary();
+          });
+        } else {
+          el.disabled = true;
+        }
+
+        slotsGrid.appendChild(el);
+      });
+    }
+
+    function generateSlotsForDay(day, durationMinutes){
+      const slots = [];
+      const base = startOfDay(day);
+
+      const start = new Date(base);
+      start.setHours(WORKING_RULES.startHour, 0, 0, 0);
+
+      const end = new Date(base);
+      end.setHours(WORKING_RULES.endHour, 0, 0, 0);
+
+      // slot step = grid
+      const step = WORKING_RULES.slotMinutes;
+
+      for(let t = new Date(start); t < end; t = addMinutes(t, step)){
+        const slotStart = new Date(t);
+        const slotEnd = addMinutes(slotStart, durationMinutes);
+
+        // must end within working hours
+        if(slotEnd > end) continue;
+
+        // must not overlap breaks
+        if(overlapsAnyBreak(slotStart, slotEnd, day)) continue;
+
+        slots.push({ start: slotStart.toISOString(), end: slotEnd.toISOString() });
+      }
+      return slots;
+    }
+
+    function overlapsAnyBreak(slotStart, slotEnd, day){
+      const base = startOfDay(day);
+      for(const br of WORKING_RULES.breaks){
+        const [sh, sm] = br.start.split(":").map(Number);
+        const [eh, em] = br.end.split(":").map(Number);
+        const bStart = new Date(base); bStart.setHours(sh, sm, 0, 0);
+        const bEnd = new Date(base); bEnd.setHours(eh, em, 0, 0);
+        if(overlaps(slotStart, slotEnd, bStart, bEnd)) return true;
+      }
+      return false;
+    }
+
+    function isSlotTaken(slotStart, slotEnd){
+      for(const b of bookings){
+        const bStart = new Date(b.startISO);
+        const bEnd = new Date(b.endISO);
+        if(overlaps(slotStart, slotEnd, bStart, bEnd)) return true;
+      }
+      return false;
+    }
+
+    function countBookingsOnDay(day){
+      let c=0;
+      for(const b of bookings){
+        const bStart = new Date(b.startISO);
+        if(sameDay(bStart, day)) c++;
+      }
+      return c;
+    }
+
+    // Monday-based: Mon=1 ... Sun=7
+    function getMondayBasedDayOfWeek(d){
+      const js = d.getDay(); // Sun=0..Sat=6
+      return js === 0 ? 7 : js; // Sun -> 7
+    }
+
+    function capitalize(str){
+      if(!str) return str;
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  </script>
+</body>
+</html>
