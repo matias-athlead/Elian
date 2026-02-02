@@ -12,14 +12,12 @@
       --ink:#0b1024;
       --muted:#44506a;
 
-      /* Hero colors (like your reference) */
       --hero-bg:#BFD3EA;
       --hero-card:#4A469C;
       --hero-card-2:#5856B0;
       --hero-yellow:#FFD400;
       --hero-white:#FFFFFF;
 
-      /* Site accents */
       --navy:#0b1024;
       --violet:#6D28D9;
 
@@ -84,6 +82,7 @@
       justify-content:space-between;
       padding: 14px 16px;
       gap: 12px;
+      position: relative; /* for dropdown anchor */
     }
 
     .hero-pill{
@@ -99,6 +98,11 @@
       border: 1px solid rgba(11,16,36,.08);
       cursor:pointer;
       user-select:none;
+      position: relative; /* dropdown attaches here */
+    }
+    .hero-pill:focus{
+      outline:none;
+      box-shadow: 0 0 0 4px rgba(109,40,217,.14);
     }
     .hero-pill .bars{
       width:16px;height:12px; position:relative; display:inline-block;
@@ -116,7 +120,6 @@
     .hero-pill .bars i{top:5px}
     .hero-pill .bars:after{bottom:0}
 
-    /* ✅ removed center hero brand entirely */
     .hero-spacer{flex:1}
 
     .hero-cta{
@@ -130,6 +133,72 @@
       user-select:none;
       box-shadow: 0 10px 30px rgba(255,212,0,.18);
       white-space:nowrap;
+    }
+
+    /* ✅ DROPDOWN MENU UNDER "MENU" */
+    .menu-dropdown{
+      position:absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 280px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid var(--stroke);
+      box-shadow: 0 18px 55px rgba(11,16,36,.18);
+      padding: 10px;
+      display: none;
+      z-index: 50;
+      transform-origin: top left;
+    }
+    .menu-dropdown.show{display:block}
+    .menu-dropdown a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 12px;
+      border-radius: 14px;
+      font-weight: 900;
+      color: var(--muted);
+    }
+    .menu-dropdown a:hover{
+      background: rgba(11,16,36,.04);
+      color: var(--ink);
+    }
+    .menu-dropdown .divider{
+      height:1px;
+      background: rgba(11,16,36,.08);
+      margin: 6px 6px;
+      border-radius:999px;
+    }
+    .menu-dropdown .mini{
+      font-size: 12px;
+      font-weight: 900;
+      color: rgba(68,80,106,.9);
+      padding: 10px 12px 6px;
+    }
+    .menu-dropdown .actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 8px 6px 6px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background:#fff;
+      color: var(--ink);
+      font-weight: 1000;
+      cursor:pointer;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .btn.primary{
+      border:0;
+      background: linear-gradient(90deg, var(--violet), #8B5CF6);
+      color:#fff;
+      box-shadow: 0 12px 30px rgba(109,40,217,.18);
     }
 
     .hero-content{
@@ -226,107 +295,6 @@
       font-weight: 900;
       font-size: 12px;
     }
-
-    /* ===== One-page nav pill ===== */
-    .site-nav-wrap{
-      position: sticky;
-      top: 10px;
-      z-index: 80;
-      padding: 10px 0;
-      background: rgba(255,255,255,.80);
-      backdrop-filter: blur(10px);
-    }
-    .site-nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      border: 1px solid var(--stroke);
-      border-radius: 999px;
-      padding: 10px 12px;
-      background:#fff;
-      box-shadow: 0 12px 36px rgba(11,16,36,.06);
-    }
-    .site-brand{
-      display:flex; align-items:center; gap:10px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-weight: 1000;
-      letter-spacing:-.01em;
-      white-space:nowrap;
-    }
-    .site-brand .dot{
-      width: 10px;height:10px;border-radius:999px;
-      background: linear-gradient(90deg, var(--violet), #8B5CF6);
-    }
-    .site-links{
-      display:flex; gap:6px; flex-wrap:wrap;
-    }
-    .site-links a{
-      padding: 10px 12px;
-      border-radius: 999px;
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 13px;
-      border:1px solid transparent;
-    }
-    .site-links a:hover{background: rgba(11,16,36,.04); color: var(--ink)}
-    .site-links a.active{background: rgba(109,40,217,.08); border-color: rgba(109,40,217,.14); color: var(--ink)}
-    .site-actions{display:flex; gap:8px; align-items:center;}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background:#fff;
-      color: var(--ink);
-      font-weight: 1000;
-      cursor:pointer;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-    .btn.primary{
-      border:0;
-      background: linear-gradient(90deg, var(--violet), #8B5CF6);
-      color:#fff;
-      box-shadow: 0 12px 30px rgba(109,40,217,.18);
-    }
-
-    /* ✅ Make burger available on BOTH desktop & mobile */
-    .burger{display:inline-flex}
-
-    /* keep desktop links visible, but burger also visible */
-    @media (max-width: 860px){
-      .site-links{display:none}
-      .site-actions .btn:not(.burger){display:none}
-    }
-
-    /* Mobile sheet */
-    .sheet{
-      position:fixed; inset:0;
-      display:none;
-      background: rgba(0,0,0,.30);
-      z-index: 200;
-    }
-    .sheet.show{display:block}
-    .sheet-card{
-      position:absolute; right:14px; top: 78px;
-      width: min(360px, calc(100% - 28px));
-      background:#fff;
-      border:1px solid var(--stroke);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 10px;
-    }
-    .sheet-card a{
-      display:block;
-      padding: 12px 12px;
-      border-radius: 14px;
-      font-weight: 900;
-      color: var(--muted);
-    }
-    .sheet-card a:hover{background: rgba(11,16,36,.04); color: var(--ink)}
-    .sheet-card a.active{background: rgba(109,40,217,.08); color: var(--ink)}
 
     /* ===== Calendar booking ===== */
     .booking-wrap{
@@ -505,6 +473,11 @@
       gap:12px;
       flex-wrap:wrap;
     }
+
+    /* Small screens: dropdown fits */
+    @media (max-width: 380px){
+      .menu-dropdown{width: 240px;}
+    }
   </style>
 </head>
 
@@ -515,13 +488,26 @@
 
     <div class="hero-card" role="banner" aria-label="Masajes con Nury">
       <div class="hero-topbar">
-        <!-- ✅ MENU opens tasks bar -->
-        <button class="hero-pill" type="button" id="heroMenuBtn">
+        <!-- MENU -->
+        <button class="hero-pill" type="button" id="heroMenuBtn" aria-expanded="false" aria-controls="heroDropdown">
           <span class="bars"><i></i></span>
           MENU
+
+          <!-- ✅ dropdown opens under MENU -->
+          <div class="menu-dropdown" id="heroDropdown" role="menu">
+            <div class="mini">Navegación</div>
+            <a href="#servicios" data-scroll="servicios" role="menuitem">Servicios <span>→</span></a>
+            <a href="#reservas" data-scroll="reservas" role="menuitem">Reservas <span>→</span></a>
+            <a href="#galeria" data-scroll="galeria" role="menuitem">Galería <span>→</span></a>
+            <a href="#contacto" data-scroll="contacto" role="menuitem">Contacto <span>→</span></a>
+            <div class="divider"></div>
+            <div class="actions">
+              <button class="btn" type="button" id="openWhatsAppBtn">WhatsApp</button>
+              <button class="btn primary" type="button" data-scroll-btn="reservas">Reservar</button>
+            </div>
+          </div>
         </button>
 
-        <!-- ✅ removed: N Masajes con Nury -->
         <div class="hero-spacer" aria-hidden="true"></div>
 
         <button class="hero-cta" type="button" id="heroTalkBtn">LET’S TALK</button>
@@ -591,42 +577,6 @@
       </div>
     </div>
   </header>
-
-  <!-- NAV PILL -->
-  <div class="site-nav-wrap">
-    <div class="container">
-      <nav class="site-nav" aria-label="Navegación">
-        <a class="site-brand" href="#top" data-scroll="top"><span class="dot"></span> Masajes con Nury</a>
-
-        <div class="site-links">
-          <a href="#servicios" data-scroll="servicios">Servicios</a>
-          <a href="#reservas" data-scroll="reservas">Reservas</a>
-          <a href="#galeria" data-scroll="galeria">Galería</a>
-          <a href="#contacto" data-scroll="contacto">Contacto</a>
-        </div>
-
-        <div class="site-actions">
-          <button class="btn" id="openWhatsAppBtn" type="button">WhatsApp</button>
-          <button class="btn primary" type="button" data-scroll-btn="reservas">Reservar</button>
-          <!-- ✅ burger shows on desktop + mobile -->
-          <button class="btn burger" id="burgerBtn" type="button">☰</button>
-        </div>
-      </nav>
-    </div>
-  </div>
-
-  <!-- Sheet menu -->
-  <div class="sheet" id="sheet">
-    <div class="sheet-card">
-      <a href="#servicios" data-scroll="servicios">Servicios</a>
-      <a href="#reservas" data-scroll="reservas">Reservas</a>
-      <a href="#galeria" data-scroll="galeria">Galería</a>
-      <a href="#contacto" data-scroll="contacto">Contacto</a>
-      <div style="padding:10px;">
-        <button class="btn primary" style="width:100%;" type="button" data-scroll-btn="reservas">Reservar ahora</button>
-      </div>
-    </div>
-  </div>
 
   <main class="container">
     <!-- SERVICIOS -->
@@ -764,6 +714,17 @@
         <div><a href="#reservas">Reservas</a> · <a href="#servicios">Servicios</a></div>
       </footer>
     </section>
+
+    <!-- CONTACTO (simple) -->
+    <section class="section" id="contacto">
+      <h2>Contacto</h2>
+      <p class="lead">Si tienes dudas, escríbenos por WhatsApp.</p>
+      <div class="card">
+        <h3>WhatsApp</h3>
+        <p>Haz click en “LET’S TALK” o en el botón WhatsApp del menú.</p>
+        <span class="tag">Respuesta rápida</span>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -784,49 +745,50 @@
       }
     });
 
-    // Active nav highlight
-    const secIds = ['servicios','reservas','galeria','contacto'];
-    function setActiveNav(id){
-      document.querySelectorAll('.site-links a, .sheet-card a').forEach(x=>{
-        x.classList.toggle('active', x.getAttribute('data-scroll') === id);
-      });
-    }
-    function onScroll(){
-      const y = window.scrollY + 160;
-      let current = '';
-      for(const id of secIds){
-        const el = document.getElementById(id);
-        if(!el) continue;
-        const t = el.offsetTop;
-        const b = t + el.offsetHeight;
-        if(y >= t && y < b){ current = id; break; }
-      }
-      setActiveNav(current);
-    }
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-
-    // ===== Sheet menu open/close =====
-    const sheet = document.getElementById('sheet');
-    const burgerBtn = document.getElementById('burgerBtn');
+    // ===== Dropdown menu (opens under MENU) =====
     const heroMenuBtn = document.getElementById('heroMenuBtn');
+    const heroDropdown = document.getElementById('heroDropdown');
 
-    function openSheet(){ sheet.classList.add('show'); }
-    function closeSheet(){ sheet.classList.remove('show'); }
+    function openDropdown(){
+      heroDropdown.classList.add('show');
+      heroMenuBtn.setAttribute('aria-expanded','true');
+    }
+    function closeDropdown(){
+      heroDropdown.classList.remove('show');
+      heroMenuBtn.setAttribute('aria-expanded','false');
+    }
+    function toggleDropdown(){
+      const isOpen = heroDropdown.classList.contains('show');
+      if(isOpen) closeDropdown(); else openDropdown();
+    }
 
-    burgerBtn?.addEventListener('click', openSheet);
+    heroMenuBtn.addEventListener('click', (e)=>{
+      // Important: allow click on links inside dropdown to work (they bubble)
+      const clickedInsideDropdown = e.target.closest('#heroDropdown');
+      if(clickedInsideDropdown) return;
+      toggleDropdown();
+    });
 
-    // ✅ MENU on hero opens the same tasks bar
-    heroMenuBtn?.addEventListener('click', openSheet);
-
-    sheet?.addEventListener('click', (e)=>{ if(e.target === sheet) closeSheet(); });
+    // Close when clicking outside
     document.addEventListener('click', (e)=>{
-      if(e.target.closest('.sheet-card a') || e.target.closest('[data-scroll-btn]')){
-        closeSheet();
+      const inside = e.target.closest('#heroMenuBtn');
+      if(!inside) closeDropdown();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeDropdown();
+    });
+
+    // Close after clicking any dropdown link/button
+    heroDropdown.addEventListener('click', (e)=>{
+      const isLink = e.target.closest('a,[data-scroll-btn],button');
+      if(isLink){
+        closeDropdown();
       }
     });
 
-    // ===== Hero "Let's talk" -> WhatsApp (change number) =====
+    // WhatsApp buttons
     document.getElementById('heroTalkBtn')?.addEventListener('click', ()=>{
       window.open('https://wa.me/34600000000', '_blank');
     });
