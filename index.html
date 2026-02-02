@@ -13,18 +13,17 @@
       --muted:#44506a;
 
       /* Hero colors (like your reference) */
-      --hero-bg:#BFD3EA;     /* light blue background */
-      --hero-card:#4A469C;   /* purple card */
-      --hero-card-2:#5856B0; /* subtle gradient */
-      --hero-yellow:#FFD400; /* yellow accent */
+      --hero-bg:#BFD3EA;
+      --hero-card:#4A469C;
+      --hero-card-2:#5856B0;
+      --hero-yellow:#FFD400;
       --hero-white:#FFFFFF;
 
-      /* Site accents (minimal) */
+      /* Site accents */
       --navy:#0b1024;
       --violet:#6D28D9;
 
       --stroke: rgba(11,16,36,.10);
-      --stroke2: rgba(255,255,255,.18);
       --shadow: 0 18px 55px rgba(11,16,36,.16);
       --radius: 22px;
       --radius2: 28px;
@@ -45,7 +44,7 @@
     .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
     main{padding: 26px 0 60px;}
 
-    /* ===== HERO (match the screenshot style) ===== */
+    /* ===== HERO ===== */
     .hero-outer{
       background: var(--hero-bg);
       position:relative;
@@ -84,6 +83,7 @@
       align-items:center;
       justify-content:space-between;
       padding: 14px 16px;
+      gap: 12px;
     }
 
     .hero-pill{
@@ -116,28 +116,8 @@
     .hero-pill .bars i{top:5px}
     .hero-pill .bars:after{bottom:0}
 
-    .hero-logo{
-      font-weight: 1000;
-      color: rgba(255,255,255,.95);
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      font-size: 14px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      user-select:none;
-    }
-    .hero-logo .mark{
-      width: 26px;
-      height: 26px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.18);
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:1000;
-    }
+    /* ✅ removed center hero brand entirely */
+    .hero-spacer{flex:1}
 
     .hero-cta{
       padding: 10px 16px;
@@ -149,6 +129,7 @@
       cursor:pointer;
       user-select:none;
       box-shadow: 0 10px 30px rgba(255,212,0,.18);
+      white-space:nowrap;
     }
 
     .hero-content{
@@ -166,7 +147,6 @@
       line-height: 1.05;
     }
 
-    /* handwritten yellow like "at events" */
     .hero-script{
       margin-top: 6px;
       font-weight: 1000;
@@ -195,10 +175,8 @@
       display:flex;
       align-items:flex-end;
       justify-content:center;
-      padding: 0 0 0;
     }
 
-    /* SVG crowd container */
     .crowd{
       width: 100%;
       max-width: 980px;
@@ -206,10 +184,8 @@
       display:block;
     }
 
-    /* ===== Sections (white background, minimal) ===== */
-    .section{
-      padding: 52px 0;
-    }
+    /* ===== Sections ===== */
+    .section{padding: 52px 0;}
     .section h2{
       margin:0 0 8px;
       font-size: clamp(22px, 3vw, 30px);
@@ -251,7 +227,7 @@
       font-size: 12px;
     }
 
-    /* ===== One-page top nav (minimal pill) ===== */
+    /* ===== One-page nav pill ===== */
     .site-nav-wrap{
       position: sticky;
       top: 10px;
@@ -307,6 +283,7 @@
       font-weight: 1000;
       cursor:pointer;
       font-size: 13px;
+      white-space: nowrap;
     }
     .btn.primary{
       border:0;
@@ -314,10 +291,13 @@
       color:#fff;
       box-shadow: 0 12px 30px rgba(109,40,217,.18);
     }
-    .burger{display:none}
+
+    /* ✅ Make burger available on BOTH desktop & mobile */
+    .burger{display:inline-flex}
+
+    /* keep desktop links visible, but burger also visible */
     @media (max-width: 860px){
       .site-links{display:none}
-      .burger{display:inline-flex}
       .site-actions .btn:not(.burger){display:none}
     }
 
@@ -348,7 +328,7 @@
     .sheet-card a:hover{background: rgba(11,16,36,.04); color: var(--ink)}
     .sheet-card a.active{background: rgba(109,40,217,.08); color: var(--ink)}
 
-    /* ===== Calendar booking UI ===== */
+    /* ===== Calendar booking ===== */
     .booking-wrap{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -371,13 +351,8 @@
       gap:10px;
       margin-bottom: 10px;
     }
-    .cal-title{
-      font-weight: 1000;
-      letter-spacing:-.01em;
-    }
-    .cal-nav{
-      display:flex; gap:8px;
-    }
+    .cal-title{font-weight: 1000; letter-spacing:-.01em;}
+    .cal-nav{display:flex; gap:8px;}
     .cal-btn{
       width: 40px;height:40px;
       border-radius: 12px;
@@ -386,17 +361,10 @@
       cursor:pointer;
       font-weight: 1000;
     }
-    .cal-grid{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-    }
+    .cal-grid{display:grid; grid-template-columns: repeat(7, 1fr); gap: 8px;}
     .dow{
-      font-size: 11px;
-      color: var(--muted);
-      font-weight: 900;
-      text-align:center;
-      padding: 8px 0;
+      font-size: 11px; color: var(--muted);
+      font-weight: 900; text-align:center; padding: 8px 0;
     }
     .day{
       position:relative;
@@ -415,18 +383,10 @@
       user-select:none;
     }
     .day:hover{transform: translateY(-1px); border-color: rgba(109,40,217,.22); background: rgba(109,40,217,.04);}
-    .day.muted{
-      opacity:.35;
-      cursor:not-allowed;
-      transform:none !important;
-    }
-    .day.selected{
-      border-color: rgba(109,40,217,.35);
-      background: rgba(109,40,217,.10);
-    }
+    .day.muted{opacity:.35; cursor:not-allowed; transform:none !important;}
+    .day.selected{border-color: rgba(109,40,217,.35); background: rgba(109,40,217,.10);}
     .day .dot{
-      position:absolute;
-      right:8px; bottom:8px;
+      position:absolute; right:8px; bottom:8px;
       width: 8px;height:8px;border-radius:999px;
       background: linear-gradient(90deg, var(--violet), #8B5CF6);
       display:none;
@@ -440,7 +400,6 @@
       box-shadow: 0 14px 40px rgba(11,16,36,.06);
       padding: 14px;
     }
-
     .field{margin: 10px 0}
     .field label{
       display:block;
@@ -463,12 +422,7 @@
       box-shadow: 0 0 0 4px rgba(109,40,217,.08);
     }
     textarea{min-height: 92px; resize:vertical; font-weight:800}
-    .hint{
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 12px;
-      line-height:1.5;
-    }
+    .hint{color: var(--muted); font-weight: 800; font-size: 12px; line-height:1.5;}
 
     .slots{
       display:grid;
@@ -555,21 +509,20 @@
 </head>
 
 <body>
-  <!-- HERO EXACT STYLE (like screenshot) -->
+  <!-- HERO -->
   <header class="hero-outer" id="top">
     <div class="hero-watermark">WE CREATE WEBSITES THAT FILL SEATS</div>
 
     <div class="hero-card" role="banner" aria-label="Masajes con Nury">
       <div class="hero-topbar">
+        <!-- ✅ MENU opens tasks bar -->
         <button class="hero-pill" type="button" id="heroMenuBtn">
           <span class="bars"><i></i></span>
           MENU
         </button>
 
-        <div class="hero-logo" aria-label="Logo">
-          <span class="mark">N</span>
-          <span>Masajes con Nury</span>
-        </div>
+        <!-- ✅ removed: N Masajes con Nury -->
+        <div class="hero-spacer" aria-hidden="true"></div>
 
         <button class="hero-cta" type="button" id="heroTalkBtn">LET’S TALK</button>
       </div>
@@ -581,7 +534,6 @@
       </div>
 
       <div class="hero-bottom" aria-hidden="true">
-        <!-- Simple SVG crowd illustration (no external images) -->
         <svg class="crowd" viewBox="0 0 980 210" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="fog" x1="0" x2="0" y1="0" y2="1">
@@ -593,12 +545,9 @@
             </filter>
           </defs>
 
-          <!-- soft fog -->
           <rect x="0" y="0" width="980" height="210" fill="url(#fog)"/>
 
-          <!-- silhouettes -->
           <g opacity="0.95">
-            <!-- back row (blurred) -->
             <g filter="url(#blur)" opacity="0.55">
               <circle cx="120" cy="150" r="26" fill="#0b1024"/>
               <rect x="88" y="170" width="64" height="70" rx="24" fill="#0b1024"/>
@@ -616,7 +565,6 @@
               <rect x="824" y="172" width="72" height="76" rx="24" fill="#0b1024"/>
             </g>
 
-            <!-- front row -->
             <g>
               <circle cx="170" cy="150" r="30" fill="#0b1024"/>
               <rect x="132" y="178" width="76" height="86" rx="28" fill="#0b1024"/>
@@ -636,7 +584,6 @@
               <circle cx="780" cy="152" r="28" fill="#0b1024"/>
               <rect x="748" y="180" width="64" height="86" rx="28" fill="#6b21a8"/>
 
-              <!-- front fog -->
               <rect x="-20" y="176" width="1020" height="90" fill="rgba(11,16,36,.25)" filter="url(#blur)" opacity="0.55"/>
             </g>
           </g>
@@ -645,7 +592,7 @@
     </div>
   </header>
 
-  <!-- ONE-PAGE NAV (white minimal pill) -->
+  <!-- NAV PILL -->
   <div class="site-nav-wrap">
     <div class="container">
       <nav class="site-nav" aria-label="Navegación">
@@ -661,13 +608,14 @@
         <div class="site-actions">
           <button class="btn" id="openWhatsAppBtn" type="button">WhatsApp</button>
           <button class="btn primary" type="button" data-scroll-btn="reservas">Reservar</button>
+          <!-- ✅ burger shows on desktop + mobile -->
           <button class="btn burger" id="burgerBtn" type="button">☰</button>
         </div>
       </nav>
     </div>
   </div>
 
-  <!-- Mobile sheet -->
+  <!-- Sheet menu -->
   <div class="sheet" id="sheet">
     <div class="sheet-card">
       <a href="#servicios" data-scroll="servicios">Servicios</a>
@@ -720,12 +668,11 @@
       </div>
     </section>
 
-    <!-- RESERVAS (CALENDARIO) -->
+    <!-- RESERVAS -->
     <section class="section" id="reservas">
       <h2>Reservas (Calendario)</h2>
       <p class="lead">
-        Selecciona un día en el calendario y luego un horario. Los horarios ya reservados quedan bloqueados.
-        (Demo funcional: guarda en el navegador con localStorage)
+        Selecciona un día y un horario. Los horarios reservados quedan bloqueados.
       </p>
 
       <div class="booking-wrap">
@@ -793,11 +740,7 @@
           </button>
 
           <div class="error" id="errorBox"></div>
-          <div class="alert" id="okBox">✅ Reserva guardada (demo). Te contactaremos para confirmar.</div>
-
-          <p class="hint" style="margin-top:10px;">
-            * Esto es una demo sin backend. Para producción se conecta a Google Calendar / email / WhatsApp.
-          </p>
+          <div class="alert" id="okBox">✅ Reserva guardada (demo).</div>
         </div>
       </div>
     </section>
@@ -805,7 +748,7 @@
     <!-- GALERÍA -->
     <section class="section" id="galeria">
       <h2>Galería</h2>
-      <p class="lead">Espacios para poner fotos o videos reales del negocio.</p>
+      <p class="lead">Espacios para fotos o videos reales del negocio.</p>
 
       <div class="gallery">
         <div class="ph">VIDEO PRINCIPAL<br><span style="font-weight:800; opacity:.7">(mp4 / YouTube embed)</span></div>
@@ -814,30 +757,6 @@
         <div class="ph small">FOTO 3</div>
         <div class="ph small">FOTO 4</div>
         <div class="ph small">FOTO 5</div>
-      </div>
-    </section>
-
-    <!-- CONTACTO -->
-    <section class="section" id="contacto">
-      <h2>Contacto</h2>
-      <p class="lead">Cambia estos datos por los reales (dirección, número, horarios).</p>
-
-      <div class="grid">
-        <div class="card">
-          <h3>Ubicación</h3>
-          <p>Calle Ejemplo 123, Barcelona</p>
-          <span class="tag">Cita previa</span>
-        </div>
-        <div class="card">
-          <h3>Horario</h3>
-          <p>Lun–Sáb 09:00–19:00</p>
-          <span class="tag">Flexible</span>
-        </div>
-        <div class="card">
-          <h3>WhatsApp</h3>
-          <p>+34 600 000 000</p>
-          <span class="tag">Respuesta rápida</span>
-        </div>
       </div>
 
       <footer>
@@ -848,7 +767,7 @@
   </main>
 
   <script>
-    // ===== Scroll helpers (one-page) =====
+    // ===== Scroll helpers =====
     function scrollToId(id){
       const el = id === 'top' ? document.getElementById('top') : document.getElementById(id);
       if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
@@ -865,7 +784,7 @@
       }
     });
 
-    // Active link highlight
+    // Active nav highlight
     const secIds = ['servicios','reservas','galeria','contacto'];
     function setActiveNav(id){
       document.querySelectorAll('.site-links a, .sheet-card a').forEach(x=>{
@@ -887,24 +806,29 @@
     window.addEventListener('scroll', onScroll);
     onScroll();
 
-    // ===== Mobile sheet =====
+    // ===== Sheet menu open/close =====
     const sheet = document.getElementById('sheet');
     const burgerBtn = document.getElementById('burgerBtn');
-    burgerBtn?.addEventListener('click', ()=> sheet.classList.add('show'));
-    sheet?.addEventListener('click', (e)=>{ if(e.target === sheet) sheet.classList.remove('show'); });
+    const heroMenuBtn = document.getElementById('heroMenuBtn');
+
+    function openSheet(){ sheet.classList.add('show'); }
+    function closeSheet(){ sheet.classList.remove('show'); }
+
+    burgerBtn?.addEventListener('click', openSheet);
+
+    // ✅ MENU on hero opens the same tasks bar
+    heroMenuBtn?.addEventListener('click', openSheet);
+
+    sheet?.addEventListener('click', (e)=>{ if(e.target === sheet) closeSheet(); });
     document.addEventListener('click', (e)=>{
       if(e.target.closest('.sheet-card a') || e.target.closest('[data-scroll-btn]')){
-        sheet.classList.remove('show');
+        closeSheet();
       }
     });
 
-    // ===== HERO buttons =====
+    // ===== Hero "Let's talk" -> WhatsApp (change number) =====
     document.getElementById('heroTalkBtn')?.addEventListener('click', ()=>{
-      // change this to real whatsapp number
       window.open('https://wa.me/34600000000', '_blank');
-    });
-    document.getElementById('heroMenuBtn')?.addEventListener('click', ()=>{
-      scrollToId('servicios');
     });
     document.getElementById('openWhatsAppBtn')?.addEventListener('click', ()=>{
       window.open('https://wa.me/34600000000', '_blank');
@@ -939,9 +863,9 @@
       prenatal: { name:"Prenatal", duration:60, price:"55€" },
     };
 
-    const OPEN = 9;   // 09:00
-    const CLOSE = 19; // 19:00
-    const STEP = 30;  // 30 min blocks
+    const OPEN = 9;
+    const CLOSE = 19;
+    const STEP = 30;
 
     const pad = (n)=> String(n).padStart(2,'0');
     const fmtDate = (d)=> `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -983,14 +907,12 @@
       const m = view.getMonth();
       calTitle.textContent = `${monthName(m)} ${y}`;
 
-      // start day (Mon=0..Sun=6)
       const first = new Date(y, m, 1);
       const last  = new Date(y, m+1, 0);
 
-      const jsDow = first.getDay(); // Sun=0..Sat=6
-      const mondayIndex = (jsDow + 6) % 7; // Mon=0..Sun=6
+      const jsDow = first.getDay();
+      const mondayIndex = (jsDow + 6) % 7;
 
-      // fill leading empty
       for(let i=0;i<mondayIndex;i++){
         const empty = document.createElement('div');
         empty.className = "day muted";
@@ -1009,14 +931,12 @@
         btn.className = "day";
         btn.textContent = d;
 
-        // mark bookings with dot
         if(hasBookingOnDate(dateStr)) btn.classList.add('has-booking');
 
         const dot = document.createElement('span');
         dot.className = "dot";
         btn.appendChild(dot);
 
-        // disable past days
         if(dateStr < todayStr){
           btn.classList.add('muted');
         } else {
@@ -1032,7 +952,6 @@
           });
         }
 
-        // keep selection on rerender if same month
         if(dateStr === selectedDateStr){
           btn.classList.add('selected');
         }
@@ -1124,7 +1043,6 @@
         errorBox.classList.add('show');
         return;
       }
-      // simple email check
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
         errorBox.textContent = "Email inválido.";
         errorBox.classList.add('show');
@@ -1151,18 +1069,16 @@
 
       okBox.classList.add('show');
 
-      // reset just the personal fields (keep day/service so user can book another)
       nameInput.value = "";
       emailInput.value = "";
       phoneInput.value = "";
       notesInput.value = "";
 
-      // rerender to show dots and disable slot
       renderCalendar();
       buildSlots();
     });
 
-    // initial render
+    // Initial render
     renderCalendar();
     buildSlots();
   </script>
