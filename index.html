@@ -4,31 +4,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Masajes con Nury — Reserva online</title>
-  <meta name="description" content="Masajes con Nury: web minimalista con reserva online por disponibilidad. Servicios, galería y contacto." />
+  <meta name="description" content="Masajes con Nury: masajes profesionales con reserva online por disponibilidad. Servicios, galería y contacto." />
 
   <style>
     :root{
       --navy:#070A18;
-      --panel:rgba(7,10,24,.72);
-      --panel2:rgba(255,255,255,.03);
-      --stroke:rgba(255,255,255,.12);
+      --navy2:#0B1024;
       --white:#F6F7FF;
-      --muted:rgba(246,247,255,.74);
-      --muted2:rgba(246,247,255,.52);
+      --muted: rgba(246,247,255,.74);
+      --muted2: rgba(246,247,255,.52);
+      --stroke: rgba(255,255,255,.12);
+      --stroke2: rgba(255,255,255,.18);
       --violet:#7C3AED;
       --violet2:#A78BFA;
-      --ok:#2DD4BF;
       --shadow: 0 18px 60px rgba(0,0,0,.35);
-      --r:22px;
-      --r2:28px;
-      --max:1120px;
+      --r: 22px;
+      --r2: 28px;
+      --max: 1120px;
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--white);
+      color: var(--white);
       background:
         radial-gradient(900px 600px at 20% 10%, rgba(124,58,237,.18), transparent 60%),
         radial-gradient(900px 600px at 85% 20%, rgba(167,139,250,.14), transparent 60%),
@@ -36,9 +36,13 @@
         var(--navy);
       overflow-x:hidden;
     }
+
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
     .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
     main{padding-top:110px; padding-bottom:40px;}
+
+    /* Buttons */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 16px; border-radius:999px;
@@ -53,26 +57,13 @@
     .btn:hover{transform:translateY(-1px); border-color: rgba(255,255,255,.26); background: rgba(255,255,255,.07);}
     .btn.primary{
       border:0;
-      color:#0A0C16;
+      color: #0A0C16;
       background: linear-gradient(90deg, var(--violet), var(--violet2));
       box-shadow: 0 16px 40px rgba(124,58,237,.22);
     }
-    .badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px; border-radius:999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      backdrop-filter: blur(10px);
-      font-weight:900;
-    }
-    .dot{
-      width:8px;height:8px;border-radius:999px;
-      background: linear-gradient(90deg, var(--violet), var(--violet2));
-      box-shadow: 0 0 18px rgba(167,139,250,.35);
-    }
+    .btn.primary:hover{opacity:.95}
 
-    /* NAV (píldora) */
+    /* NAV pill */
     .nav-wrap{position:fixed; left:0; right:0; top:16px; z-index:50;}
     .nav{
       max-width: calc(var(--max) + 12px);
@@ -82,23 +73,39 @@
       padding:10px 12px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.12);
-      background: var(--panel);
+      background: rgba(7,10,24,.72);
       backdrop-filter: blur(14px);
       box-shadow: var(--shadow);
     }
-    .brand{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:999px; white-space:nowrap;}
-    .logo{width:30px;height:30px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--violet2));}
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .logo{
+      width:30px;height:30px;border-radius:12px;
+      background: linear-gradient(135deg, var(--violet), var(--violet2));
+    }
     .brand b{font-size:14px; letter-spacing:-.02em}
     .brand small{display:block; color:var(--muted); font-weight:800; font-size:11px; margin-top:1px}
+
     .nav-links{display:flex; gap:4px; align-items:center;}
     .nav-links a{
-      padding:10px 12px; border-radius:999px;
-      color:var(--muted); font-weight:900; font-size:13px;
-      border:1px solid transparent;
+      padding:10px 12px;
+      border-radius:999px;
+      color: var(--muted);
+      font-weight:900;
+      font-size:13px;
       transition:.2s background, .2s color, .2s border;
+      border:1px solid transparent;
     }
-    .nav-links a:hover{color:var(--white); background:rgba(255,255,255,.05);}
-    .nav-links a.active{color:var(--white); background:rgba(124,58,237,.18); border-color:rgba(167,139,250,.20);}
+    .nav-links a:hover{color:var(--white); background: rgba(255,255,255,.05);}
+    .nav-links a.active{
+      color:var(--white);
+      background: rgba(124,58,237,.18);
+      border-color: rgba(167,139,250,.20);
+    }
     .nav-cta{display:flex; gap:8px; align-items:center;}
     .burger{display:none}
 
@@ -108,13 +115,18 @@
       .burger{display:inline-flex}
     }
 
-    /* Menú móvil */
-    .sheet{position:fixed; inset:0; display:none; background:rgba(0,0,0,.55); z-index:60;}
+    /* Mobile menu sheet */
+    .sheet{
+      position:fixed; inset:0;
+      display:none;
+      background: rgba(0,0,0,.55);
+      z-index:60;
+    }
     .sheet.show{display:block}
     .sheet-card{
       position:absolute; right:16px; top:76px;
       width:min(360px, calc(100% - 32px));
-      border-radius:22px;
+      border-radius: 22px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(7,10,24,.90);
       backdrop-filter: blur(16px);
@@ -122,33 +134,18 @@
       box-shadow: var(--shadow);
     }
     .sheet-card a{
-      display:block; padding:12px 12px;
-      border-radius:16px;
-      color:var(--muted); font-weight:900;
+      display:block;
+      padding:12px 12px;
+      border-radius: 16px;
+      color: var(--muted);
+      font-weight:900;
       border:1px solid transparent;
     }
-    .sheet-card a:hover{color:var(--white); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.10);}
-    .sheet-card a.active{color:var(--white); background:rgba(124,58,237,.18); border-color:rgba(167,139,250,.20);}
+    .sheet-card a:hover{color: var(--white); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10);}
+    .sheet-card a.active{color: var(--white); background: rgba(124,58,237,.18); border-color: rgba(167,139,250,.20);}
 
-    /* Páginas internas (todo en un archivo) */
-    .page{display:none}
-    .page.active{display:block}
-
-    .page-title{
-      margin: 8px 0 12px;
-      letter-spacing:-.03em;
-      font-size: clamp(28px, 4vw, 44px);
-    }
-    .page-sub{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-weight:800;
-      max-width: 72ch;
-      line-height:1.55;
-    }
-
-    /* HERO estilo referencia */
-    .hero{padding: 16px 0 26px;}
+    /* --- HERO like reference --- */
+    .hero-wrap{padding: 8px 0 26px;}
     .hero-card{
       border-radius: var(--r2);
       border:1px solid rgba(255,255,255,.12);
@@ -157,103 +154,176 @@
       overflow:hidden;
       position:relative;
     }
-    .hero-bg{
-      position:absolute; inset:-50px -30px auto -30px;
-      font-weight:1000; letter-spacing:.08em;
+    /* subtle big background text like the reference */
+    .hero-bg-text{
+      position:absolute;
+      inset:-40px -20px auto -20px;
+      font-weight:1000;
+      letter-spacing:.10em;
       font-size: clamp(44px, 6vw, 86px);
       color: rgba(246,247,255,.06);
+      pointer-events:none;
+      user-select:none;
       text-transform:uppercase;
-      pointer-events:none; user-select:none;
     }
     .hero-inner{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:16px;
-      padding:18px;
-      align-items:stretch;
+      padding: 22px;
+      min-height: 520px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap: 20px;
     }
-    @media (max-width: 980px){ .hero-inner{grid-template-columns:1fr} }
-    .hero h1{
-      margin:12px 0 10px;
-      line-height:1.05;
+
+    /* hero top bar inside card */
+    .hero-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .mini-pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-weight:900;
+      font-size:12px;
+      backdrop-filter: blur(10px);
+    }
+    .mini-dot{
+      width:8px;height:8px;border-radius:999px;
+      background: linear-gradient(90deg, var(--violet), var(--violet2));
+      box-shadow: 0 0 18px rgba(167,139,250,.35);
+    }
+
+    /* hero content centered like image */
+    .hero-center{
+      text-align:center;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 10px 0 4px;
+    }
+    .hero-title{
+      margin: 0 0 10px;
       letter-spacing:-.04em;
-      font-size: clamp(38px, 5vw, 64px);
+      line-height:1.00;
+      font-size: clamp(34px, 5vw, 62px);
+      font-weight:1000;
+      text-transform:uppercase;
     }
-    .hero h1 span{display:block}
-    .script{
-      color:transparent;
-      background:linear-gradient(90deg,var(--violet),var(--violet2));
+    .hero-title .accent{
+      color: transparent;
+      background: linear-gradient(90deg, var(--violet), var(--violet2));
       -webkit-background-clip:text;
       background-clip:text;
       font-weight:1000;
+      text-transform:none;
     }
-    .hero p{margin: 12px 0 18px; color:var(--muted); font-weight:800; line-height:1.55; max-width:56ch;}
-    .hero-actions{display:flex; gap:10px; flex-wrap:wrap;}
-    .hero-note{margin-top:16px; color:var(--muted2); font-weight:900; font-size:12px; display:flex; gap:10px; align-items:center;}
-    .pulse{width:10px;height:10px;border-radius:999px;background:rgba(45,212,191,.9);box-shadow:0 0 20px rgba(45,212,191,.35);}
+    .hero-sub{
+      margin: 0 auto 18px;
+      color: var(--muted);
+      font-weight:800;
+      line-height:1.6;
+      max-width: 62ch;
+      font-size: 15px;
+    }
+    .hero-actions{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+    .scroll-hint{
+      color: rgba(246,247,255,.60);
+      font-weight:900;
+      font-size:12px;
+      text-align:center;
+      padding-bottom: 8px;
+    }
 
-    /* Cards / grid */
-    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+    /* bottom illustration area like reference */
+    .hero-illustration{
+      height: 180px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(600px 220px at 50% 40%, rgba(124,58,237,.16), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding: 0 18px 14px;
+    }
+    .illu-row{
+      display:flex;
+      gap:10px;
+      align-items:flex-end;
+      justify-content:center;
+      width:100%;
+      max-width: 900px;
+      opacity:.95;
+    }
+    .blob{
+      width: 68px;
+      height: 84px;
+      border-radius: 999px 999px 22px 22px;
+      background: rgba(246,247,255,.14);
+      filter: blur(.0px);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .blob.v{background: rgba(124,58,237,.26)}
+    .blob.s{height:64px; width:60px; opacity:.8}
+    .blob.m{height:78px; width:66px; opacity:.9}
+    .blob.l{height:92px; width:74px;}
+
+    @media (max-width: 520px){
+      .hero-inner{min-height: 520px; padding:18px}
+      .hero-illustration{height: 160px}
+      .blob{width:54px}
+      .blob.l{width:62px}
+    }
+
+    /* Sections */
+    section.block{padding: 24px 0;}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      margin: 10px 0 16px;
+    }
+    .section-head h2{
+      margin:0;
+      letter-spacing:-.03em;
+      font-size: clamp(20px, 3vw, 28px);
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-weight:800;
+      line-height:1.6;
+      max-width: 64ch;
+    }
+
+    .grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;}
     @media (max-width: 980px){ .grid-3{grid-template-columns:1fr} }
+
     .card{
       border-radius: var(--r);
       border:1px solid rgba(255,255,255,.12);
-      background: var(--panel2);
+      background: rgba(255,255,255,.03);
       padding:16px;
       box-shadow: 0 18px 50px rgba(0,0,0,.18);
     }
-    .card .icon{
-      width:40px;height:40px;border-radius:14px;
-      display:flex;align-items:center;justify-content:center;
-      background: linear-gradient(135deg, rgba(124,58,237,.28), rgba(167,139,250,.18));
+    .card h3{margin:0 0 8px; font-size:16px; letter-spacing:-.02em}
+    .card p{margin:0; color: var(--muted); font-weight:800; font-size:13px; line-height:1.5}
+    .price{
+      display:inline-flex;
+      margin-top:12px;
+      padding:8px 10px;
+      border-radius:999px;
       border:1px solid rgba(255,255,255,.12);
+      background: rgba(124,58,237,.14);
+      color: var(--white);
       font-weight:1000;
-    }
-    .card h3{margin:12px 0 8px; font-size:16px; letter-spacing:-.02em}
-    .card p{margin:0; color:var(--muted); font-weight:800; font-size:13px; line-height:1.5}
-    .link{display:inline-flex; margin-top:12px; color:rgba(167,139,250,.95); font-weight:1000; font-size:13px;}
-    .link:hover{text-decoration:underline}
-
-    /* Media placeholders */
-    .media{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      min-height: 360px;
-    }
-    .media-top{
-      padding:12px;
-      display:flex; justify-content:space-between; align-items:center;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      gap:10px; flex-wrap:wrap;
-    }
-    .pill{
-      padding:8px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      color:var(--muted);
-      font-weight:900;
-      font-size:12px;
-      background: rgba(255,255,255,.03);
-    }
-    .media-body{padding:12px; display:grid; gap:12px; grid-template-columns:1fr 1fr; flex:1;}
-    @media (max-width: 520px){ .media-body{grid-template-columns:1fr} }
-    .placeholder{
-      border-radius:16px;
-      border:1px dashed rgba(255,255,255,.18);
-      background: rgba(255,255,255,.02);
-      min-height:150px;
-      display:flex; align-items:center; justify-content:center;
-      text-align:center;
-      padding:14px;
-      color:var(--muted);
-      font-weight:900;
       font-size:12px;
     }
 
-    /* Forms */
+    /* Booking form */
     .form{
       border-radius: var(--r2);
       border:1px solid rgba(255,255,255,.12);
@@ -261,26 +331,36 @@
       padding:16px;
       box-shadow: var(--shadow);
     }
-    .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    @media (max-width:760px){ .form-grid{grid-template-columns:1fr} }
-    .field label{display:block; font-weight:900; font-size:13px; margin:6px 0 8px; color:var(--muted);}
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 760px){ .form-grid{grid-template-columns:1fr} }
+    .field label{
+      display:block;
+      font-weight:900;
+      font-size:13px;
+      margin: 6px 0 8px;
+      color: var(--muted);
+    }
     input, select, textarea{
       width:100%;
       padding:12px 12px;
-      border-radius:16px;
+      border-radius: 16px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(7,10,24,.55);
-      color:var(--white);
+      color: var(--white);
       outline:none;
       font-weight:900;
-      transition:.2s border, .2s background;
+      transition: .2s border, .2s background;
     }
     input:focus, select:focus, textarea:focus{
       border-color: rgba(167,139,250,.40);
       background: rgba(7,10,24,.70);
     }
-    textarea{min-height:110px; resize:vertical}
-    .help{color:var(--muted2); font-weight:900; font-size:12px; margin-top:8px}
+    textarea{min-height: 110px; resize:vertical}
+    .help{color: var(--muted2); font-weight:900; font-size:12px; margin-top:8px}
     .error{color:#FCA5A5; font-weight:1000; font-size:12px; margin-top:10px}
     .success{
       display:none;
@@ -295,35 +375,74 @@
     .success.show{display:block}
 
     /* Slots */
-    .slots{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px;}
-    @media (max-width:760px){ .slots{grid-template-columns:1fr 1fr} }
+    .slots{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    @media (max-width: 760px){ .slots{grid-template-columns: 1fr 1fr} }
     .slot{
       padding:12px 10px;
-      border-radius:16px;
+      border-radius: 16px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.03);
       font-weight:1000;
-      color:var(--muted);
+      color: var(--muted);
       cursor:pointer;
       text-align:center;
       transition:.2s transform, .2s background, .2s border, .2s color;
     }
-    .slot:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.22); color:var(--white);}
-    .slot.selected{border-color:rgba(167,139,250,.38); background:rgba(124,58,237,.18); color:var(--white);}
+    .slot:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      color: var(--white);
+    }
+    .slot.selected{
+      border-color: rgba(167,139,250,.38);
+      background: rgba(124,58,237,.18);
+      color: var(--white);
+    }
     .slot[disabled]{opacity:.35; cursor:not-allowed; transform:none !important;}
 
-    /* Footer */
-    .footer{
-      border-top:1px solid rgba(255,255,255,.10);
-      padding-top:18px;
-      margin-top:28px;
-      color:var(--muted2);
+    /* Gallery placeholders */
+    .gallery{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap:12px;
+    }
+    @media (max-width: 980px){ .gallery{grid-template-columns:1fr} }
+    .ph{
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.02);
+      min-height: 220px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:14px;
+      color: var(--muted);
       font-weight:900;
       font-size:12px;
     }
-    .footer .row{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
-    .footer a{color:rgba(167,139,250,.95)}
-    .footer a:hover{text-decoration:underline}
+    .ph.small{min-height: 160px;}
+
+    /* Footer */
+    footer{
+      border-top:1px solid rgba(255,255,255,.10);
+      margin-top:24px;
+      padding-top:16px;
+      color: var(--muted2);
+      font-weight:900;
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    footer a{color: rgba(167,139,250,.95)}
+    footer a:hover{text-decoration:underline}
   </style>
 </head>
 
@@ -331,7 +450,7 @@
   <!-- NAV -->
   <div class="nav-wrap">
     <div class="nav">
-      <a class="brand" href="#/inicio" data-link>
+      <a class="brand" href="#top" data-scroll="top">
         <div class="logo" aria-hidden="true"></div>
         <div>
           <b>Masajes con Nury</b>
@@ -340,149 +459,126 @@
       </a>
 
       <div class="nav-links">
-        <a href="#/inicio" data-link data-nav="inicio">Inicio</a>
-        <a href="#/servicios" data-link data-nav="servicios">Servicios</a>
-        <a href="#/reservas" data-link data-nav="reservas">Reservas</a>
-        <a href="#/galeria" data-link data-nav="galeria">Galería</a>
-        <a href="#/contacto" data-link data-nav="contacto">Contacto</a>
+        <a href="#servicios" data-scroll="servicios">Servicios</a>
+        <a href="#reservar" data-scroll="reservar">Reservar</a>
+        <a href="#galeria" data-scroll="galeria">Galería</a>
+        <a href="#contacto" data-scroll="contacto">Contacto</a>
       </div>
 
       <div class="nav-cta">
-        <a class="btn" href="#/contacto" data-link>WhatsApp</a>
-        <a class="btn primary" href="#/reservas" data-link>Reservar ahora →</a>
+        <a class="btn" href="#contacto" data-scroll="contacto">WhatsApp</a>
+        <a class="btn primary" href="#reservar" data-scroll="reservar">Reservar ahora →</a>
         <button class="btn burger" data-burger aria-label="Abrir menú">☰</button>
       </div>
     </div>
   </div>
 
-  <!-- Menú móvil -->
+  <!-- Mobile menu -->
   <div class="sheet" data-sheet>
     <div class="sheet-card">
-      <a href="#/inicio" data-link data-nav="inicio">Inicio</a>
-      <a href="#/servicios" data-link data-nav="servicios">Servicios</a>
-      <a href="#/reservas" data-link data-nav="reservas">Reservas</a>
-      <a href="#/galeria" data-link data-nav="galeria">Galería</a>
-      <a href="#/contacto" data-link data-nav="contacto">Contacto</a>
+      <a href="#servicios" data-scroll="servicios">Servicios</a>
+      <a href="#reservar" data-scroll="reservar">Reservar</a>
+      <a href="#galeria" data-scroll="galeria">Galería</a>
+      <a href="#contacto" data-scroll="contacto">Contacto</a>
       <div style="padding:10px;">
-        <a class="btn primary" style="width:100%;" href="#/reservas" data-link>Reservar ahora</a>
+        <a class="btn primary" style="width:100%;" href="#reservar" data-scroll="reservar">Reservar ahora</a>
       </div>
     </div>
   </div>
 
-  <main class="container">
+  <main class="container" id="top">
 
-    <!-- INICIO -->
-    <section class="page" id="page-inicio">
-      <section class="hero">
-        <div class="hero-card">
-          <div class="hero-bg">BIENESTAR REAL</div>
-          <div class="hero-inner">
-            <div>
-              <div class="badge"><span class="dot"></span> Reserva online con disponibilidad real</div>
-              <h1>
-                <span>Vuelve a sentir</span>
-                <span>tu mejor versión</span>
-                <span class="script">con Nury</span>
-              </h1>
-              <p>
-                Masajes terapéuticos y relajantes en un entorno minimalista y profesional.
-                Elige servicio, fecha y horario disponible — sin complicaciones.
-              </p>
-              <div class="hero-actions">
-                <a class="btn primary" href="#/reservas" data-link>Reservar mi sesión →</a>
-                <a class="btn" href="#/servicios" data-link>Ver servicios</a>
-              </div>
-              <div class="hero-note">
-                <span class="pulse"></span>
-                Atención personalizada · 45–90 min · Confirmación (demo)
-              </div>
+    <!-- HERO (simple, como la foto) -->
+    <section class="hero-wrap">
+      <div class="hero-card">
+        <div class="hero-bg-text">MASAJES PROFESIONALES</div>
+
+        <div class="hero-inner">
+          <div class="hero-top">
+            <span class="mini-pill"><span class="mini-dot"></span> Reserva online · disponibilidad real</span>
+            <a class="btn primary" href="#reservar" data-scroll="reservar">Reservar →</a>
+          </div>
+
+          <div class="hero-center">
+            <h1 class="hero-title">
+              BIENESTAR REAL
+              <span class="accent">con Nury</span>
+            </h1>
+            <p class="hero-sub">
+              Masajes relajantes y terapéuticos en un entorno minimalista.
+              Elige tu servicio, fecha y horario disponible en segundos.
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#reservar" data-scroll="reservar">Reservar mi sesión →</a>
+              <a class="btn" href="#servicios" data-scroll="servicios">Ver servicios</a>
             </div>
+          </div>
 
-            <div class="media">
-              <div class="media-top">
-                <span class="pill">Azul marino</span>
-                <span class="pill">Violeta</span>
-                <span class="pill">Minimal</span>
-              </div>
-              <div class="media-body">
-                <div class="placeholder">ESPACIO PARA VIDEO<br><span style="color:rgba(246,247,255,.50)">(mp4 / YouTube embed)</span></div>
-                <div class="card">
-                  <div class="icon">✓</div>
-                  <h3>Agenda online</h3>
-                  <p>Disponibilidad por fecha y servicio. Evita dobles reservas.</p>
-                </div>
-                <div class="card">
-                  <div class="icon">✦</div>
-                  <h3>Servicios claros</h3>
-                  <p>Duración y precio visibles para decidir rápido.</p>
-                </div>
-                <div class="placeholder">FOTO / IMAGEN 1<br><span style="color:rgba(246,247,255,.50)">(cabina / ambiente)</span></div>
-              </div>
+          <div class="scroll-hint">scroll to see more</div>
+
+          <div class="hero-illustration" aria-hidden="true">
+            <div class="illu-row">
+              <div class="blob s"></div>
+              <div class="blob m v"></div>
+              <div class="blob l"></div>
+              <div class="blob m"></div>
+              <div class="blob s v"></div>
+              <div class="blob m"></div>
+              <div class="blob l v"></div>
+              <div class="blob s"></div>
             </div>
-
           </div>
         </div>
-      </section>
-
-      <section class="grid-3">
-        <div class="card">
-          <div class="icon">★</div>
-          <h3>Relajación real</h3>
-          <p>Ideal para estrés, sueño y tensión acumulada.</p>
-          <a class="link" href="#/servicios" data-link>Ver Servicios →</a>
-        </div>
-        <div class="card">
-          <div class="icon">⚡</div>
-          <h3>Descarga muscular</h3>
-          <p>Descontracturante y deportivo para recuperar mejor.</p>
-          <a class="link" href="#/reservas" data-link>Reservar →</a>
-        </div>
-        <div class="card">
-          <div class="icon">☾</div>
-          <h3>Experiencia premium</h3>
-          <p>Ambiente cuidado, minimalista y profesional.</p>
-          <a class="link" href="#/galeria" data-link>Galería →</a>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <div class="row">
-          <div>© 2026 Masajes con Nury</div>
-          <div><a href="#/reservas" data-link>Reservas</a> · <a href="#/contacto" data-link>Contacto</a></div>
-        </div>
-      </footer>
+      </div>
     </section>
 
     <!-- SERVICIOS -->
-    <section class="page" id="page-servicios">
-      <h1 class="page-title">Servicios</h1>
-      <p class="page-sub">
-        Todos los servicios se adaptan a tu objetivo. Elige el masaje ideal y luego reserva un horario disponible.
-      </p>
+    <section class="block" id="servicios">
+      <div class="section-head">
+        <h2>Servicios</h2>
+        <p>Duración y precio claros. Elige y reserva abajo con disponibilidad.</p>
+      </div>
 
-      <section class="grid-3">
-        <div class="card"><div class="icon">60</div><h3>Relajante · 50€</h3><p>Suave y profundo para bajar estrés y mejorar descanso.</p><a class="link" href="#/reservas" data-link>Reservar →</a></div>
-        <div class="card"><div class="icon">75</div><h3>Descontracturante · 65€</h3><p>Enfoque muscular para espalda, cuello y piernas.</p><a class="link" href="#/reservas" data-link>Reservar →</a></div>
-        <div class="card"><div class="icon">90</div><h3>Deportivo · 80€</h3><p>Preparación y recuperación para actividad física.</p><a class="link" href="#/reservas" data-link>Reservar →</a></div>
-        <div class="card"><div class="icon">75</div><h3>Piedras · 75€</h3><p>Calor terapéutico + aromaterapia para soltar tensión.</p><a class="link" href="#/reservas" data-link>Reservar →</a></div>
-        <div class="card"><div class="icon">45</div><h3>Facial · 45€</h3><p>Drenaje y masaje suave para rostro y tensión mandibular.</p><a class="link" href="#/reservas" data-link>Reservar →</a></div>
-        <div class="card"><div class="icon">60</div><h3>Prenatal · 55€</h3><p>Adaptado para embarazo (según caso) y bienestar general.</p><a class="link" href="#/reservas" data-link>Reservar →</a></div>
-      </section>
-
-      <footer class="footer">
-        <div class="row">
-          <div>© 2026 Masajes con Nury</div>
-          <div><a href="#/reservas" data-link>Reservas</a> · <a href="#/contacto" data-link>Contacto</a></div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Relajante</h3>
+          <p>Suave y profundo para bajar estrés y mejorar descanso.</p>
+          <span class="price">60 min · 50€</span>
         </div>
-      </footer>
+        <div class="card">
+          <h3>Descontracturante</h3>
+          <p>Enfoque muscular para espalda, cuello y piernas.</p>
+          <span class="price">75 min · 65€</span>
+        </div>
+        <div class="card">
+          <h3>Deportivo</h3>
+          <p>Preparación y recuperación para actividad física.</p>
+          <span class="price">90 min · 80€</span>
+        </div>
+        <div class="card">
+          <h3>Piedras calientes</h3>
+          <p>Calor terapéutico + aromaterapia para soltar tensión.</p>
+          <span class="price">75 min · 75€</span>
+        </div>
+        <div class="card">
+          <h3>Facial</h3>
+          <p>Drenaje y masaje suave para rostro y tensión mandibular.</p>
+          <span class="price">45 min · 45€</span>
+        </div>
+        <div class="card">
+          <h3>Prenatal</h3>
+          <p>Adaptado para embarazo (según caso) y bienestar general.</p>
+          <span class="price">60 min · 55€</span>
+        </div>
+      </div>
     </section>
 
-    <!-- RESERVAS -->
-    <section class="page" id="page-reservas">
-      <h1 class="page-title">Reservas</h1>
-      <p class="page-sub">
-        Selecciona servicio y fecha para ver horarios disponibles. Esta versión guarda reservas en el navegador (demo funcional).
-      </p>
+    <!-- RESERVAR -->
+    <section class="block" id="reservar">
+      <div class="section-head">
+        <h2>Reservar</h2>
+        <p>Selecciona servicio y fecha para ver horarios disponibles (demo funcional en el navegador).</p>
+      </div>
 
       <div class="form">
         <form id="booking-form">
@@ -533,7 +629,7 @@
           </div>
 
           <div style="margin-top:14px;">
-            <div class="badge" style="margin-bottom:10px;"><span class="dot"></span> Horarios disponibles</div>
+            <div class="mini-pill"><span class="mini-dot"></span> Horarios disponibles</div>
             <div class="slots" id="slots"></div>
           </div>
 
@@ -541,11 +637,11 @@
 
           <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
             <button class="btn primary" type="submit">Confirmar reserva →</button>
-            <a class="btn" href="#/servicios" data-link>Ver servicios</a>
+            <a class="btn" href="#servicios" data-scroll="servicios">Ver servicios</a>
           </div>
 
           <div class="help" style="margin-top:10px;">
-            * Demo: las reservas se guardan localmente (localStorage). Ideal para mostrar al cliente.
+            * Demo: las reservas se guardan en tu navegador (localStorage). Para producción se conecta a Google Calendar / email.
           </div>
 
           <div class="success" id="success">
@@ -553,130 +649,108 @@
           </div>
         </form>
       </div>
-
-      <footer class="footer">
-        <div class="row">
-          <div>© 2026 Masajes con Nury</div>
-          <div><a href="#/contacto" data-link>Contacto</a> · <a href="#/galeria" data-link>Galería</a></div>
-        </div>
-      </footer>
     </section>
 
     <!-- GALERÍA -->
-    <section class="page" id="page-galeria">
-      <h1 class="page-title">Galería</h1>
-      <p class="page-sub">
-        Espacios listos para añadir fotos y/o videos del ambiente, cabina, productos y resultados.
-      </p>
+    <section class="block" id="galeria">
+      <div class="section-head">
+        <h2>Galería</h2>
+        <p>Espacios listos para fotos y/o videos del ambiente y el servicio.</p>
+      </div>
 
-      <section class="grid-3">
-        <div class="placeholder" style="min-height:220px;">VIDEO PRINCIPAL<br><span style="color:rgba(246,247,255,.50)">(mp4 / YouTube)</span></div>
-        <div class="placeholder" style="min-height:220px;">FOTO 1 (cabina)</div>
-        <div class="placeholder" style="min-height:220px;">FOTO 2 (recepción)</div>
-        <div class="placeholder" style="min-height:220px;">FOTO 3 (aceites)</div>
-        <div class="placeholder" style="min-height:220px;">FOTO 4 (detalle)</div>
-        <div class="placeholder" style="min-height:220px;">FOTO 5 (ambiente)</div>
-      </section>
-
-      <footer class="footer">
-        <div class="row">
-          <div>© 2026 Masajes con Nury</div>
-          <div><a href="#/reservas" data-link>Reservas</a> · <a href="#/contacto" data-link>Contacto</a></div>
-        </div>
-      </footer>
+      <div class="gallery">
+        <div class="ph">VIDEO PRINCIPAL<br><span style="color:rgba(246,247,255,.50)">(mp4 / YouTube)</span></div>
+        <div class="ph small">FOTO 1</div>
+        <div class="ph small">FOTO 2</div>
+        <div class="ph small">FOTO 3</div>
+        <div class="ph small">FOTO 4</div>
+        <div class="ph small">FOTO 5</div>
+      </div>
     </section>
 
     <!-- CONTACTO -->
-    <section class="page" id="page-contacto">
-      <h1 class="page-title">Contacto</h1>
-      <p class="page-sub">
-        Edita estos datos con los reales del negocio. El botón de WhatsApp puede apuntar a tu número.
-      </p>
-
-      <section class="grid-3">
-        <div class="card"><div class="icon">📍</div><h3>Ubicación</h3><p>Calle Ejemplo 123, Barcelona<br><span style="color:rgba(246,247,255,.55)">Cámbialo por la dirección real</span></p></div>
-        <div class="card"><div class="icon">🕒</div><h3>Horario</h3><p>Lun–Sáb 09:00–19:00<br><span style="color:rgba(246,247,255,.55)">Solo con cita previa</span></p></div>
-        <div class="card">
-          <div class="icon">💬</div><h3>WhatsApp</h3>
-          <p>+34 600 000 000<br><span style="color:rgba(246,247,255,.55)">Cambia por el número real</span></p>
-          <a class="link" href="https://wa.me/34600000000" target="_blank" rel="noreferrer">Abrir WhatsApp →</a>
-        </div>
-      </section>
-
-      <div class="form" style="margin-top:14px;">
-        <form onsubmit="event.preventDefault(); alert('Formulario demo. Si quieres, lo conectamos a email real.');">
-          <div class="form-grid">
-            <div class="field"><label>Nombre</label><input placeholder="Tu nombre" required></div>
-            <div class="field"><label>Email</label><input type="email" placeholder="tu@email.com" required></div>
-            <div class="field" style="grid-column:1/-1;"><label>Mensaje</label><textarea placeholder="Cuéntanos qué necesitas..."></textarea></div>
-          </div>
-          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn primary" type="submit">Enviar mensaje →</button>
-            <a class="btn" href="#/reservas" data-link>Ir a Reservas</a>
-          </div>
-          <div class="help" style="margin-top:10px;">* Demo sin backend. Se puede conectar a Formspree / Email / WhatsApp.</div>
-        </form>
+    <section class="block" id="contacto">
+      <div class="section-head">
+        <h2>Contacto</h2>
+        <p>Edita con los datos reales. El botón de WhatsApp puede apuntar al número real.</p>
       </div>
 
-      <footer class="footer">
-        <div class="row">
-          <div>© 2026 Masajes con Nury</div>
-          <div><a href="#/servicios" data-link>Servicios</a> · <a href="#/reservas" data-link>Reservas</a></div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Ubicación</h3>
+          <p>Calle Ejemplo 123, Barcelona<br><span style="color:rgba(246,247,255,.55)">Cámbialo por la dirección real</span></p>
         </div>
+        <div class="card">
+          <h3>Horario</h3>
+          <p>Lun–Sáb 09:00–19:00<br><span style="color:rgba(246,247,255,.55)">Solo con cita previa</span></p>
+        </div>
+        <div class="card">
+          <h3>WhatsApp</h3>
+          <p>+34 600 000 000<br><span style="color:rgba(246,247,255,.55)">Cambia por el número real</span></p>
+          <div style="margin-top:12px;">
+            <a class="btn primary" href="https://wa.me/34600000000" target="_blank" rel="noreferrer">Abrir WhatsApp →</a>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div>© 2026 Masajes con Nury</div>
+        <div><a href="#reservar" data-scroll="reservar">Reservar</a> · <a href="#servicios" data-scroll="servicios">Servicios</a></div>
       </footer>
     </section>
 
   </main>
 
   <script>
-    // ====== Menú móvil ======
+    // ===== Mobile menu =====
     const sheet = document.querySelector('[data-sheet]');
     document.addEventListener('click', (e) => {
       if (e.target.closest('[data-burger]')) sheet.classList.add('show');
       if (e.target === sheet) sheet.classList.remove('show');
-      if (e.target.closest('[data-link]')) sheet.classList.remove('show');
+      if (e.target.closest('[data-scroll]')) sheet.classList.remove('show');
     });
 
-    // ====== Router hash (páginas dentro del mismo HTML) ======
-    const pages = {
-      inicio: document.getElementById('page-inicio'),
-      servicios: document.getElementById('page-servicios'),
-      reservas: document.getElementById('page-reservas'),
-      galeria: document.getElementById('page-galeria'),
-      contacto: document.getElementById('page-contacto'),
-    };
+    // ===== Smooth scroll + active nav =====
+    const navLinks = document.querySelectorAll('[data-scroll]');
+    navLinks.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = a.getAttribute('data-scroll');
+        const target = document.getElementById(id) || document.getElementById('top');
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
 
-    function setActiveNav(route){
-      document.querySelectorAll('[data-nav]').forEach(a=>{
-        a.classList.toggle('active', a.getAttribute('data-nav') === route);
+    const sections = ['servicios','reservar','galeria','contacto'];
+    function setActive(sectionId){
+      document.querySelectorAll('.nav-links a').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('data-scroll') === sectionId);
+      });
+      document.querySelectorAll('.sheet-card a').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('data-scroll') === sectionId);
       });
     }
-
-    function showPage(route){
-      const key = pages[route] ? route : 'inicio';
-      Object.keys(pages).forEach(k => pages[k].classList.toggle('active', k === key));
-      setActiveNav(key);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.title = key === 'inicio'
-        ? 'Masajes con Nury — Reserva online'
-        : (key.charAt(0).toUpperCase() + key.slice(1)) + ' — Masajes con Nury';
+    function onScroll(){
+      const y = window.scrollY + 140;
+      let current = '';
+      for(const id of sections){
+        const el = document.getElementById(id);
+        if(!el) continue;
+        const top = el.offsetTop;
+        const bottom = top + el.offsetHeight;
+        if(y >= top && y < bottom){ current = id; break; }
+      }
+      setActive(current);
     }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
 
-    function getRoute(){
-      const h = (location.hash || '#/inicio').toLowerCase();
-      const m = h.match(/^#\/([a-z0-9-]+)/);
-      return (m && m[1]) ? m[1] : 'inicio';
-    }
-
-    window.addEventListener('hashchange', () => showPage(getRoute()));
-    showPage(getRoute());
-
-    // ====== Reservas (demo funcional) ======
+    // ===== Booking availability (demo) =====
     const form = document.getElementById('booking-form');
     const slotsWrap = document.getElementById('slots');
-    const timeInput = form?.querySelector('[name="time"]');
-    const dateEl = form?.querySelector('[name="date"]');
-    const serviceEl = form?.querySelector('[name="service"]');
+    const timeInput = form.querySelector('[name="time"]');
+    const dateEl = form.querySelector('[name="date"]');
+    const serviceEl = form.querySelector('[name="service"]');
     const info = document.getElementById('service-info');
     const err = document.getElementById('form-error');
     const success = document.getElementById('success');
@@ -701,27 +775,24 @@
     }
 
     // min date = hoy
-    if(dateEl){
-      const t = new Date();
-      const y = t.getFullYear();
-      const m = String(t.getMonth()+1).padStart(2,'0');
-      const d = String(t.getDate()).padStart(2,'0');
-      dateEl.min = `${y}-${m}-${d}`;
-    }
+    const t = new Date();
+    const y = t.getFullYear();
+    const m = String(t.getMonth()+1).padStart(2,'0');
+    const d = String(t.getDate()).padStart(2,'0');
+    dateEl.min = `${y}-${m}-${d}`;
 
     const OPEN = 9;   // 09:00
-    const CLOSE = 19; // 19:00 (último inicio depende de duración)
+    const CLOSE = 19; // 19:00
     const STEP = 30;  // cada 30 min
 
     const toMinutes = (h,m) => h*60+m;
     const fmt = (min) => {
       const h = Math.floor(min/60);
-      const m = min%60;
-      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+      const mm = min%60;
+      return `${String(h).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;
     };
 
     function buildSlots(){
-      if(!slotsWrap || !timeInput || !dateEl || !serviceEl) return;
       slotsWrap.innerHTML = '';
       timeInput.value = '';
       err.textContent = '';
@@ -730,12 +801,12 @@
       const date = dateEl.value;
       const key = serviceEl.value;
       if(!date || !key){
-        if(info) info.textContent = 'Selecciona servicio y fecha para ver disponibilidad.';
+        info.textContent = 'Selecciona servicio y fecha para ver disponibilidad.';
         return;
       }
 
       const svc = services[key];
-      if(info) info.innerHTML = `${svc.name} · ${svc.duration} min · <b>${svc.price}</b>`;
+      info.innerHTML = `${svc.name} · ${svc.duration} min · <b>${svc.price}</b>`;
 
       const bookedTimes = getBookings().filter(b=>b.date===date).map(b=>b.time);
       const start = toMinutes(OPEN,0);
@@ -762,10 +833,10 @@
       }
     }
 
-    dateEl?.addEventListener('change', buildSlots);
-    serviceEl?.addEventListener('change', buildSlots);
+    dateEl.addEventListener('change', buildSlots);
+    serviceEl.addEventListener('change', buildSlots);
 
-    form?.addEventListener('submit', (e)=>{
+    form.addEventListener('submit', (e)=>{
       e.preventDefault();
       err.textContent = '';
       success.classList.remove('show');
@@ -775,12 +846,14 @@
         err.textContent = 'Completa todos los campos obligatorios y selecciona un horario.';
         return;
       }
+
       const already = getBookings().some(b => b.date===data.date && b.time===data.time);
       if(already){
         err.textContent = 'Ese horario ya no está disponible. Elige otro.';
         buildSlots();
         return;
       }
+
       const svc = services[data.service];
       saveBooking({
         id: (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now())),
@@ -799,10 +872,9 @@
       form.reset();
       timeInput.value = '';
       slotsWrap.innerHTML = '';
-      if(info) info.textContent = 'Selecciona servicio y fecha para ver disponibilidad.';
+      info.textContent = 'Selecciona servicio y fecha para ver disponibilidad.';
       success.classList.add('show');
     });
   </script>
 </body>
 </html>
-
