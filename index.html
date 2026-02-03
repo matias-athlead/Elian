@@ -6,32 +6,30 @@
   <title>Masajes con Nury — Reservas</title>
   <meta name="description" content="Masajes con Nury: reserva online tipo calendario. Servicios, galería y contacto." />
 
-  <!-- Fonts (elegante, como tu referencia) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#ffffff;
-      --ink:#0b1024;
+      --ink:#0b0b10;
       --muted:#5b6072;
 
-      /* Paleta estilo “Blissaura” */
+      /* Fondo estilo referencia */
       --pinkA:#f7a6c2;
       --pinkB:#f2b5c8;
-      --card:#ffffff;
 
-      --stroke: rgba(11,16,36,.10);
+      --stroke: rgba(11,16,36,.12);
       --shadow: 0 18px 55px rgba(11,16,36,.14);
       --shadow2: 0 10px 28px rgba(11,16,36,.10);
 
       --radius: 22px;
       --radius2: 28px;
-      --max: 1120px;
 
-      --black:#0b0b10;
+      --btn:#0b0b10;
       --accent:#ff4fa3;
+      --max: 1120px;
     }
 
     *{box-sizing:border-box}
@@ -40,14 +38,14 @@
       margin:0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:#fff;
-      color: var(--ink);
+      color:var(--ink);
       overflow-x:hidden;
     }
     a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
     .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
-    main{padding: 22px 0 56px;}
 
-    /* ===== BACKDROP ===== */
+    /* ===== BACKDROP / SHELL ===== */
     .page-bg{
       background: linear-gradient(180deg, var(--pinkA), var(--pinkB));
       padding: 24px 0 56px;
@@ -56,13 +54,13 @@
       width:min(1200px, calc(100% - 28px));
       margin:0 auto;
       border-radius: 28px;
-      background: var(--card);
+      background: #fff;
       box-shadow: var(--shadow);
       overflow:hidden;
       border: 1px solid rgba(255,255,255,.55);
     }
 
-    /* ===== TOP BAR (como tu imagen) ===== */
+    /* ===== TOPBAR ===== */
     #topbar{
       display:flex;
       align-items:center;
@@ -72,7 +70,6 @@
       border-bottom: 1px solid rgba(11,16,36,.10);
       background:#fff;
     }
-
     .menu-pill{
       display:inline-flex;
       align-items:center;
@@ -87,9 +84,7 @@
       user-select:none;
       box-shadow: 0 8px 18px rgba(11,16,36,.06);
     }
-    .menu-pill .bars{
-      width:16px;height:12px; position:relative; display:inline-block;
-    }
+    .menu-pill .bars{width:16px;height:12px; position:relative; display:inline-block;}
     .menu-pill .bars:before,
     .menu-pill .bars:after,
     .menu-pill .bars i{
@@ -104,13 +99,12 @@
     .menu-pill .bars:after{bottom:0}
 
     .brand{
-      font-family: "DM Serif Display", serif;
+      font-family:"DM Serif Display", serif;
       font-size: 22px;
       letter-spacing:.01em;
-      color: #111;
+      color:#111;
       white-space:nowrap;
     }
-
     .nav-links{
       display:flex;
       gap: 26px;
@@ -128,10 +122,9 @@
     .top-actions{
       display:flex;
       align-items:center;
-      gap: 10px;
+      gap:10px;
       white-space:nowrap;
     }
-
     .lang-pill{
       display:inline-flex;
       align-items:center;
@@ -146,34 +139,90 @@
       user-select:none;
     }
     .lang-pill span{opacity:.55}
-    .lang-pill strong{opacity:1}
-
     .book-btn{
       padding: 11px 18px;
       border-radius: 999px;
-      background: #0b0b10;
+      background: var(--btn);
       color:#fff;
       border:0;
       font-weight: 900;
       cursor:pointer;
       box-shadow: 0 12px 28px rgba(0,0,0,.18);
     }
-    .book-btn:hover{transform: translateY(-1px)}
+
+    /* ✅ SOLO en móvil: arriba solo MENU + idioma */
+    @media (max-width: 768px){
+      .brand, .nav-links, .book-btn{display:none !important;}
+      #topbar{justify-content: space-between !important;}
+    }
+
+    /* ===== SIDE MENU ===== */
+    .sheet{
+      position:fixed; inset:0;
+      display:none;
+      background: rgba(0,0,0,.35);
+      z-index: 250;
+    }
+    .sheet.show{display:block}
+    .sheet-panel{
+      position:absolute; left:0; top:0; bottom:0;
+      width: min(340px, 86vw);
+      background:#fff;
+      border-right:1px solid var(--stroke);
+      box-shadow: 18px 0 50px rgba(0,0,0,.12);
+      padding: 16px;
+      transform: translateX(-102%);
+      transition: transform .18s ease;
+    }
+    .sheet.show .sheet-panel{transform: translateX(0)}
+    .sheet-head{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding: 6px 2px 12px;
+      border-bottom: 1px solid rgba(11,16,36,.10);
+      margin-bottom: 10px;
+    }
+    .sheet-title{
+      font-weight: 1000;
+      letter-spacing:-.01em;
+      font-size: 14px;
+    }
+    .xbtn{
+      width:40px;height:40px;border-radius:12px;border:1px solid var(--stroke);
+      background:#fff; cursor:pointer; font-weight:1000;
+    }
+    .sheet a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 12px;
+      border-radius: 14px;
+      font-weight: 900;
+      color: #2d2f37;
+    }
+    .sheet a:hover{background: rgba(11,16,36,.05)}
+    .sheet .cta{
+      margin-top: 10px;
+      width:100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:0;
+      background: var(--btn);
+      color:#fff;
+      font-weight: 1000;
+      cursor:pointer;
+      box-shadow: var(--shadow2);
+    }
 
     /* ===== HERO ===== */
-    .hero{
-      padding: 42px 18px 0;
-    }
+    .hero{padding: 38px 18px 0;}
     .hero-grid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
       gap: 28px;
       align-items:center;
-      padding: 0 8px 24px;
+      padding: 0 8px 18px;
     }
-    @media (max-width: 980px){
-      .hero-grid{grid-template-columns:1fr; padding-bottom: 8px;}
-    }
+    @media (max-width: 980px){ .hero-grid{grid-template-columns:1fr; padding-bottom: 8px;} }
 
     .hero h1{
       margin:0 0 12px;
@@ -192,114 +241,104 @@
       max-width: 52ch;
       font-size: 14px;
     }
-
-    .hero-ctas{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin-top: 6px;
-    }
+    .hero-ctas{display:flex; gap: 10px; align-items:center; flex-wrap:wrap; margin-top: 6px;}
     .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
+      display:inline-flex; align-items:center; justify-content:center;
       padding: 12px 16px;
       border-radius: 999px;
       border: 1px solid rgba(11,16,36,.14);
       background:#fff;
-      color:#0b0b10;
-      font-weight: 900;
+      font-weight: 1000;
       cursor:pointer;
-      box-shadow: 0 10px 20px rgba(11,16,36,.06);
-      transition: .15s transform, .15s opacity;
     }
-    .btn:hover{transform: translateY(-1px)}
-    .btn.dark{
-      background:#0b0b10;
+    .btn.primary{
+      background: var(--btn);
       color:#fff;
-      border-color:#0b0b10;
-      box-shadow: 0 12px 28px rgba(0,0,0,.18);
+      border:0;
+      box-shadow: 0 12px 24px rgba(0,0,0,.16);
     }
 
-    /* ✅ Eliminamos 98% y Serenity: no existe en HTML */
-    .hero-left{position:relative;}
-
-    .hero-right{
+    .hero-img{
       display:flex;
-      align-items:center;
       justify-content:center;
+      align-items:center;
       position:relative;
-      min-height: 360px;
+      min-height: 280px;
     }
-
-    .photo-blob{
-      width: min(460px, 86vw);
+    .hero-img .circle{
+      width:min(420px, 86%);
       aspect-ratio: 1/1;
       border-radius: 999px;
       overflow:hidden;
-      background: #f2f3f7;
+      box-shadow: 0 22px 60px rgba(0,0,0,.12);
       border: 1px solid rgba(11,16,36,.10);
-      box-shadow: 0 22px 55px rgba(11,16,36,.12);
-      position:relative;
+      background:#f3f4f7;
     }
-    .photo-blob img{
+    .hero-img img{
       width:100%;
       height:100%;
       object-fit: cover;
       display:block;
     }
-
-    .sparkle{
+    .spark{
       position:absolute;
       right: 6%;
       top: 8%;
-      width: 18px;
-      height: 18px;
+      width: 26px;
+      height: 26px;
       opacity:.55;
     }
 
-    /* ===== MARQUEE ===== */
-    .marquee-wrap{
-      background:#0b0b10;
+    .ticker{
+      background: #0b0b10;
       color:#fff;
-      border-radius: 0 0 22px 22px;
+      border-radius: 0 0 28px 28px;
+      padding: 16px 18px;
       overflow:hidden;
-      margin-top: 8px;
-    }
-    .marquee{
       display:flex;
-      gap: 34px;
       align-items:center;
-      white-space: nowrap;
-      padding: 18px 18px;
-      font-family:"DM Serif Display", serif;
-      font-size: clamp(18px, 2vw, 30px);
+      gap: 22px;
+      font-family: "DM Serif Display", serif;
+      font-size: clamp(18px, 2.2vw, 28px);
       letter-spacing:.01em;
-      animation: marquee 16s linear infinite;
+      white-space:nowrap;
     }
-    .marquee span{opacity:.95}
-    .marquee .star{color: var(--accent); font-family: Inter; font-weight: 1000;}
+    .ticker span.dot{
+      display:inline-block;
+      width: 10px;height:10px;border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(255,79,163,.18);
+      margin: 0 6px;
+    }
+    .ticker .track{
+      display:flex;
+      gap: 22px;
+      align-items:center;
+      animation: marquee 18s linear infinite;
+    }
     @keyframes marquee{
-      from{transform: translateX(0)}
-      to{transform: translateX(-50%)}
+      0%{transform: translateX(0)}
+      100%{transform: translateX(-40%)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .ticker .track{animation:none}
     }
 
-    /* ===== SECTIONS ===== */
-    .section{padding: 52px 0;}
+    /* ===== MAIN ===== */
+    main{padding: 26px 0 52px;}
+    .section{padding: 40px 0;}
     .section h2{
-      margin:0 0 8px;
-      font-size: clamp(20px, 3vw, 28px);
+      margin:0 0 10px;
+      font-size: 30px;
       letter-spacing:-.02em;
-      color:#0b0b10;
+      font-weight: 1000;
     }
-    .section p.lead{
+    .lead{
       margin:0 0 18px;
       color: var(--muted);
-      max-width: 74ch;
-      line-height:1.7;
-      font-weight: 700;
-      font-size: 14px;
+      font-weight: 750;
+      line-height:1.6;
+      max-width: 72ch;
     }
 
     .grid{
@@ -307,89 +346,30 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
-    @media (max-width: 980px){ .grid{grid-template-columns: 1fr} }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
 
     .card{
-      border: 1px solid rgba(11,16,36,.10);
-      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
       background: #fff;
-      box-shadow: 0 14px 34px rgba(11,16,36,.06);
+      box-shadow: 0 14px 40px rgba(11,16,36,.06);
       padding: 16px;
     }
-    .card h3{margin:0 0 6px; font-size:16px; color:#0b0b10}
-    .card p{margin:0; color:#545b6c; line-height:1.55; font-weight:700; font-size:13px}
+    .card h3{margin:0 0 6px; font-size:16px}
+    .card p{margin:0; color: var(--muted); line-height:1.55; font-weight:700; font-size:13px}
     .tag{
       display:inline-flex;
       margin-top: 12px;
       padding: 8px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(11,16,36,.10);
+      border: 1px solid var(--stroke);
       background: rgba(255,79,163,.08);
-      color: #0b0b10;
+      color: #1b1b22;
       font-weight: 900;
       font-size: 12px;
     }
 
-    /* ===== Side menu (desplegable lateral) ===== */
-    .sheet{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.30);
-      display:none;
-      z-index: 300;
-    }
-    .sheet.show{display:block}
-    .sheet-panel{
-      position:absolute;
-      top:0;
-      left:0;
-      height:100%;
-      width: min(360px, 88vw);
-      background:#fff;
-      box-shadow: 0 22px 70px rgba(11,16,36,.22);
-      border-right: 1px solid rgba(11,16,36,.10);
-      padding: 18px;
-      transform: translateX(-102%);
-      transition: .22s transform ease;
-    }
-    .sheet.show .sheet-panel{transform: translateX(0)}
-    .sheet-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(11,16,36,.10);
-      margin-bottom: 12px;
-    }
-    .sheet-title{
-      font-family:"DM Serif Display", serif;
-      font-size: 22px;
-      color:#0b0b10;
-    }
-    .xbtn{
-      width: 40px;height:40px;
-      border-radius: 12px;
-      border: 1px solid rgba(11,16,36,.12);
-      background:#fff;
-      cursor:pointer;
-      font-weight: 1000;
-    }
-    .sheet a{
-      display:block;
-      padding: 14px 12px;
-      border-radius: 14px;
-      font-weight: 900;
-      color:#2d2f37;
-      border: 1px solid transparent;
-    }
-    .sheet a:hover{background: rgba(11,16,36,.04)}
-    .sheet .sheet-actions{
-      margin-top: 14px;
-      display:grid;
-      gap:10px;
-    }
-
-    /* ===== Calendar booking ===== */
+    /* ===== BOOKING ===== */
     .booking-wrap{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -398,13 +378,14 @@
     }
     @media (max-width: 980px){ .booking-wrap{grid-template-columns:1fr} }
 
-    .calendar, .booking-panel{
-      border:1px solid rgba(11,16,36,.10);
-      border-radius: 18px;
+    .panel{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
       background:#fff;
-      box-shadow: 0 14px 34px rgba(11,16,36,.06);
+      box-shadow: 0 14px 40px rgba(11,16,36,.06);
       padding: 14px;
     }
+
     .cal-top{
       display:flex;
       align-items:center;
@@ -412,26 +393,43 @@
       gap:10px;
       margin-bottom: 10px;
     }
-    .cal-title{font-weight: 1000; letter-spacing:-.01em;}
+    .cal-title{
+      font-weight: 1000;
+      letter-spacing:-.01em;
+      font-size: 16px;
+    }
     .cal-nav{display:flex; gap:8px;}
     .cal-btn{
       width: 40px;height:40px;
       border-radius: 12px;
-      border:1px solid rgba(11,16,36,.12);
+      border:1px solid var(--stroke);
       background:#fff;
       cursor:pointer;
       font-weight: 1000;
     }
-    .cal-grid{display:grid; grid-template-columns: repeat(7, 1fr); gap: 8px;}
-    .dow{
-      font-size: 11px; color: #5b6072;
-      font-weight: 900; text-align:center; padding: 8px 0;
+
+    /* DOW row + days grid separated (important) */
+    .dow-row, .cal-grid{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
     }
+    .dow{
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 900;
+      text-align:center;
+      padding: 8px 0;
+      border-radius: 10px;
+      background: rgba(11,16,36,.03);
+      border:1px solid rgba(11,16,36,.06);
+    }
+
     .day{
       position:relative;
-      aspect-ratio: 1 / 1;
+      min-height: 52px;
       border-radius: 14px;
-      border:1px solid rgba(11,16,36,.12);
+      border:1px solid var(--stroke);
       background:#fff;
       cursor:pointer;
       display:flex;
@@ -439,44 +437,63 @@
       justify-content:flex-start;
       padding: 8px;
       font-weight: 900;
-      color: #0b0b10;
+      color: var(--ink);
       transition:.15s transform, .15s border, .15s background;
       user-select:none;
     }
-    .day:hover{transform: translateY(-1px); border-color: rgba(255,79,163,.40); background: rgba(255,79,163,.06);}
-    .day.muted{opacity:.32; cursor:not-allowed; transform:none !important;}
-    .day.selected{border-color: rgba(255,79,163,.60); background: rgba(255,79,163,.12);}
+    .day:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,79,163,.35);
+      background: rgba(255,79,163,.06);
+    }
+    .day.muted{opacity:.30; cursor:not-allowed; transform:none !important;}
+    .day.empty{
+      visibility:hidden; /* ocupa espacio pero no se ve */
+      pointer-events:none;
+    }
+    .day.selected{
+      border-color: rgba(255,79,163,.55);
+      background: rgba(255,79,163,.10);
+    }
     .day .dot{
       position:absolute; right:8px; bottom:8px;
       width: 8px;height:8px;border-radius:999px;
       background: var(--accent);
       display:none;
+      box-shadow: 0 0 0 6px rgba(255,79,163,.14);
     }
     .day.has-booking .dot{display:block}
+
+    .hint{
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12px;
+      line-height:1.5;
+      margin: 10px 0 0;
+    }
 
     .field{margin: 10px 0}
     .field label{
       display:block;
       font-weight: 900;
       font-size: 12px;
-      color: #5b6072;
+      color: var(--muted);
       margin-bottom: 8px;
     }
     input, select, textarea{
       width:100%;
       padding: 12px 12px;
       border-radius: 14px;
-      border:1px solid rgba(11,16,36,.12);
+      border:1px solid var(--stroke);
       background:#fff;
-      font-weight: 800;
+      font-weight: 850;
       outline:none;
     }
     input:focus, select:focus, textarea:focus{
-      border-color: rgba(255,79,163,.55);
-      box-shadow: 0 0 0 4px rgba(255,79,163,.10);
+      border-color: rgba(255,79,163,.40);
+      box-shadow: 0 0 0 4px rgba(255,79,163,.12);
     }
-    textarea{min-height: 92px; resize:vertical;}
-    .hint{color: #5b6072; font-weight: 700; font-size: 12px; line-height:1.5;}
+    textarea{min-height: 92px; resize:vertical; font-weight:800}
 
     .slots{
       display:grid;
@@ -488,67 +505,144 @@
     .slot{
       padding: 12px 10px;
       border-radius: 14px;
-      border:1px solid rgba(11,16,36,.12);
+      border:1px solid var(--stroke);
       background:#fff;
       cursor:pointer;
       text-align:center;
       font-weight:1000;
-      color: #5b6072;
+      color: var(--muted);
       transition:.15s transform, .15s border, .15s background, .15s color;
       user-select:none;
     }
-    .slot:hover{transform: translateY(-1px); border-color: rgba(255,79,163,.40); color: #0b0b10;}
-    .slot.selected{border-color: rgba(255,79,163,.60); background: rgba(255,79,163,.12); color: #0b0b10;}
-    .slot[disabled]{opacity:.35; cursor:not-allowed; transform:none !important;}
+    .slot:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,79,163,.35);
+      color: var(--ink);
+      background: rgba(255,79,163,.05);
+    }
+    .slot.selected{
+      border-color: rgba(255,79,163,.55);
+      background: rgba(255,79,163,.10);
+      color: var(--ink);
+    }
+    .slot[disabled]{opacity:.30; cursor:not-allowed; transform:none !important;}
 
-    .alert, .error{
+    .alert{
       margin-top: 10px;
       padding: 12px;
       border-radius: 16px;
-      font-weight: 900;
-      display:none;
-    }
-    .alert{
       border: 1px solid rgba(16,185,129,.30);
       background: rgba(16,185,129,.08);
       color: #065f46;
+      font-weight: 900;
+      display:none;
     }
+    .alert.show{display:block}
     .error{
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 16px;
       border: 1px solid rgba(239,68,68,.25);
       background: rgba(239,68,68,.06);
       color: #7f1d1d;
+      font-weight: 900;
+      display:none;
     }
-    .alert.show, .error.show{display:block}
+    .error.show{display:block}
 
-    /* Gallery */
-    .gallery{
+    .fineprint{
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 12px;
+      line-height:1.45;
+    }
+
+    /* ===== GALLERY: Desktop grid / Mobile carousel (vertical photos) ===== */
+    .gallery-desktop{
       display:grid;
       grid-template-columns: 1.2fr .8fr .8fr;
       gap: 14px;
     }
-    @media (max-width: 980px){ .gallery{grid-template-columns:1fr} }
-    .ph{
-      border:1px dashed rgba(11,16,36,.22);
-      border-radius: 18px;
-      min-height: 220px;
-      background: #fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding: 16px;
-      color: #5b6072;
-      font-weight: 900;
-      box-shadow: 0 14px 34px rgba(11,16,36,.05);
+    .gcard{
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 14px 40px rgba(11,16,36,.06);
+      min-height: 200px;
+      position:relative;
     }
-    .ph.small{min-height: 160px;}
+    .gcard.big{min-height: 340px;}
+    .gcard img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .glabel{
+      position:absolute; left:12px; bottom:12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(11,16,36,.10);
+      font-weight: 1000;
+      font-size: 12px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.10);
+    }
 
-    /* Footer */
+    /* Mobile carousel */
+    .gallery-mobile{display:none;}
+    .carousel{
+      display:flex;
+      gap: 12px;
+      overflow-x:auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel::-webkit-scrollbar{height:8px}
+    .carousel::-webkit-scrollbar-thumb{background: rgba(11,16,36,.18); border-radius: 999px}
+    .slide{
+      flex: 0 0 78%;
+      max-width: 78%;
+      scroll-snap-align: start;
+      border:1px solid var(--stroke);
+      border-radius: var(--radius);
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 14px 40px rgba(11,16,36,.06);
+      position:relative;
+    }
+    .slide img{
+      width:100%;
+      height: 520px;           /* ✅ “vertical” */
+      object-fit: cover;
+      display:block;
+    }
+    .dots{display:flex; gap:8px; justify-content:center; margin-top: 10px;}
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(11,16,36,.20);
+    }
+    .dot.active{background: var(--accent); box-shadow: 0 0 0 6px rgba(255,79,163,.14);}
+
+    @media (max-width: 900px){
+      .gallery-desktop{display:none;}
+      .gallery-mobile{display:block;}
+      .slide img{height: 520px;}
+    }
+    @media (max-width: 420px){
+      .slide{flex-basis: 86%; max-width: 86%;}
+      .slide img{height: 520px;}
+    }
+
+    /* ===== FOOTER ===== */
     footer{
-      margin-top: 34px;
-      padding: 18px 0 0;
+      margin-top: 28px;
+      padding: 18px 0 8px;
       border-top: 1px solid rgba(11,16,36,.10);
-      color: #5b6072;
+      color: var(--muted);
       font-weight: 800;
       font-size: 12px;
       display:flex;
@@ -556,24 +650,91 @@
       gap:12px;
       flex-wrap:wrap;
     }
+    .footer-links{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .footer-links a{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(11,16,36,.10);
+      background:#fff;
+      font-weight: 900;
+      color:#2d2f37;
+    }
+    .footer-links a:hover{background: rgba(11,16,36,.04);}
 
-    /* ===== Cookies banner ===== */
+    /* ===== MODALS (Policies / Cookies settings) ===== */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      background: rgba(0,0,0,.45);
+      z-index: 300;
+      padding: 18px;
+    }
+    .modal.show{display:flex}
+    .modal-card{
+      margin:auto;
+      width: min(980px, 100%);
+      max-height: min(86vh, 920px);
+      overflow:auto;
+      background:#fff;
+      border-radius: 18px;
+      border: 1px solid rgba(11,16,36,.12);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .modal-head{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 6px 4px 12px;
+      border-bottom: 1px solid rgba(11,16,36,.10);
+      margin-bottom: 10px;
+    }
+    .modal-title{font-weight:1000; font-size: 14px;}
+    .modal-close{
+      width:40px;height:40px;border-radius:12px;border:1px solid var(--stroke);
+      background:#fff; cursor:pointer; font-weight:1000;
+    }
+    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin: 10px 0 12px;}
+    .tab{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(11,16,36,.12);
+      background:#fff;
+      font-weight: 1000;
+      cursor:pointer;
+      font-size: 12px;
+    }
+    .tab.active{
+      background: rgba(255,79,163,.10);
+      border-color: rgba(255,79,163,.30);
+    }
+    .doc{
+      color:#2d2f37;
+      line-height:1.65;
+      font-weight: 650;
+      font-size: 13px;
+    }
+    .doc h3{margin: 14px 0 8px; font-size: 14px;}
+    .doc ul{margin: 6px 0 12px 18px;}
+    .doc code{background: rgba(11,16,36,.05); padding: 2px 6px; border-radius: 8px; font-weight: 900;}
+
+    /* ===== Cookie banner ===== */
     .cookie-banner{
       position:fixed;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
       z-index: 400;
       display:none;
     }
     .cookie-banner.show{display:block}
     .cookie-card{
-      margin:0 auto;
-      width: min(980px, 100%);
+      width: min(1120px, 100%);
+      margin: 0 auto;
       background:#fff;
       border: 1px solid rgba(11,16,36,.12);
       border-radius: 18px;
-      box-shadow: var(--shadow2);
+      box-shadow: var(--shadow);
       padding: 14px;
       display:flex;
       gap: 14px;
@@ -581,309 +742,370 @@
       justify-content:space-between;
       flex-wrap:wrap;
     }
-    .cookie-card p{
-      margin:0;
-      color:#4f5566;
-      line-height:1.45;
-      font-weight: 700;
-      font-size: 13px;
-      max-width: 70ch;
+    .cookie-text{
+      max-width: 72ch;
+      color:#2d2f37;
+      font-weight: 750;
+      line-height:1.5;
+      font-size: 12.5px;
     }
     .cookie-actions{
       display:flex;
       gap: 10px;
+      align-items:center;
       flex-wrap:wrap;
     }
-    .cookie-actions .btn{box-shadow:none}
-    .link{
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-weight: 900;
-    }
-
-    /* ===== Modal (Políticas) ===== */
-    .modal{
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.35);
-      z-index: 500;
-      display:none;
-      padding: 18px;
-    }
-    .modal.show{display:flex}
-    .modal-card{
-      margin:auto;
-      width: min(920px, 100%);
-      max-height: min(80vh, 720px);
-      background:#fff;
-      border-radius: 18px;
+    .cookie-actions button{
+      padding: 11px 14px;
+      border-radius: 999px;
       border: 1px solid rgba(11,16,36,.12);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-    }
-    .modal-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(11,16,36,.10);
-    }
-    .modal-title{
-      font-family:"DM Serif Display", serif;
-      font-size: 20px;
-      color:#0b0b10;
-    }
-    .modal-body{
-      padding: 14px 16px;
-      overflow:auto;
-      color:#3f4656;
-      line-height:1.65;
-      font-weight: 650;
-      font-size: 13px;
-    }
-    .modal-body h3{
-      margin: 14px 0 6px;
-      color:#0b0b10;
-      font-size: 14px;
-      letter-spacing:-.01em;
-    }
-    .modal-body ul{margin: 6px 0 10px 18px}
-    .small{
+      background:#fff;
+      font-weight: 1000;
+      cursor:pointer;
       font-size: 12px;
-      opacity:.9;
-      font-weight: 700;
+    }
+    .cookie-actions .accept{
+      background: var(--btn);
+      color:#fff;
+      border:0;
+      box-shadow: var(--shadow2);
     }
 
-    /* ===== ✅ MOBILE RULE: solo MENU + ES/EN en la barra superior ===== */
-    @media (max-width: 768px){
-      /* Oculta brand, links y Book Now SOLO en móvil */
-      .brand,
-      .nav-links,
-      .book-btn{
-        display:none !important;
-      }
-      #topbar{
-        justify-content: space-between !important;
-      }
+    /* Cookie settings inside modal */
+    .switch{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px;
+      border:1px solid rgba(11,16,36,.10);
+      border-radius: 14px;
+      margin: 10px 0;
+      background:#fff;
     }
+    .switch small{display:block; color: var(--muted); font-weight: 750; line-height:1.4}
+    .toggle{
+      width: 50px; height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(11,16,36,.16);
+      background: rgba(11,16,36,.08);
+      position:relative;
+      cursor:pointer;
+      flex: 0 0 auto;
+    }
+    .toggle i{
+      position:absolute;
+      top: 3px; left: 3px;
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background:#fff;
+      box-shadow: 0 6px 14px rgba(0,0,0,.12);
+      transition: left .15s ease;
+    }
+    .toggle.on{background: rgba(255,79,163,.22); border-color: rgba(255,79,163,.35);}
+    .toggle.on i{left: 25px;}
   </style>
 </head>
 
 <body>
   <div class="page-bg">
-    <div class="shell">
-
+    <div class="shell" id="top">
       <!-- TOP BAR -->
-      <header id="topbar" aria-label="Barra superior">
-        <button class="menu-pill" type="button" id="menuBtn">
+      <header id="topbar" aria-label="Top bar">
+        <button class="menu-pill" id="menuBtn" type="button" aria-label="Menu">
           <span class="bars"><i></i></span>
-          MENU
+          <span data-i18n="menu">MENU</span>
         </button>
 
-        <div class="brand" aria-label="Marca">Masajes con Nury</div>
+        <div class="brand" data-i18n="brand">Masajes con Nury</div>
 
-        <nav class="nav-links" aria-label="Navegación">
-          <a href="#home" data-scroll="home">HOME</a>
-          <a href="#servicios" data-scroll="servicios">SERVICIOS</a>
-          <a href="#reservas" data-scroll="reservas">PAGES</a>
-          <a href="#contacto" data-scroll="contacto">CONTACTO</a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#home" data-scroll="home" data-i18n="nav_home">HOME</a>
+          <a href="#servicios" data-scroll="servicios" data-i18n="nav_services">SERVICIOS</a>
+          <a href="#galeria" data-scroll="galeria" data-i18n="nav_gallery">PAGES</a>
+          <a href="#contacto" data-scroll="contacto" data-i18n="nav_contact">CONTACTO</a>
         </nav>
 
         <div class="top-actions">
-          <button class="lang-pill" type="button" id="langToggle" aria-label="Cambiar idioma">
-            <strong id="langLeft">ES</strong><span>/</span><strong id="langRight">EN</strong>
+          <button class="lang-pill" id="langBtn" type="button" aria-label="Language switch">
+            <span id="langLeft">ES</span><span>/</span><span id="langRight">EN</span>
           </button>
-          <button class="book-btn" type="button" data-scroll-btn="reservas" id="bookNowBtn">Book Now</button>
+          <button class="book-btn" type="button" data-scroll-btn="reservas" data-i18n="book_now">Book Now</button>
         </div>
       </header>
 
+      <!-- SIDE MENU -->
+      <div class="sheet" id="sheet" aria-hidden="true">
+        <div class="sheet-panel" role="dialog" aria-label="Menu">
+          <div class="sheet-head">
+            <div class="sheet-title" data-i18n="menu_title">Menú</div>
+            <button class="xbtn" id="sheetClose" type="button">✕</button>
+          </div>
+
+          <a href="#home" data-scroll="home"><span data-i18n="nav_home2">Inicio</span> <span>›</span></a>
+          <a href="#servicios" data-scroll="servicios"><span data-i18n="nav_services2">Servicios</span> <span>›</span></a>
+          <a href="#reservas" data-scroll="reservas"><span data-i18n="nav_booking2">Reservas</span> <span>›</span></a>
+          <a href="#galeria" data-scroll="galeria"><span data-i18n="nav_gallery2">Galería</span> <span>›</span></a>
+          <a href="#contacto" data-scroll="contacto"><span data-i18n="nav_contact2">Contacto</span> <span>›</span></a>
+
+          <button class="cta" type="button" data-scroll-btn="reservas" data-i18n="cta_book">Reservar ahora</button>
+
+          <div style="margin-top:14px; padding-top:12px; border-top:1px solid rgba(11,16,36,.10);">
+            <a href="#" id="openLegalFromMenu"><span data-i18n="legal">Aviso Legal</span> <span>›</span></a>
+            <a href="#" id="openPrivacyFromMenu"><span data-i18n="privacy">Privacidad</span> <span>›</span></a>
+            <a href="#" id="openCookiesFromMenu"><span data-i18n="cookies">Cookies</span> <span>›</span></a>
+          </div>
+        </div>
+      </div>
+
       <!-- HERO -->
       <section class="hero" id="home">
-        <div class="container">
-          <div class="hero-grid">
-            <div class="hero-left">
-              <h1 data-i18n="hero_title">Masajes con<br>Nury</h1>
-              <p data-i18n="hero_sub">
-                Reserva tu cita en segundos. Masajes relajantes, descontracturantes y deportivos con un enfoque profesional y personalizado.
-              </p>
-
-              <div class="hero-ctas">
-                <button class="btn dark" type="button" data-scroll-btn="reservas" data-i18n="cta_appointment">Appointment</button>
-                <button class="btn" type="button" id="letsTalkBtn" data-i18n="cta_lets_talk">Let’s talk</button>
-              </div>
+        <div class="hero-grid">
+          <div>
+            <h1 data-i18n="hero_title">Masajes con<br>Nury</h1>
+            <p data-i18n="hero_sub">
+              Reserva tu cita en segundos. Masajes relajantes, descontracturantes y deportivos con un enfoque profesional y personalizado.
+            </p>
+            <div class="hero-ctas">
+              <button class="btn primary" type="button" data-scroll-btn="reservas" data-i18n="hero_btn_1">Appointment</button>
+              <button class="btn" id="talkBtn" type="button" data-i18n="hero_btn_2">Let’s talk</button>
             </div>
+          </div>
 
-            <div class="hero-right" aria-label="Foto principal">
-              <svg class="sparkle" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 1l1.3 6.1L19 9l-5.7 1.9L12 17l-1.3-6.1L5 9l5.7-1.9L12 1z" fill="#0b0b10" opacity=".55"/>
-              </svg>
-
-              <!-- FOTO HERO: cambia src por tu imagen -->
-              <div class="photo-blob">
-                <img src="assets/hero.jpg" alt="Masajes con Nury - Sala de masaje">
-              </div>
+          <div class="hero-img" aria-label="Hero image">
+            <!-- Desktop hero image (landscape ok) -->
+            <div class="circle">
+              <img id="heroImg" src="assets/hero-desktop.jpg" alt="Masajes con Nury">
             </div>
+            <svg class="spark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2l1.1 6.2L19 7l-5 3.1L15.2 16 12 12.9 8.8 16 10 10.1 5 7l5.9 1.2L12 2z" fill="rgba(11,16,36,.35)"/>
+            </svg>
           </div>
         </div>
 
-        <!-- Marquee -->
-        <div class="marquee-wrap" aria-hidden="true">
-          <div class="marquee">
-            <span data-i18n="marquee_1">Enjoyment — Your Relaxation Starts Here</span>
-            <span class="star">✦</span>
-            <span data-i18n="marquee_2">Enjoy 50% Off Your First Treatment</span>
-            <span class="star">✦</span>
-            <span data-i18n="marquee_1_dup">Enjoyment — Your Relaxation Starts Here</span>
-            <span class="star">✦</span>
-            <span data-i18n="marquee_2_dup">Enjoy 50% Off Your First Treatment</span>
+        <div class="ticker" aria-label="Offer ticker">
+          <div class="track">
+            <span data-i18n="ticker_1">Enjoyment — Your Relaxation Starts Here</span>
+            <span class="dot"></span>
+            <span data-i18n="ticker_2">Enjoy 50% Off Your First Treatment</span>
+            <span class="dot"></span>
+            <span data-i18n="ticker_1b">Enjoyment — Your Relaxation Starts Here</span>
+            <span class="dot"></span>
+            <span data-i18n="ticker_2b">Enjoy 50% Off Your First Treatment</span>
           </div>
         </div>
       </section>
 
+      <!-- MAIN -->
       <main class="container">
-        <!-- SERVICIOS -->
+        <!-- SERVICES -->
         <section class="section" id="servicios">
           <h2 data-i18n="services_title">Servicios</h2>
           <p class="lead" data-i18n="services_lead">Elige el tipo de masaje y reserva directamente en el calendario.</p>
 
           <div class="grid">
             <div class="card">
-              <h3 data-i18n="s1_title">Relajante</h3>
-              <p data-i18n="s1_desc">Para estrés, descanso y tensión general. Ideal para desconectar.</p>
-              <span class="tag" data-i18n="s1_tag">60 min · 50€</span>
+              <h3 data-i18n="svc_1_t">Relajante</h3>
+              <p data-i18n="svc_1_d">Para estrés, descanso y tensión general. Ideal para desconectar.</p>
+              <span class="tag" data-i18n="svc_1_tag">60 min · 50€</span>
             </div>
             <div class="card">
-              <h3 data-i18n="s2_title">Descontracturante</h3>
-              <p data-i18n="s2_desc">Enfoque muscular: espalda, cuello, piernas. Presión adaptada.</p>
-              <span class="tag" data-i18n="s2_tag">75 min · 65€</span>
+              <h3 data-i18n="svc_2_t">Descontracturante</h3>
+              <p data-i18n="svc_2_d">Enfoque muscular: espalda, cuello, piernas. Presión adaptada.</p>
+              <span class="tag" data-i18n="svc_2_tag">75 min · 65€</span>
             </div>
             <div class="card">
-              <h3 data-i18n="s3_title">Deportivo</h3>
-              <p data-i18n="s3_desc">Preparación y recuperación para actividad física.</p>
-              <span class="tag" data-i18n="s3_tag">90 min · 80€</span>
+              <h3 data-i18n="svc_3_t">Deportivo</h3>
+              <p data-i18n="svc_3_d">Preparación y recuperación para actividad física.</p>
+              <span class="tag" data-i18n="svc_3_tag">90 min · 80€</span>
             </div>
             <div class="card">
-              <h3 data-i18n="s4_title">Piedras calientes</h3>
-              <p data-i18n="s4_desc">Calor terapéutico + aromaterapia para soltar tensión.</p>
-              <span class="tag" data-i18n="s4_tag">75 min · 75€</span>
+              <h3 data-i18n="svc_4_t">Piedras calientes</h3>
+              <p data-i18n="svc_4_d">Calor terapéutico + aromaterapia para soltar tensión.</p>
+              <span class="tag" data-i18n="svc_4_tag">75 min · 75€</span>
             </div>
             <div class="card">
-              <h3 data-i18n="s5_title">Facial</h3>
-              <p data-i18n="s5_desc">Masaje suave + drenaje para rostro y tensión mandibular.</p>
-              <span class="tag" data-i18n="s5_tag">45 min · 45€</span>
+              <h3 data-i18n="svc_5_t">Facial</h3>
+              <p data-i18n="svc_5_d">Masaje suave + drenaje para rostro y tensión mandibular.</p>
+              <span class="tag" data-i18n="svc_5_tag">45 min · 45€</span>
             </div>
             <div class="card">
-              <h3 data-i18n="s6_title">Prenatal</h3>
-              <p data-i18n="s6_desc">Adaptado para embarazo (según caso) y bienestar general.</p>
-              <span class="tag" data-i18n="s6_tag">60 min · 55€</span>
+              <h3 data-i18n="svc_6_t">Prenatal</h3>
+              <p data-i18n="svc_6_d">Adaptado para embarazo (según caso) y bienestar general.</p>
+              <span class="tag" data-i18n="svc_6_tag">60 min · 55€</span>
             </div>
           </div>
         </section>
 
-        <!-- RESERVAS -->
+        <!-- BOOKING -->
         <section class="section" id="reservas">
           <h2 data-i18n="booking_title">Reservas (Calendario)</h2>
-          <p class="lead" data-i18n="booking_lead">
-            Selecciona un día y un horario. Los horarios reservados quedan bloqueados.
-          </p>
+          <p class="lead" data-i18n="booking_lead">Selecciona un día y un horario. Los horarios reservados quedan bloqueados.</p>
 
           <div class="booking-wrap">
-            <div class="calendar" aria-label="Calendario">
+            <!-- CALENDAR -->
+            <div class="panel" aria-label="Calendario">
               <div class="cal-top">
                 <div class="cal-title" id="calTitle">Mes Año</div>
                 <div class="cal-nav">
-                  <button class="cal-btn" id="prevMonth" type="button" aria-label="Mes anterior">‹</button>
-                  <button class="cal-btn" id="nextMonth" type="button" aria-label="Mes siguiente">›</button>
+                  <button class="cal-btn" id="prevMonth" type="button" aria-label="Previous month">‹</button>
+                  <button class="cal-btn" id="nextMonth" type="button" aria-label="Next month">›</button>
                 </div>
               </div>
 
-              <div class="cal-grid" id="dowRow">
-                <div class="dow" data-i18n="dow_1">L</div><div class="dow" data-i18n="dow_2">M</div><div class="dow" data-i18n="dow_3">X</div><div class="dow" data-i18n="dow_4">J</div><div class="dow" data-i18n="dow_5">V</div><div class="dow" data-i18n="dow_6">S</div><div class="dow" data-i18n="dow_7">D</div>
+              <div class="dow-row" id="dowRow">
+                <div class="dow" data-i18n="dow_1">L</div>
+                <div class="dow" data-i18n="dow_2">M</div>
+                <div class="dow" data-i18n="dow_3">X</div>
+                <div class="dow" data-i18n="dow_4">J</div>
+                <div class="dow" data-i18n="dow_5">V</div>
+                <div class="dow" data-i18n="dow_6">S</div>
+                <div class="dow" data-i18n="dow_7">D</div>
               </div>
-              <div class="cal-grid" id="calGrid"></div>
 
-              <p class="hint" style="margin-top:10px;" data-i18n="booking_hint">
-                • Días pasados se desactivan · • Punto rosa = hay reserva ese día
-              </p>
+              <!-- ✅ IMPORTANT: the days go here -->
+              <div class="cal-grid" id="calGrid" aria-label="Days grid"></div>
+
+              <p class="hint" id="calHint">• Días pasados se desactivan · • Punto rosa = hay reserva ese día</p>
             </div>
 
-            <div class="booking-panel" aria-label="Formulario de reserva">
+            <!-- FORM -->
+            <div class="panel" aria-label="Formulario de reserva">
               <div style="font-weight:1000; margin-bottom:6px;" data-i18n="your_appt">Tu cita</div>
               <div class="hint" id="selectedDayHint" data-i18n="pick_day">Elige un día en el calendario.</div>
 
               <div class="field">
-                <label data-i18n="service_label">Servicio *</label>
-                <select id="serviceSelect">
-                  <option value="" data-i18n="service_pick">Selecciona…</option>
-                  <option value="relajante">Relajante (60 min) — 50€</option>
-                  <option value="descontracturante">Descontracturante (75 min) — 65€</option>
-                  <option value="deportivo">Deportivo (90 min) — 80€</option>
-                  <option value="piedras">Piedras (75 min) — 75€</option>
-                  <option value="facial">Facial (45 min) — 45€</option>
-                  <option value="prenatal">Prenatal (60 min) — 55€</option>
+                <label data-i18n="field_service">Servicio *</label>
+                <select id="serviceSelect" aria-label="Service">
+                  <option value="" data-i18n="opt_select">Selecciona…</option>
+                  <option value="relajante" data-i18n="opt_relaj">Relajante (60 min) — 50€</option>
+                  <option value="descontracturante" data-i18n="opt_desc">Descontracturante (75 min) — 65€</option>
+                  <option value="deportivo" data-i18n="opt_dep">Deportivo (90 min) — 80€</option>
+                  <option value="piedras" data-i18n="opt_pied">Piedras (75 min) — 75€</option>
+                  <option value="facial" data-i18n="opt_fac">Facial (45 min) — 45€</option>
+                  <option value="prenatal" data-i18n="opt_pre">Prenatal (60 min) — 55€</option>
                 </select>
               </div>
 
               <div class="field">
-                <label data-i18n="time_label">Horario *</label>
+                <label data-i18n="field_time">Horario *</label>
                 <div class="slots" id="slots"></div>
                 <div class="hint" id="slotHint" data-i18n="slot_hint">Selecciona primero día + servicio para ver horarios.</div>
               </div>
 
               <div class="field">
-                <label data-i18n="name_label">Nombre *</label>
-                <input id="nameInput" placeholder="Tu nombre" />
-              </div>
-              <div class="field">
-                <label data-i18n="email_label">Email *</label>
-                <input id="emailInput" type="email" placeholder="tu@email.com" />
-              </div>
-              <div class="field">
-                <label data-i18n="phone_label">Teléfono *</label>
-                <input id="phoneInput" placeholder="+34 600 000 000" />
-              </div>
-              <div class="field">
-                <label data-i18n="notes_label">Notas (opcional)</label>
-                <textarea id="notesInput" data-i18n-ph="notes_ph" placeholder="Zonas a tratar, preferencias, lesiones, etc."></textarea>
+                <label data-i18n="field_name">Nombre *</label>
+                <input id="nameInput" placeholder="Tu nombre" data-i18n-placeholder="ph_name" />
               </div>
 
-              <button class="btn dark" id="confirmBtn" type="button" style="width:100%; padding:12px 14px; border-radius:16px;" data-i18n="confirm_btn">
+              <div class="field">
+                <label data-i18n="field_email">Email *</label>
+                <input id="emailInput" type="email" placeholder="tu@email.com" data-i18n-placeholder="ph_email" />
+              </div>
+
+              <div class="field">
+                <label data-i18n="field_phone">Teléfono *</label>
+                <input id="phoneInput" placeholder="+34 600 000 000" data-i18n-placeholder="ph_phone" />
+              </div>
+
+              <div class="field">
+                <label data-i18n="field_notes">Notas (opcional)</label>
+                <textarea id="notesInput" placeholder="Zonas a tratar, preferencias, lesiones, etc." data-i18n-placeholder="ph_notes"></textarea>
+              </div>
+
+              <button class="btn primary" id="confirmBtn" type="button" style="width:100%; border-radius:16px;" data-i18n="confirm">
                 Confirmar reserva
               </button>
 
               <div class="error" id="errorBox"></div>
-              <div class="alert" id="okBox" data-i18n="ok_demo">✅ Reserva guardada (demo).</div>
+              <div class="alert" id="okBox" data-i18n="saved_demo">✅ Reserva guardada (demo).</div>
 
-              <p class="hint" style="margin-top:12px;" data-i18n="privacy_hint">
-                Al reservar, aceptas la Política de Privacidad. Puedes revisar cookies y políticas en el pie de página.
-              </p>
+              <div class="fineprint" id="fineprint">
+                <span data-i18n="fineprint_1">Al reservar, aceptas la</span>
+                <a href="#" id="openPrivacyInline" style="text-decoration:underline; font-weight:1000;" data-i18n="privacy">Política de Privacidad</a>.
+                <span data-i18n="fineprint_2">Puedes revisar cookies y políticas en el pie de página.</span>
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- GALERÍA -->
+        <!-- GALLERY -->
         <section class="section" id="galeria">
           <h2 data-i18n="gallery_title">Galería</h2>
-          <p class="lead" data-i18n="gallery_lead">Espacios para fotos o videos reales del negocio.</p>
+          <p class="lead" data-i18n="gallery_lead">
+            Fotos reales del espacio. En móvil verás un carrusel con fotos verticales.
+          </p>
 
-          <div class="gallery">
-            <div class="ph">VIDEO PRINCIPAL<br><span class="small">(mp4 / YouTube embed)</span></div>
-            <div class="ph small">FOTO 1</div>
-            <div class="ph small">FOTO 2</div>
-            <div class="ph small">FOTO 3</div>
-            <div class="ph small">FOTO 4</div>
-            <div class="ph small">FOTO 5</div>
+          <!-- Desktop gallery (different images) -->
+          <div class="gallery-desktop" aria-label="Desktop gallery">
+            <div class="gcard big">
+              <img src="assets/desk-1.jpg" alt="Espacio principal">
+              <div class="glabel" data-i18n="gal_main">Espacio principal</div>
+            </div>
+            <div class="gcard">
+              <img src="assets/desk-2.jpg" alt="Detalle 1">
+              <div class="glabel" data-i18n="gal_detail1">Detalle</div>
+            </div>
+            <div class="gcard">
+              <img src="assets/desk-3.jpg" alt="Detalle 2">
+              <div class="glabel" data-i18n="gal_detail2">Detalle</div>
+            </div>
+            <div class="gcard">
+              <img src="assets/desk-4.jpg" alt="Detalle 3">
+              <div class="glabel" data-i18n="gal_detail3">Detalle</div>
+            </div>
+            <div class="gcard">
+              <img src="assets/desk-5.jpg" alt="Detalle 4">
+              <div class="glabel" data-i18n="gal_detail4">Detalle</div>
+            </div>
+            <div class="gcard">
+              <img src="assets/desk-6.jpg" alt="Detalle 5">
+              <div class="glabel" data-i18n="gal_detail5">Detalle</div>
+            </div>
           </div>
 
-          <footer id="contacto">
-            <div>© <span id="year"></span> Masajes con Nury</div>
-            <div>
-              <a href="#" class="link" id="openCookiesLink" data-i18n="cookies_link">Cookies</a> ·
-              <a href="#" class="link" id="openPrivacyLink" data-i18n="privacy_link">Privacidad</a> ·
-              <a href="#" class="link" id="openLegalLink" data-i18n="legal_link">Aviso legal</a>
+          <!-- Mobile carousel (different images, vertical) -->
+          <div class="gallery-mobile" aria-label="Mobile gallery carousel">
+            <div class="carousel" id="carousel">
+              <div class="slide">
+                <img src="assets/mob-1.jpg" alt="Foto móvil 1 (vertical)">
+                <div class="glabel" data-i18n="gal_m1">Ambiente</div>
+              </div>
+              <div class="slide">
+                <img src="assets/mob-2.jpg" alt="Foto móvil 2 (vertical)">
+                <div class="glabel" data-i18n="gal_m2">Cabina</div>
+              </div>
+              <div class="slide">
+                <img src="assets/mob-3.jpg" alt="Foto móvil 3 (vertical)">
+                <div class="glabel" data-i18n="gal_m3">Detalle</div>
+              </div>
+              <div class="slide">
+                <img src="assets/mob-4.jpg" alt="Foto móvil 4 (vertical)">
+                <div class="glabel" data-i18n="gal_m4">Recepción</div>
+              </div>
+            </div>
+            <div class="dots" id="dots" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="section" id="contacto">
+          <h2 data-i18n="contact_title">Contacto</h2>
+          <p class="lead" data-i18n="contact_lead">
+            ¿Tienes dudas antes de reservar? Escríbenos por WhatsApp.
+          </p>
+          <div class="card">
+            <h3 data-i18n="contact_whatsapp">WhatsApp</h3>
+            <p>
+              <span data-i18n="contact_hint">Haz clic para abrir conversación:</span>
+              <a href="#" id="waLink" style="text-decoration:underline; font-weight:1000;">+34 600 000 000</a>
+            </p>
+          </div>
+
+          <footer>
+            <div>© <span id="year"></span> <span data-i18n="brand">Masajes con Nury</span></div>
+            <div class="footer-links">
+              <a href="#" id="openLegal" data-i18n="legal">Aviso Legal</a>
+              <a href="#" id="openPrivacy" data-i18n="privacy">Privacidad</a>
+              <a href="#" id="openCookies" data-i18n="cookies">Cookies</a>
+              <a href="#" id="openCookieSettings" data-i18n="cookie_settings">Preferencias de cookies</a>
             </div>
           </footer>
         </section>
@@ -891,64 +1113,96 @@
     </div>
   </div>
 
-  <!-- SIDE MENU -->
-  <div class="sheet" id="sheet" aria-hidden="true">
-    <div class="sheet-panel" role="dialog" aria-label="Menú">
-      <div class="sheet-head">
-        <div class="sheet-title">Masajes con Nury</div>
-        <button class="xbtn" type="button" id="closeSheet" aria-label="Cerrar">✕</button>
-      </div>
-
-      <a href="#home" data-scroll="home" data-i18n="m_home">Home</a>
-      <a href="#servicios" data-scroll="servicios" data-i18n="m_services">Servicios</a>
-      <a href="#reservas" data-scroll="reservas" data-i18n="m_booking">Reservas</a>
-      <a href="#galeria" data-scroll="galeria" data-i18n="m_gallery">Galería</a>
-      <a href="#contacto" data-scroll="contacto" data-i18n="m_contact">Contacto</a>
-
-      <div class="sheet-actions">
-        <button class="btn dark" type="button" data-scroll-btn="reservas" data-i18n="m_book">Book Now</button>
-        <button class="btn" type="button" id="sheetWhatsApp" data-i18n="m_whatsapp">WhatsApp</button>
-      </div>
-
-      <p class="hint" style="margin-top:12px;" data-i18n="sheet_hint">
-        Tip: En móvil, arriba solo verás MENU + ES/EN (como pediste).
-      </p>
-    </div>
-  </div>
-
-  <!-- COOKIE BANNER -->
-  <div class="cookie-banner" id="cookieBanner" aria-live="polite">
+  <!-- ===== Cookie Banner ===== -->
+  <div class="cookie-banner" id="cookieBanner">
     <div class="cookie-card">
-      <p data-i18n="cookie_text">
-        Usamos cookies esenciales para que la web funcione y (opcionalmente) cookies analíticas para mejorar la experiencia.
-        Puedes aceptar, rechazar o configurar.
-      </p>
+      <div class="cookie-text" id="cookieText">
+        Usamos cookies para que el sitio funcione y, si lo aceptas, para medir el uso (analíticas).
+        Puedes aceptar, rechazar o configurar tus preferencias. Más info en la Política de Cookies.
+      </div>
       <div class="cookie-actions">
-        <button class="btn" type="button" id="cookieSettingsBtn" data-i18n="cookie_settings">Configurar</button>
-        <button class="btn" type="button" id="cookieRejectBtn" data-i18n="cookie_reject">Rechazar</button>
-        <button class="btn dark" type="button" id="cookieAcceptBtn" data-i18n="cookie_accept">Aceptar</button>
+        <button id="cookieReject" type="button" data-i18n="cookie_reject">Rechazar</button>
+        <button id="cookieSettingsBtn" type="button" data-i18n="cookie_settings">Configurar</button>
+        <button class="accept" id="cookieAccept" type="button" data-i18n="cookie_accept">Aceptar</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: Policies -->
+  <!-- ===== Policies Modal ===== -->
   <div class="modal" id="policyModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-label="Políticas">
+    <div class="modal-card" role="dialog" aria-label="Policies">
       <div class="modal-head">
-        <div class="modal-title" id="modalTitle">Políticas</div>
-        <button class="xbtn" type="button" id="closeModal" aria-label="Cerrar">✕</button>
+        <div class="modal-title" id="policyTitle">Políticas</div>
+        <button class="modal-close" id="policyClose" type="button">✕</button>
       </div>
-      <div class="modal-body" id="modalBody"></div>
+
+      <div class="tabs" id="policyTabs">
+        <button class="tab" data-doc="legal" id="tabLegal" type="button" data-i18n="legal">Aviso Legal</button>
+        <button class="tab" data-doc="privacy" id="tabPrivacy" type="button" data-i18n="privacy">Privacidad</button>
+        <button class="tab" data-doc="cookies" id="tabCookies" type="button" data-i18n="cookies">Cookies</button>
+        <button class="tab" data-doc="cookieSettings" id="tabCookieSettings" type="button" data-i18n="cookie_settings">Preferencias</button>
+      </div>
+
+      <div class="doc" id="docLegal" style="display:none;"></div>
+      <div class="doc" id="docPrivacy" style="display:none;"></div>
+      <div class="doc" id="docCookies" style="display:none;"></div>
+
+      <div class="doc" id="docCookieSettings" style="display:none;">
+        <h3 data-i18n="cs_title">Preferencias de cookies</h3>
+        <p data-i18n="cs_intro">
+          Puedes activar o desactivar las cookies no esenciales. Las esenciales siempre están activas porque permiten el funcionamiento básico del sitio.
+        </p>
+
+        <div class="switch">
+          <div>
+            <div style="font-weight:1000;" data-i18n="cs_essential">Cookies esenciales (obligatorias)</div>
+            <small data-i18n="cs_essential_d">Necesarias para funciones básicas (por ejemplo, recordar tu elección de cookies).</small>
+          </div>
+          <div class="toggle on" aria-disabled="true" title="Always on"><i></i></div>
+        </div>
+
+        <div class="switch">
+          <div>
+            <div style="font-weight:1000;" data-i18n="cs_analytics">Cookies analíticas</div>
+            <small data-i18n="cs_analytics_d">Nos ayudan a entender el uso del sitio. (En esta demo no cargamos herramientas externas.)</small>
+          </div>
+          <div class="toggle" id="toggleAnalytics" role="switch" aria-checked="false"><i></i></div>
+        </div>
+
+        <div class="switch">
+          <div>
+            <div style="font-weight:1000;" data-i18n="cs_marketing">Cookies de marketing</div>
+            <small data-i18n="cs_marketing_d">Se usan para publicidad personalizada. (Por defecto desactivadas.)</small>
+          </div>
+          <div class="toggle" id="toggleMarketing" role="switch" aria-checked="false"><i></i></div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+          <button class="btn" id="saveCookiePrefs" type="button" data-i18n="cs_save">Guardar preferencias</button>
+          <button class="btn primary" id="acceptAllFromModal" type="button" data-i18n="cs_accept_all">Aceptar todas</button>
+          <button class="btn" id="rejectAllFromModal" type="button" data-i18n="cs_reject_all">Rechazar todas</button>
+        </div>
+
+        <p class="hint" style="margin-top:10px;" data-i18n="cs_note">
+          Nota: si en el futuro añades Google Analytics, Meta Pixel, etc., solo deberías cargarlos cuando el usuario acepte cookies analíticas/marketing.
+        </p>
+      </div>
     </div>
   </div>
 
   <script>
-    // ===== Helpers =====
-    const $ = (s)=>document.querySelector(s);
-    const $$ = (s)=>document.querySelectorAll(s);
-    const yearEl = $("#year");
-    if(yearEl) yearEl.textContent = new Date().getFullYear();
+    /***********************
+     * CONFIG (EDIT ME)
+     ***********************/
+    const WHATSAPP_NUMBER = "34600000000"; // <— cambia el número (sin + ni espacios)
+    // Imágenes:
+    // - Desktop: assets/desk-1.jpg ... assets/desk-6.jpg
+    // - Mobile (vertical): assets/mob-1.jpg ... assets/mob-4.jpg
+    // - Hero: assets/hero-desktop.jpg y assets/hero-mobile.jpg (opcional)
 
+    /***********************
+     * Scroll helpers
+     ***********************/
     function scrollToId(id){
       const el = document.getElementById(id);
       if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
@@ -966,331 +1220,61 @@
       }
     });
 
-    // ===== Side menu open/close =====
-    const sheet = $("#sheet");
-    const menuBtn = $("#menuBtn");
-    const closeSheet = $("#closeSheet");
+    /***********************
+     * Side menu
+     ***********************/
+    const sheet = document.getElementById('sheet');
+    const menuBtn = document.getElementById('menuBtn');
+    const sheetClose = document.getElementById('sheetClose');
 
-    function openSheet(){ sheet.classList.add('show'); sheet.setAttribute("aria-hidden","false"); }
-    function closeSheetFn(){ sheet.classList.remove('show'); sheet.setAttribute("aria-hidden","true"); }
+    function openSheet(){ sheet.classList.add('show'); sheet.setAttribute('aria-hidden','false'); }
+    function closeSheet(){ sheet.classList.remove('show'); sheet.setAttribute('aria-hidden','true'); }
 
-    menuBtn?.addEventListener('click', openSheet);
-    closeSheet?.addEventListener('click', closeSheetFn);
-    sheet?.addEventListener('click', (e)=>{ if(e.target === sheet) closeSheetFn(); });
+    menuBtn.addEventListener('click', openSheet);
+    sheetClose.addEventListener('click', closeSheet);
+    sheet.addEventListener('click', (e)=>{ if(e.target === sheet) closeSheet(); });
     document.addEventListener('click', (e)=>{
-      if(e.target.closest('.sheet-panel a') || e.target.closest('.sheet-panel [data-scroll-btn]')) closeSheetFn();
+      if(e.target.closest('#sheet a') || e.target.closest('[data-scroll-btn]')) closeSheet();
     });
 
-    // ===== WhatsApp & Let’s talk =====
-    const WA_NUMBER = "34600000000"; // <-- CAMBIA ESTE NÚMERO
-    $("#letsTalkBtn")?.addEventListener('click', ()=> window.open(`https://wa.me/${WA_NUMBER}`, "_blank"));
-    $("#sheetWhatsApp")?.addEventListener('click', ()=> window.open(`https://wa.me/${WA_NUMBER}`, "_blank"));
-
-    // ===== Language (ES/EN) =====
-    const langToggle = $("#langToggle");
-    const langLeft = $("#langLeft");
-    const langRight = $("#langRight");
-
-    const dict = {
-      es: {
-        hero_title:"Masajes con<br>Nury",
-        hero_sub:"Reserva tu cita en segundos. Masajes relajantes, descontracturantes y deportivos con un enfoque profesional y personalizado.",
-        cta_appointment:"Appointment",
-        cta_lets_talk:"Let’s talk",
-        marquee_1:"Enjoyment — Your Relaxation Starts Here",
-        marquee_2:"Enjoy 50% Off Your First Treatment",
-        marquee_1_dup:"Enjoyment — Your Relaxation Starts Here",
-        marquee_2_dup:"Enjoy 50% Off Your First Treatment",
-
-        services_title:"Servicios",
-        services_lead:"Elige el tipo de masaje y reserva directamente en el calendario.",
-        s1_title:"Relajante", s1_desc:"Para estrés, descanso y tensión general. Ideal para desconectar.", s1_tag:"60 min · 50€",
-        s2_title:"Descontracturante", s2_desc:"Enfoque muscular: espalda, cuello, piernas. Presión adaptada.", s2_tag:"75 min · 65€",
-        s3_title:"Deportivo", s3_desc:"Preparación y recuperación para actividad física.", s3_tag:"90 min · 80€",
-        s4_title:"Piedras calientes", s4_desc:"Calor terapéutico + aromaterapia para soltar tensión.", s4_tag:"75 min · 75€",
-        s5_title:"Facial", s5_desc:"Masaje suave + drenaje para rostro y tensión mandibular.", s5_tag:"45 min · 45€",
-        s6_title:"Prenatal", s6_desc:"Adaptado para embarazo (según caso) y bienestar general.", s6_tag:"60 min · 55€",
-
-        booking_title:"Reservas (Calendario)",
-        booking_lead:"Selecciona un día y un horario. Los horarios reservados quedan bloqueados.",
-        booking_hint:"• Días pasados se desactivan · • Punto rosa = hay reserva ese día",
-        your_appt:"Tu cita",
-        pick_day:"Elige un día en el calendario.",
-        service_label:"Servicio *",
-        service_pick:"Selecciona…",
-        time_label:"Horario *",
-        slot_hint:"Selecciona primero día + servicio para ver horarios.",
-        name_label:"Nombre *",
-        email_label:"Email *",
-        phone_label:"Teléfono *",
-        notes_label:"Notas (opcional)",
-        notes_ph:"Zonas a tratar, preferencias, lesiones, etc.",
-        confirm_btn:"Confirmar reserva",
-        ok_demo:"✅ Reserva guardada (demo).",
-        privacy_hint:"Al reservar, aceptas la Política de Privacidad. Puedes revisar cookies y políticas en el pie de página.",
-
-        gallery_title:"Galería",
-        gallery_lead:"Espacios para fotos o videos reales del negocio.",
-        cookies_link:"Cookies",
-        privacy_link:"Privacidad",
-        legal_link:"Aviso legal",
-
-        m_home:"Home",
-        m_services:"Servicios",
-        m_booking:"Reservas",
-        m_gallery:"Galería",
-        m_contact:"Contacto",
-        m_book:"Book Now",
-        m_whatsapp:"WhatsApp",
-        sheet_hint:"Tip: En móvil, arriba solo verás MENU + ES/EN (como pediste).",
-
-        dow_1:"L", dow_2:"M", dow_3:"X", dow_4:"J", dow_5:"V", dow_6:"S", dow_7:"D",
-
-        cookie_text:"Usamos cookies esenciales para que la web funcione y (opcionalmente) cookies analíticas para mejorar la experiencia. Puedes aceptar, rechazar o configurar.",
-        cookie_settings:"Configurar",
-        cookie_reject:"Rechazar",
-        cookie_accept:"Aceptar"
-      },
-      en: {
-        hero_title:"Massages with<br>Nury",
-        hero_sub:"Book your appointment in seconds. Relaxing, deep tissue and sports massages with a professional and personalized approach.",
-        cta_appointment:"Appointment",
-        cta_lets_talk:"Let’s talk",
-        marquee_1:"Enjoyment — Your Relaxation Starts Here",
-        marquee_2:"Enjoy 50% Off Your First Treatment",
-        marquee_1_dup:"Enjoyment — Your Relaxation Starts Here",
-        marquee_2_dup:"Enjoy 50% Off Your First Treatment",
-
-        services_title:"Services",
-        services_lead:"Choose your massage and book directly on the calendar.",
-        s1_title:"Relaxing", s1_desc:"For stress relief and overall tension. Perfect to unwind.", s1_tag:"60 min · €50",
-        s2_title:"Deep Tissue", s2_desc:"Muscle-focused: back, neck, legs. Adjustable pressure.", s2_tag:"75 min · €65",
-        s3_title:"Sports", s3_desc:"Preparation and recovery for physical activity.", s3_tag:"90 min · €80",
-        s4_title:"Hot Stones", s4_desc:"Therapeutic heat + aromatherapy to release tension.", s4_tag:"75 min · €75",
-        s5_title:"Facial", s5_desc:"Gentle massage + drainage for face and jaw tension.", s5_tag:"45 min · €45",
-        s6_title:"Prenatal", s6_desc:"Tailored for pregnancy (case-by-case) and wellbeing.", s6_tag:"60 min · €55",
-
-        booking_title:"Booking (Calendar)",
-        booking_lead:"Select a day and a time. Booked slots are blocked.",
-        booking_hint:"• Past days are disabled · • Pink dot = booking on that day",
-        your_appt:"Your appointment",
-        pick_day:"Pick a day on the calendar.",
-        service_label:"Service *",
-        service_pick:"Select…",
-        time_label:"Time *",
-        slot_hint:"Pick day + service first to see available times.",
-        name_label:"Name *",
-        email_label:"Email *",
-        phone_label:"Phone *",
-        notes_label:"Notes (optional)",
-        notes_ph:"Areas to treat, preferences, injuries, etc.",
-        confirm_btn:"Confirm booking",
-        ok_demo:"✅ Booking saved (demo).",
-        privacy_hint:"By booking, you accept the Privacy Policy. Review cookies and policies in the footer.",
-
-        gallery_title:"Gallery",
-        gallery_lead:"Placeholders for real photos or videos from the business.",
-        cookies_link:"Cookies",
-        privacy_link:"Privacy",
-        legal_link:"Legal notice",
-
-        m_home:"Home",
-        m_services:"Services",
-        m_booking:"Booking",
-        m_gallery:"Gallery",
-        m_contact:"Contact",
-        m_book:"Book Now",
-        m_whatsapp:"WhatsApp",
-        sheet_hint:"Tip: On mobile, the top bar shows only MENU + ES/EN (as requested).",
-
-        dow_1:"M", dow_2:"T", dow_3:"W", dow_4:"T", dow_5:"F", dow_6:"S", dow_7:"S",
-
-        cookie_text:"We use essential cookies for the website to function and (optionally) analytics cookies to improve your experience. You can accept, reject or configure.",
-        cookie_settings:"Settings",
-        cookie_reject:"Reject",
-        cookie_accept:"Accept"
-      }
-    };
-
-    function applyLang(lang){
-      const d = dict[lang];
-      document.documentElement.lang = lang === "es" ? "es" : "en";
-
-      // Visual toggle emphasis
-      if(langLeft && langRight){
-        if(lang === "es"){ langLeft.style.opacity = "1"; langRight.style.opacity = ".55"; }
-        else{ langLeft.style.opacity = ".55"; langRight.style.opacity = "1"; }
-      }
-
-      // data-i18n
-      $$("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        if(d[key] !== undefined) el.innerHTML = d[key];
-      });
-      // placeholders
-      $$("[data-i18n-ph]").forEach(el=>{
-        const key = el.getAttribute("data-i18n-ph");
-        if(d[key] !== undefined) el.setAttribute("placeholder", d[key]);
-      });
-
-      // Update month name in calendar
-      renderCalendar();
-      buildSlots();
-      localStorage.setItem("nury_lang", lang);
+    /***********************
+     * WhatsApp
+     ***********************/
+    function openWA(){
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}`, '_blank');
     }
+    document.getElementById('talkBtn').addEventListener('click', openWA);
+    document.getElementById('waLink').addEventListener('click', (e)=>{ e.preventDefault(); openWA(); });
 
-    const savedLang = localStorage.getItem("nury_lang") || "es";
-    applyLang(savedLang);
+    /***********************
+     * Calendar Booking (localStorage demo)
+     ***********************/
+    const calTitle = document.getElementById('calTitle');
+    const calGrid  = document.getElementById('calGrid');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
 
-    langToggle?.addEventListener("click", ()=>{
-      const current = localStorage.getItem("nury_lang") || "es";
-      applyLang(current === "es" ? "en" : "es");
-    });
+    const serviceSelect = document.getElementById('serviceSelect');
+    const slotsWrap = document.getElementById('slots');
+    const slotHint = document.getElementById('slotHint');
 
-    // ===== Policies (ES) =====
-    const policyModal = $("#policyModal");
-    const modalTitle = $("#modalTitle");
-    const modalBody = $("#modalBody");
-    const closeModal = $("#closeModal");
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+    const phoneInput = document.getElementById('phoneInput');
+    const notesInput = document.getElementById('notesInput');
 
-    function openModal(title, html){
-      modalTitle.textContent = title;
-      modalBody.innerHTML = html;
-      policyModal.classList.add("show");
-      policyModal.setAttribute("aria-hidden","false");
-    }
-    function closeModalFn(){
-      policyModal.classList.remove("show");
-      policyModal.setAttribute("aria-hidden","true");
-    }
-    closeModal?.addEventListener("click", closeModalFn);
-    policyModal?.addEventListener("click", (e)=>{ if(e.target === policyModal) closeModalFn(); });
-
-    const cookiesES = `
-      <p class="small"><strong>Última actualización:</strong> ${new Date().toISOString().slice(0,10)}</p>
-      <h3>1. ¿Qué son las cookies?</h3>
-      <p>Las cookies son pequeños archivos que se almacenan en tu dispositivo cuando visitas una web. Sirven para garantizar el funcionamiento, recordar preferencias o medir el uso del sitio.</p>
-
-      <h3>2. Tipos de cookies que usamos</h3>
-      <ul>
-        <li><strong>Esenciales (siempre activas):</strong> necesarias para que la web funcione (por ejemplo, guardar tu elección de idioma o el estado del banner).</li>
-        <li><strong>Analíticas (opcionales):</strong> para entender el uso del sitio y mejorar la experiencia. (En esta demo no instalamos analíticas externas.)</li>
-      </ul>
-
-      <h3>3. ¿Cómo puedes gestionar las cookies?</h3>
-      <p>Puedes aceptar, rechazar o configurar desde el banner. También puedes borrar cookies desde la configuración de tu navegador.</p>
-
-      <h3>4. Responsable</h3>
-      <p><strong>Masajes con Nury</strong> — Completa aquí los datos del responsable (nombre/empresa, NIF, dirección, email).</p>
-    `;
-
-    const privacyES = `
-      <p class="small"><strong>Última actualización:</strong> ${new Date().toISOString().slice(0,10)}</p>
-      <h3>1. Responsable del tratamiento</h3>
-      <p><strong>Masajes con Nury</strong> (completa datos: titular, NIF, domicilio, email).</p>
-
-      <h3>2. Datos que recopilamos</h3>
-      <ul>
-        <li>Datos de contacto: nombre, email, teléfono.</li>
-        <li>Datos de reserva: fecha, hora, servicio y notas.</li>
-      </ul>
-
-      <h3>3. Finalidad</h3>
-      <p>Gestionar tu solicitud de cita, comunicación y coordinación del servicio.</p>
-
-      <h3>4. Base legal</h3>
-      <p>Ejecución de medidas precontractuales/contrato (gestionar la cita) y consentimiento para comunicaciones cuando aplique.</p>
-
-      <h3>5. Conservación</h3>
-      <p>Conservaremos los datos el tiempo necesario para la gestión de la cita y los plazos legales aplicables.</p>
-
-      <h3>6. Destinatarios</h3>
-      <p>No cedemos datos a terceros salvo obligación legal. Si integras herramientas externas (Google Calendar, email marketing, analítica), debes listarlas aquí.</p>
-
-      <h3>7. Derechos</h3>
-      <p>Puedes ejercer acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a <strong>tu-email@dominio.com</strong>. También puedes reclamar ante la AEPD.</p>
-
-      <h3>8. Medidas de seguridad</h3>
-      <p>Adoptamos medidas técnicas y organizativas razonables para proteger los datos.</p>
-
-      <p class="small"><em>Nota:</em> en esta web las reservas se guardan en tu navegador (localStorage) como demo. Para producción real (España), lo normal es enviarlas a un servidor/correo/CRM y documentar proveedores.</p>
-    `;
-
-    const legalES = `
-      <p class="small"><strong>Última actualización:</strong> ${new Date().toISOString().slice(0,10)}</p>
-      <h3>1. Identificación</h3>
-      <p>En cumplimiento de la LSSI-CE, se informa que el titular de este sitio es <strong>Masajes con Nury</strong>. Completa aquí: nombre/razón social, NIF, domicilio, email de contacto.</p>
-
-      <h3>2. Objeto</h3>
-      <p>Este sitio ofrece información sobre servicios de masaje y permite solicitar/gestionar citas.</p>
-
-      <h3>3. Propiedad intelectual</h3>
-      <p>Los contenidos, textos e imágenes son propiedad del titular o se usan con licencia. Queda prohibida su reproducción sin autorización.</p>
-
-      <h3>4. Responsabilidad</h3>
-      <p>El titular no se hace responsable de un mal uso del sitio ni de daños derivados de terceros o enlaces externos.</p>
-
-      <h3>5. Legislación aplicable</h3>
-      <p>La relación se rige por la normativa española. Para cualquier conflicto, se someterá a los juzgados y tribunales competentes según normativa aplicable.</p>
-    `;
-
-    $("#openCookiesLink")?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("Política de Cookies", cookiesES); });
-    $("#openPrivacyLink")?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("Política de Privacidad", privacyES); });
-    $("#openLegalLink")?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("Aviso legal", legalES); });
-
-    // ===== Cookies banner logic (simple, compliant-style UI) =====
-    const cookieBanner = $("#cookieBanner");
-    const cookieAcceptBtn = $("#cookieAcceptBtn");
-    const cookieRejectBtn = $("#cookieRejectBtn");
-    const cookieSettingsBtn = $("#cookieSettingsBtn");
-
-    function showCookiesIfNeeded(){
-      const saved = localStorage.getItem("nury_cookie_consent");
-      if(!saved){
-        cookieBanner.classList.add("show");
-      }
-    }
-    function setConsent(value){
-      localStorage.setItem("nury_cookie_consent", value); // "accepted" | "rejected" | "custom"
-      cookieBanner.classList.remove("show");
-    }
-    cookieAcceptBtn?.addEventListener("click", ()=> setConsent("accepted"));
-    cookieRejectBtn?.addEventListener("click", ()=> setConsent("rejected"));
-    cookieSettingsBtn?.addEventListener("click", ()=>{
-      // En esta versión simple, "configurar" abre la política (y guardamos custom)
-      setConsent("custom");
-      openModal("Política de Cookies", cookiesES);
-    });
-
-    showCookiesIfNeeded();
-
-    // ===== Calendar Booking (localStorage demo) =====
-    const calTitle = $("#calTitle");
-    const calGrid  = $("#calGrid");
-    const prevMonthBtn = $("#prevMonth");
-    const nextMonthBtn = $("#nextMonth");
-
-    const serviceSelect = $("#serviceSelect");
-    const slotsWrap = $("#slots");
-    const slotHint = $("#slotHint");
-
-    const nameInput = $("#nameInput");
-    const emailInput = $("#emailInput");
-    const phoneInput = $("#phoneInput");
-    const notesInput = $("#notesInput");
-
-    const confirmBtn = $("#confirmBtn");
-    const errorBox = $("#errorBox");
-    const okBox = $("#okBox");
-    const selectedDayHint = $("#selectedDayHint");
+    const confirmBtn = document.getElementById('confirmBtn');
+    const errorBox = document.getElementById('errorBox');
+    const okBox = document.getElementById('okBox');
+    const selectedDayHint = document.getElementById('selectedDayHint');
 
     const services = {
-      relajante: { nameES:"Relajante", nameEN:"Relaxing", duration:60, price:"50€" },
-      descontracturante: { nameES:"Descontracturante", nameEN:"Deep Tissue", duration:75, price:"65€" },
-      deportivo: { nameES:"Deportivo", nameEN:"Sports", duration:90, price:"80€" },
-      piedras: { nameES:"Piedras", nameEN:"Hot Stones", duration:75, price:"75€" },
-      facial: { nameES:"Facial", nameEN:"Facial", duration:45, price:"45€" },
-      prenatal: { nameES:"Prenatal", nameEN:"Prenatal", duration:60, price:"55€" },
+      relajante: { name_es:"Relajante", name_en:"Relaxing", duration:60, price:"50€" },
+      descontracturante: { name_es:"Descontracturante", name_en:"Deep tissue", duration:75, price:"65€" },
+      deportivo: { name_es:"Deportivo", name_en:"Sports", duration:90, price:"80€" },
+      piedras: { name_es:"Piedras calientes", name_en:"Hot stones", duration:75, price:"75€" },
+      facial: { name_es:"Facial", name_en:"Facial", duration:45, price:"45€" },
+      prenatal: { name_es:"Prenatal", name_en:"Prenatal", duration:60, price:"55€" },
     };
 
     const OPEN = 9;
@@ -1327,65 +1311,65 @@
     let selectedDateStr = "";
     let selectedTimeStr = "";
 
-    function monthNameES(m){
-      return ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"][m];
-    }
-    function monthNameEN(m){
-      return ["January","February","March","April","May","June","July","August","September","October","November","December"][m];
+    // Language-aware month/day names
+    function monthName(m, lang){
+      const es = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+      const en = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      return (lang === 'en' ? en : es)[m];
     }
 
     function renderCalendar(){
-      if(!calGrid || !calTitle) return;
-
+      // Clear
       calGrid.innerHTML = "";
+
       const y = view.getFullYear();
       const m = view.getMonth();
-
-      const lang = localStorage.getItem("nury_lang") || "es";
-      calTitle.textContent = lang === "es" ? `${monthNameES(m)} ${y}` : `${monthNameEN(m)} ${y}`;
+      calTitle.textContent = `${monthName(m, currentLang)} ${y}`;
 
       const first = new Date(y, m, 1);
       const last  = new Date(y, m+1, 0);
 
-      const jsDow = first.getDay();           // 0 Sun..6 Sat
-      const mondayIndex = (jsDow + 6) % 7;    // 0 Mon..6 Sun
+      // convert JS dow (Sun=0) -> Monday-first index
+      const jsDow = first.getDay();
+      const mondayIndex = (jsDow + 6) % 7;
 
-      for(let i=0;i<mondayIndex;i++){
-        const empty = document.createElement('div');
-        empty.className = "day muted";
-        empty.style.visibility = "hidden";
-        calGrid.appendChild(empty);
-      }
-
+      // Fill 42 cells (6 weeks) so it never collapses visually
       const today = new Date();
       const todayStr = fmtDate(today);
 
+      // add leading empty cells
+      for(let i=0;i<mondayIndex;i++){
+        const empty = document.createElement('div');
+        empty.className = "day empty";
+        calGrid.appendChild(empty);
+      }
+
+      // add month days
       for(let d=1; d<=last.getDate(); d++){
         const dateObj = new Date(y, m, d);
         const dateStr = fmtDate(dateObj);
 
-        const btn = document.createElement('div');
-        btn.className = "day";
-        btn.textContent = d;
+        const cell = document.createElement('div');
+        cell.className = "day";
+        cell.textContent = d;
 
-        if(hasBookingOnDate(dateStr)) btn.classList.add('has-booking');
+        if(hasBookingOnDate(dateStr)) cell.classList.add('has-booking');
 
         const dot = document.createElement('span');
         dot.className = "dot";
-        btn.appendChild(dot);
+        cell.appendChild(dot);
 
         if(dateStr < todayStr){
-          btn.classList.add('muted');
+          cell.classList.add('muted');
         } else {
-          btn.addEventListener('click', ()=>{
+          cell.addEventListener('click', ()=>{
             selectedDateStr = dateStr;
             selectedTimeStr = "";
             document.querySelectorAll('.day.selected').forEach(x=>x.classList.remove('selected'));
-            btn.classList.add('selected');
-
-            const lang = localStorage.getItem("nury_lang") || "es";
-            selectedDayHint.textContent = lang === "es" ? `Día seleccionado: ${dateStr}` : `Selected day: ${dateStr}`;
-
+            cell.classList.add('selected');
+            selectedDayHint.textContent = (currentLang==='en')
+              ? `Selected day: ${dateStr}`
+              : `Día seleccionado: ${dateStr}`;
             buildSlots();
             okBox.classList.remove('show');
             errorBox.classList.remove('show');
@@ -1393,28 +1377,33 @@
         }
 
         if(dateStr === selectedDateStr){
-          btn.classList.add('selected');
+          cell.classList.add('selected');
         }
 
-        calGrid.appendChild(btn);
+        calGrid.appendChild(cell);
+      }
+
+      // Fill trailing empty cells to always reach 42 cells
+      const totalCells = calGrid.children.length;
+      const remaining = 42 - totalCells;
+      for(let i=0;i<remaining;i++){
+        const empty = document.createElement('div');
+        empty.className = "day empty";
+        calGrid.appendChild(empty);
       }
     }
 
     function buildSlots(){
-      if(!slotsWrap) return;
       slotsWrap.innerHTML = "";
       selectedTimeStr = "";
-
-      const lang = localStorage.getItem("nury_lang") || "es";
+      slotHint.textContent = (currentLang==='en') ? "Select a time." : "Selecciona un horario.";
 
       if(!selectedDateStr || !serviceSelect.value){
-        slotHint.textContent = lang === "es"
-          ? "Selecciona primero día + servicio para ver horarios."
-          : "Pick day + service first to see available times.";
+        slotHint.textContent = (currentLang==='en')
+          ? "Select day + service to see times."
+          : "Selecciona primero día + servicio para ver horarios.";
         return;
       }
-
-      slotHint.textContent = lang === "es" ? "Selecciona un horario." : "Select a time.";
 
       const svc = services[serviceSelect.value];
       const start = OPEN*60;
@@ -1435,7 +1424,9 @@
             document.querySelectorAll('.slot.selected').forEach(x=>x.classList.remove('selected'));
             b.classList.add('selected');
             selectedTimeStr = time;
-            slotHint.textContent = lang === "es" ? `Horario seleccionado: ${time}` : `Selected time: ${time}`;
+            slotHint.textContent = (currentLang==='en')
+              ? `Selected time: ${time}`
+              : `Horario seleccionado: ${time}`;
             okBox.classList.remove('show');
             errorBox.classList.remove('show');
           });
@@ -1444,26 +1435,24 @@
       }
     }
 
-    serviceSelect?.addEventListener('change', ()=>{
+    serviceSelect.addEventListener('change', ()=>{
       okBox.classList.remove('show');
       errorBox.classList.remove('show');
       buildSlots();
     });
 
-    prevMonthBtn?.addEventListener('click', ()=>{
+    prevMonthBtn.addEventListener('click', ()=>{
       view = new Date(view.getFullYear(), view.getMonth()-1, 1);
       renderCalendar();
     });
-    nextMonthBtn?.addEventListener('click', ()=>{
+    nextMonthBtn.addEventListener('click', ()=>{
       view = new Date(view.getFullYear(), view.getMonth()+1, 1);
       renderCalendar();
     });
 
-    confirmBtn?.addEventListener('click', ()=>{
+    confirmBtn.addEventListener('click', ()=>{
       okBox.classList.remove('show');
       errorBox.classList.remove('show');
-
-      const lang = localStorage.getItem("nury_lang") || "es";
 
       const name = nameInput.value.trim();
       const email = emailInput.value.trim();
@@ -1471,38 +1460,48 @@
       const notes = notesInput.value.trim();
       const serviceKey = serviceSelect.value;
 
-      const err = (msg)=>{ errorBox.textContent = msg; errorBox.classList.add('show'); };
+      function showErr(msg){
+        errorBox.textContent = msg;
+        errorBox.classList.add('show');
+      }
 
       if(!selectedDateStr){
-        return err(lang === "es" ? "Elige un día en el calendario." : "Pick a day on the calendar.");
+        showErr(currentLang==='en' ? "Pick a day in the calendar." : "Elige un día en el calendario.");
+        return;
       }
       if(!serviceKey){
-        return err(lang === "es" ? "Selecciona un servicio." : "Select a service.");
+        showErr(currentLang==='en' ? "Select a service." : "Selecciona un servicio.");
+        return;
       }
       if(!selectedTimeStr){
-        return err(lang === "es" ? "Selecciona un horario." : "Select a time.");
+        showErr(currentLang==='en' ? "Select a time." : "Selecciona un horario.");
+        return;
       }
       if(!name || !email || !phone){
-        return err(lang === "es" ? "Completa nombre, email y teléfono." : "Fill name, email and phone.");
+        showErr(currentLang==='en'
+          ? "Fill in name, email and phone."
+          : "Completa nombre, email y teléfono.");
+        return;
       }
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-        return err(lang === "es" ? "Email inválido." : "Invalid email.");
+        showErr(currentLang==='en' ? "Invalid email." : "Email inválido.");
+        return;
       }
       if(isSlotBooked(selectedDateStr, selectedTimeStr)){
-        err(lang === "es" ? "Ese horario ya fue reservado. Elige otro." : "That time is already booked. Choose another.");
+        showErr(currentLang==='en' ? "That slot is already booked." : "Ese horario ya fue reservado. Elige otro.");
         buildSlots();
         return;
       }
 
       const svc = services[serviceKey];
-      const serviceName = lang === "es" ? svc.nameES : svc.nameEN;
+      const svcName = (currentLang==='en') ? svc.name_en : svc.name_es;
 
       saveBooking({
         id: (crypto?.randomUUID ? crypto.randomUUID() : String(Date.now())),
         createdAt: new Date().toISOString(),
         date: selectedDateStr,
         time: selectedTimeStr,
-        service: serviceName,
+        service: svcName,
         duration: svc.duration,
         price: svc.price,
         name, email, phone, notes
@@ -1519,14 +1518,620 @@
       buildSlots();
     });
 
-    // Initial render
-    renderCalendar();
-    buildSlots();
+    /***********************
+     * Mobile carousel dots
+     ***********************/
+    const carousel = document.getElementById('carousel');
+    const dotsWrap = document.getElementById('dots');
 
-    // ===== Cookie banner links (open policies) =====
-    $("#openCookiesLink")?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("Política de Cookies", cookiesES); });
-    $("#openPrivacyLink")?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("Política de Privacidad", privacyES); });
-    $("#openLegalLink")?.addEventListener("click", (e)=>{ e.preventDefault(); openModal("Aviso legal", legalES); });
+    function initDots(){
+      if(!carousel || !dotsWrap) return;
+      const slides = Array.from(carousel.querySelectorAll('.slide'));
+      dotsWrap.innerHTML = "";
+      slides.forEach((_, idx)=>{
+        const d = document.createElement('div');
+        d.className = "dot" + (idx===0 ? " active" : "");
+        dotsWrap.appendChild(d);
+      });
+
+      function setActiveByScroll(){
+        const slides = Array.from(carousel.querySelectorAll('.slide'));
+        const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+        let best = 0;
+        let bestDist = Infinity;
+        const cRect = carousel.getBoundingClientRect();
+        const cCenter = cRect.left + cRect.width/2;
+        slides.forEach((s,i)=>{
+          const r = s.getBoundingClientRect();
+          const center = r.left + r.width/2;
+          const dist = Math.abs(center - cCenter);
+          if(dist < bestDist){ bestDist = dist; best = i; }
+        });
+        dots.forEach((d,i)=> d.classList.toggle('active', i===best));
+      }
+
+      carousel.addEventListener('scroll', ()=>{ window.requestAnimationFrame(setActiveByScroll); }, {passive:true});
+      window.addEventListener('resize', ()=>{ window.requestAnimationFrame(setActiveByScroll); });
+    }
+
+    /***********************
+     * Different hero image for mobile vs desktop
+     ***********************/
+    function setHeroImage(){
+      const hero = document.getElementById('heroImg');
+      if(!hero) return;
+      const isMobile = window.matchMedia("(max-width: 900px)").matches;
+      hero.src = isMobile ? "assets/hero-mobile.jpg" : "assets/hero-desktop.jpg";
+    }
+
+    /***********************
+     * REAL language switch (ES/EN)
+     ***********************/
+    const langBtn = document.getElementById('langBtn');
+    let currentLang = localStorage.getItem('nury_lang') || 'es';
+
+    const i18n = {
+      es: {
+        menu:"MENU",
+        menu_title:"Menú",
+        brand:"Masajes con Nury",
+        nav_home:"HOME",
+        nav_services:"SERVICIOS",
+        nav_gallery:"PAGES",
+        nav_contact:"CONTACTO",
+        nav_home2:"Inicio",
+        nav_services2:"Servicios",
+        nav_booking2:"Reservas",
+        nav_gallery2:"Galería",
+        nav_contact2:"Contacto",
+        book_now:"Book Now",
+        cta_book:"Reservar ahora",
+
+        hero_title:"Masajes con<br>Nury",
+        hero_sub:"Reserva tu cita en segundos. Masajes relajantes, descontracturantes y deportivos con un enfoque profesional y personalizado.",
+        hero_btn_1:"Appointment",
+        hero_btn_2:"Let’s talk",
+        ticker_1:"Enjoyment — Your Relaxation Starts Here",
+        ticker_2:"Enjoy 50% Off Your First Treatment",
+        ticker_1b:"Enjoyment — Your Relaxation Starts Here",
+        ticker_2b:"Enjoy 50% Off Your First Treatment",
+
+        services_title:"Servicios",
+        services_lead:"Elige el tipo de masaje y reserva directamente en el calendario.",
+
+        svc_1_t:"Relajante", svc_1_d:"Para estrés, descanso y tensión general. Ideal para desconectar.", svc_1_tag:"60 min · 50€",
+        svc_2_t:"Descontracturante", svc_2_d:"Enfoque muscular: espalda, cuello, piernas. Presión adaptada.", svc_2_tag:"75 min · 65€",
+        svc_3_t:"Deportivo", svc_3_d:"Preparación y recuperación para actividad física.", svc_3_tag:"90 min · 80€",
+        svc_4_t:"Piedras calientes", svc_4_d:"Calor terapéutico + aromaterapia para soltar tensión.", svc_4_tag:"75 min · 75€",
+        svc_5_t:"Facial", svc_5_d:"Masaje suave + drenaje para rostro y tensión mandibular.", svc_5_tag:"45 min · 45€",
+        svc_6_t:"Prenatal", svc_6_d:"Adaptado para embarazo (según caso) y bienestar general.", svc_6_tag:"60 min · 55€",
+
+        booking_title:"Reservas (Calendario)",
+        booking_lead:"Selecciona un día y un horario. Los horarios reservados quedan bloqueados.",
+
+        dow_1:"L", dow_2:"M", dow_3:"X", dow_4:"J", dow_5:"V", dow_6:"S", dow_7:"D",
+        your_appt:"Tu cita",
+        pick_day:"Elige un día en el calendario.",
+        field_service:"Servicio *",
+        field_time:"Horario *",
+        field_name:"Nombre *",
+        field_email:"Email *",
+        field_phone:"Teléfono *",
+        field_notes:"Notas (opcional)",
+        opt_select:"Selecciona…",
+        opt_relaj:"Relajante (60 min) — 50€",
+        opt_desc:"Descontracturante (75 min) — 65€",
+        opt_dep:"Deportivo (90 min) — 80€",
+        opt_pied:"Piedras (75 min) — 75€",
+        opt_fac:"Facial (45 min) — 45€",
+        opt_pre:"Prenatal (60 min) — 55€",
+        slot_hint:"Selecciona primero día + servicio para ver horarios.",
+        ph_name:"Tu nombre",
+        ph_email:"tu@email.com",
+        ph_phone:"+34 600 000 000",
+        ph_notes:"Zonas a tratar, preferencias, lesiones, etc.",
+        confirm:"Confirmar reserva",
+        saved_demo:"✅ Reserva guardada (demo).",
+        fineprint_1:"Al reservar, aceptas la",
+        fineprint_2:"Puedes revisar cookies y políticas en el pie de página.",
+
+        gallery_title:"Galería",
+        gallery_lead:"Fotos reales del espacio. En móvil verás un carrusel con fotos verticales.",
+        gal_main:"Espacio principal",
+        gal_detail1:"Detalle",
+        gal_detail2:"Detalle",
+        gal_detail3:"Detalle",
+        gal_detail4:"Detalle",
+        gal_detail5:"Detalle",
+        gal_m1:"Ambiente",
+        gal_m2:"Cabina",
+        gal_m3:"Detalle",
+        gal_m4:"Recepción",
+
+        contact_title:"Contacto",
+        contact_lead:"¿Tienes dudas antes de reservar? Escríbenos por WhatsApp.",
+        contact_whatsapp:"WhatsApp",
+        contact_hint:"Haz clic para abrir conversación:",
+
+        legal:"Aviso Legal",
+        privacy:"Política de Privacidad",
+        cookies:"Política de Cookies",
+        cookie_settings:"Preferencias de cookies",
+
+        cookie_accept:"Aceptar",
+        cookie_reject:"Rechazar",
+
+        cs_title:"Preferencias de cookies",
+        cs_intro:"Puedes activar o desactivar las cookies no esenciales. Las esenciales siempre están activas porque permiten el funcionamiento básico del sitio.",
+        cs_essential:"Cookies esenciales (obligatorias)",
+        cs_essential_d:"Necesarias para funciones básicas (por ejemplo, recordar tu elección de cookies).",
+        cs_analytics:"Cookies analíticas",
+        cs_analytics_d:"Nos ayudan a entender el uso del sitio. (En esta demo no cargamos herramientas externas.)",
+        cs_marketing:"Cookies de marketing",
+        cs_marketing_d:"Se usan para publicidad personalizada. (Por defecto desactivadas.)",
+        cs_save:"Guardar preferencias",
+        cs_accept_all:"Aceptar todas",
+        cs_reject_all:"Rechazar todas",
+        cs_note:"Nota: si en el futuro añades Google Analytics, Meta Pixel, etc., solo deberías cargarlos cuando el usuario acepte cookies analíticas/marketing."
+      },
+      en: {
+        menu:"MENU",
+        menu_title:"Menu",
+        brand:"Masajes con Nury",
+        nav_home:"HOME",
+        nav_services:"SERVICES",
+        nav_gallery:"PAGES",
+        nav_contact:"CONTACT",
+        nav_home2:"Home",
+        nav_services2:"Services",
+        nav_booking2:"Booking",
+        nav_gallery2:"Gallery",
+        nav_contact2:"Contact",
+        book_now:"Book Now",
+        cta_book:"Book now",
+
+        hero_title:"Masajes con<br>Nury",
+        hero_sub:"Book your appointment in seconds. Relaxing, deep tissue and sports massages with a professional and personalized approach.",
+        hero_btn_1:"Appointment",
+        hero_btn_2:"Let’s talk",
+        ticker_1:"Enjoyment — Your Relaxation Starts Here",
+        ticker_2:"Enjoy 50% Off Your First Treatment",
+        ticker_1b:"Enjoyment — Your Relaxation Starts Here",
+        ticker_2b:"Enjoy 50% Off Your First Treatment",
+
+        services_title:"Services",
+        services_lead:"Choose the massage type and book directly in the calendar.",
+
+        svc_1_t:"Relaxing", svc_1_d:"For stress relief and general tension. Perfect to disconnect.", svc_1_tag:"60 min · €50",
+        svc_2_t:"Deep tissue", svc_2_d:"Muscle-focused: back, neck, legs. Pressure adapted.", svc_2_tag:"75 min · €65",
+        svc_3_t:"Sports", svc_3_d:"Preparation and recovery for physical activity.", svc_3_tag:"90 min · €80",
+        svc_4_t:"Hot stones", svc_4_d:"Therapeutic heat + aromatherapy to release tension.", svc_4_tag:"75 min · €75",
+        svc_5_t:"Facial", svc_5_d:"Gentle face massage + drainage for jaw/face tension.", svc_5_tag:"45 min · €45",
+        svc_6_t:"Prenatal", svc_6_d:"Adapted for pregnancy (case-by-case) and wellbeing.", svc_6_tag:"60 min · €55",
+
+        booking_title:"Booking (Calendar)",
+        booking_lead:"Select a day and a time. Booked time slots are blocked.",
+
+        dow_1:"M", dow_2:"T", dow_3:"W", dow_4:"T", dow_5:"F", dow_6:"S", dow_7:"S",
+        your_appt:"Your appointment",
+        pick_day:"Pick a day in the calendar.",
+        field_service:"Service *",
+        field_time:"Time *",
+        field_name:"Name *",
+        field_email:"Email *",
+        field_phone:"Phone *",
+        field_notes:"Notes (optional)",
+        opt_select:"Select…",
+        opt_relaj:"Relaxing (60 min) — €50",
+        opt_desc:"Deep tissue (75 min) — €65",
+        opt_dep:"Sports (90 min) — €80",
+        opt_pied:"Hot stones (75 min) — €75",
+        opt_fac:"Facial (45 min) — €45",
+        opt_pre:"Prenatal (60 min) — €55",
+        slot_hint:"Select day + service to see times.",
+        ph_name:"Your name",
+        ph_email:"you@email.com",
+        ph_phone:"+34 600 000 000",
+        ph_notes:"Areas to treat, preferences, injuries, etc.",
+        confirm:"Confirm booking",
+        saved_demo:"✅ Booking saved (demo).",
+        fineprint_1:"By booking, you accept the",
+        fineprint_2:"You can review cookies and policies in the footer.",
+
+        gallery_title:"Gallery",
+        gallery_lead:"Real photos of the space. On mobile you’ll see a vertical photo carousel.",
+        gal_main:"Main space",
+        gal_detail1:"Detail",
+        gal_detail2:"Detail",
+        gal_detail3:"Detail",
+        gal_detail4:"Detail",
+        gal_detail5:"Detail",
+        gal_m1:"Ambience",
+        gal_m2:"Cabin",
+        gal_m3:"Detail",
+        gal_m4:"Reception",
+
+        contact_title:"Contact",
+        contact_lead:"Questions before booking? Message us on WhatsApp.",
+        contact_whatsapp:"WhatsApp",
+        contact_hint:"Click to open chat:",
+
+        legal:"Legal Notice",
+        privacy:"Privacy Policy",
+        cookies:"Cookie Policy",
+        cookie_settings:"Cookie preferences",
+
+        cookie_accept:"Accept",
+        cookie_reject:"Reject",
+
+        cs_title:"Cookie preferences",
+        cs_intro:"You can enable or disable non-essential cookies. Essential cookies are always on because they are required for basic site functionality.",
+        cs_essential:"Essential cookies (required)",
+        cs_essential_d:"Needed for basic functions (e.g., remembering your cookie choices).",
+        cs_analytics:"Analytics cookies",
+        cs_analytics_d:"Help us understand site usage. (This demo does not load external tools.)",
+        cs_marketing:"Marketing cookies",
+        cs_marketing_d:"Used for personalized advertising. (Disabled by default.)",
+        cs_save:"Save preferences",
+        cs_accept_all:"Accept all",
+        cs_reject_all:"Reject all",
+        cs_note:"Note: if you add Google Analytics, Meta Pixel, etc. in the future, only load them when the user accepts analytics/marketing cookies."
+      }
+    };
+
+    function applyI18n(){
+      document.documentElement.lang = currentLang;
+      // text
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
+        if(i18n[currentLang][key] != null){
+          el.innerHTML = i18n[currentLang][key];
+        }
+      });
+      // placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+        const key = el.getAttribute('data-i18n-placeholder');
+        if(i18n[currentLang][key] != null){
+          el.setAttribute('placeholder', i18n[currentLang][key]);
+        }
+      });
+
+      // calendar hint + selected hints if empty
+      const calHint = document.getElementById('calHint');
+      calHint.textContent = (currentLang==='en')
+        ? "• Past days are disabled · • Pink dot = booking on that day"
+        : "• Días pasados se desactivan · • Punto rosa = hay reserva ese día";
+
+      if(!selectedDateStr){
+        selectedDayHint.textContent = i18n[currentLang].pick_day;
+      }
+
+      // cookie banner text
+      const cookieText = document.getElementById('cookieText');
+      cookieText.textContent = (currentLang==='en')
+        ? "We use cookies to make the site work and, if you accept, to measure usage (analytics). You can accept, reject or configure your preferences. More info in the Cookie Policy."
+        : "Usamos cookies para que el sitio funcione y, si lo aceptas, para medir el uso (analíticas). Puedes aceptar, rechazar o configurar tus preferencias. Más info en la Política de Cookies.";
+
+      // policies content
+      renderPolicyDocs();
+
+      // render calendar title in correct language
+      renderCalendar();
+      buildSlots();
+    }
+
+    langBtn.addEventListener('click', ()=>{
+      currentLang = (currentLang === 'es') ? 'en' : 'es';
+      localStorage.setItem('nury_lang', currentLang);
+      applyI18n();
+    });
+
+    /***********************
+     * Policies content (Spain/EU-ready templates)
+     * (Fill [RELLENAR] fields)
+     ***********************/
+    const policyModal = document.getElementById('policyModal');
+    const policyClose = document.getElementById('policyClose');
+    const docLegal = document.getElementById('docLegal');
+    const docPrivacy = document.getElementById('docPrivacy');
+    const docCookies = document.getElementById('docCookies');
+
+    const tabLegal = document.getElementById('tabLegal');
+    const tabPrivacy = document.getElementById('tabPrivacy');
+    const tabCookies = document.getElementById('tabCookies');
+    const tabCookieSettings = document.getElementById('tabCookieSettings');
+
+    function openPolicy(which){
+      policyModal.classList.add('show');
+      policyModal.setAttribute('aria-hidden','false');
+      setTab(which);
+    }
+    function closePolicy(){
+      policyModal.classList.remove('show');
+      policyModal.setAttribute('aria-hidden','true');
+    }
+    policyClose.addEventListener('click', closePolicy);
+    policyModal.addEventListener('click', (e)=>{ if(e.target === policyModal) closePolicy(); });
+
+    document.getElementById('openLegal').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('legal'); });
+    document.getElementById('openPrivacy').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('privacy'); });
+    document.getElementById('openCookies').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('cookies'); });
+    document.getElementById('openCookieSettings').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('cookieSettings'); });
+
+    document.getElementById('openPrivacyInline').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('privacy'); });
+
+    document.getElementById('openLegalFromMenu').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('legal'); closeSheet(); });
+    document.getElementById('openPrivacyFromMenu').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('privacy'); closeSheet(); });
+    document.getElementById('openCookiesFromMenu').addEventListener('click', (e)=>{ e.preventDefault(); openPolicy('cookies'); closeSheet(); });
+
+    function setTab(which){
+      const allTabs = [tabLegal, tabPrivacy, tabCookies, tabCookieSettings];
+      allTabs.forEach(t=> t.classList.toggle('active', t.getAttribute('data-doc') === which));
+      docLegal.style.display = (which==='legal') ? 'block' : 'none';
+      docPrivacy.style.display = (which==='privacy') ? 'block' : 'none';
+      docCookies.style.display = (which==='cookies') ? 'block' : 'none';
+      document.getElementById('docCookieSettings').style.display = (which==='cookieSettings') ? 'block' : 'none';
+      document.getElementById('policyTitle').textContent = allTabs.find(t=>t.getAttribute('data-doc')===which)?.innerText || "Políticas";
+    }
+    document.getElementById('policyTabs').addEventListener('click', (e)=>{
+      const b = e.target.closest('.tab');
+      if(!b) return;
+      setTab(b.getAttribute('data-doc'));
+    });
+
+    function renderPolicyDocs(){
+      if(currentLang === 'en'){
+        docLegal.innerHTML = `
+          <h3>Legal Notice (Spain)</h3>
+          <p><strong>Website owner:</strong> <code>[FILL IN: Name / Company]</code> · <strong>NIF/CIF:</strong> <code>[FILL IN]</code></p>
+          <p><strong>Address:</strong> <code>[FILL IN]</code> · <strong>Email:</strong> <code>[FILL IN]</code> · <strong>Phone:</strong> <code>[FILL IN]</code></p>
+          <p>This website provides information and (demo) booking features for massage services. By accessing the site you agree to use it lawfully and not to damage or interfere with its operation.</p>
+
+          <h3>Intellectual Property</h3>
+          <p>All content (texts, images, design and code) is protected by IP rules and belongs to the owner or is licensed. Any reproduction or distribution requires authorization.</p>
+
+          <h3>Liability</h3>
+          <p>The owner is not responsible for misuse of the site or external links. The booking feature shown here stores data locally in your browser (demo). If you later connect a real backend, you must ensure GDPR compliance.</p>
+
+          <h3>Applicable Law</h3>
+          <p>Spanish law applies. Any dispute will be subject to the courts of <code>[FILL IN: city]</code>, unless consumer rules provide otherwise.</p>
+        `;
+
+        docPrivacy.innerHTML = `
+          <h3>Privacy Policy (GDPR / Spain)</h3>
+          <p><strong>Controller:</strong> <code>[FILL IN: Name/Company]</code> · <strong>NIF/CIF:</strong> <code>[FILL IN]</code></p>
+          <p><strong>Contact:</strong> <code>[FILL IN email]</code></p>
+
+          <h3>What data we process</h3>
+          <ul>
+            <li><strong>Booking data:</strong> name, email, phone, notes and appointment details.</li>
+            <li><strong>Technical data:</strong> essential cookies for basic operation and (optional) analytics cookies if you accept them.</li>
+          </ul>
+
+          <h3>Purpose & legal basis</h3>
+          <ul>
+            <li><strong>Manage bookings:</strong> pre-contractual steps / contract (Art. 6.1.b GDPR).</li>
+            <li><strong>Answer inquiries:</strong> legitimate interest or consent (Art. 6.1.f / 6.1.a GDPR).</li>
+            <li><strong>Analytics (optional):</strong> consent (Art. 6.1.a GDPR).</li>
+          </ul>
+
+          <h3>Retention</h3>
+          <p>Data will be kept for the time needed to manage the booking and for legal obligations. <code>[FILL IN exact retention periods if applicable]</code></p>
+
+          <h3>Recipients</h3>
+          <p>Data may be shared with service providers strictly necessary to run the service (hosting, email). If using WhatsApp, communication is managed by WhatsApp under its policies.</p>
+
+          <h3>Your rights</h3>
+          <p>You can request access, rectification, erasure, objection, restriction and portability by emailing <code>[FILL IN]</code>. You can also complain to the Spanish DPA (AEPD).</p>
+
+          <h3>International transfers</h3>
+          <p>If providers are outside the EEA, appropriate safeguards (SCCs) must be used.</p>
+        `;
+
+        docCookies.innerHTML = `
+          <h3>Cookie Policy (EU / Spain)</h3>
+          <p>This site uses:</p>
+          <ul>
+            <li><strong>Essential cookies</strong>: required to remember your cookie preferences.</li>
+            <li><strong>Analytics cookies (optional)</strong>: only if you consent. (This demo does not load external analytics.)</li>
+            <li><strong>Marketing cookies (optional)</strong>: only if you consent. Disabled by default.</li>
+          </ul>
+
+          <h3>How to manage cookies</h3>
+          <p>You can change your preferences anytime from <strong>“Cookie preferences”</strong> in the footer.</p>
+
+          <h3>More information</h3>
+          <p>For Spanish guidance on cookies, see AEPD / EDPB recommendations. If you integrate Google Analytics or similar tools, list them here with purpose, provider, duration and whether they involve transfers outside the EEA.</p>
+        `;
+      } else {
+        docLegal.innerHTML = `
+          <h3>Aviso Legal (España)</h3>
+          <p><strong>Titular del sitio web:</strong> <code>[RELLENAR: Nombre / Empresa]</code> · <strong>NIF/CIF:</strong> <code>[RELLENAR]</code></p>
+          <p><strong>Domicilio:</strong> <code>[RELLENAR]</code> · <strong>Email:</strong> <code>[RELLENAR]</code> · <strong>Teléfono:</strong> <code>[RELLENAR]</code></p>
+          <p>Este sitio web ofrece información y una funcionalidad de reserva (demo) para servicios de masajes. Al acceder, te comprometes a usarlo de forma lícita y a no dañar ni interferir en su funcionamiento.</p>
+
+          <h3>Propiedad intelectual</h3>
+          <p>Los contenidos (textos, imágenes, diseño y código) están protegidos y pertenecen al titular o a terceros con licencia. Se prohíbe su reproducción o distribución sin autorización.</p>
+
+          <h3>Responsabilidad</h3>
+          <p>El titular no se hace responsable del mal uso del sitio ni de enlaces externos. La reserva mostrada en esta web guarda datos localmente en tu navegador (demo). Si se conecta un backend real, debe garantizarse el cumplimiento RGPD.</p>
+
+          <h3>Ley aplicable</h3>
+          <p>Se aplica la legislación española. Para cualquier controversia, serán competentes los juzgados y tribunales de <code>[RELLENAR: ciudad]</code>, salvo normativa de consumidores.</p>
+        `;
+
+        docPrivacy.innerHTML = `
+          <h3>Política de Privacidad (RGPD / España)</h3>
+          <p><strong>Responsable:</strong> <code>[RELLENAR: Nombre/Empresa]</code> · <strong>NIF/CIF:</strong> <code>[RELLENAR]</code></p>
+          <p><strong>Contacto:</strong> <code>[RELLENAR email]</code></p>
+
+          <h3>Qué datos tratamos</h3>
+          <ul>
+            <li><strong>Datos de reserva:</strong> nombre, email, teléfono, notas y detalles de cita.</li>
+            <li><strong>Datos técnicos:</strong> cookies esenciales para funcionamiento y (opcionales) cookies analíticas si las aceptas.</li>
+          </ul>
+
+          <h3>Finalidad y base jurídica</h3>
+          <ul>
+            <li><strong>Gestionar reservas:</strong> medidas precontractuales / contrato (Art. 6.1.b RGPD).</li>
+            <li><strong>Atender consultas:</strong> interés legítimo o consentimiento (Art. 6.1.f / 6.1.a RGPD).</li>
+            <li><strong>Analítica (opcional):</strong> consentimiento (Art. 6.1.a RGPD).</li>
+          </ul>
+
+          <h3>Conservación</h3>
+          <p>Los datos se conservarán el tiempo necesario para gestionar la reserva y cumplir obligaciones legales. <code>[RELLENAR plazos exactos si aplica]</code></p>
+
+          <h3>Destinatarios</h3>
+          <p>Podrán comunicarse datos a proveedores necesarios (hosting, email). Si se usa WhatsApp, la comunicación se realiza bajo sus propias políticas.</p>
+
+          <h3>Derechos</h3>
+          <p>Puedes ejercer acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a <code>[RELLENAR]</code>. También puedes reclamar ante la AEPD.</p>
+
+          <h3>Transferencias internacionales</h3>
+          <p>Si hay proveedores fuera del EEE, deberán aplicarse garantías adecuadas (SCC, etc.).</p>
+        `;
+
+        docCookies.innerHTML = `
+          <h3>Política de Cookies (UE / España)</h3>
+          <p>Este sitio utiliza:</p>
+          <ul>
+            <li><strong>Cookies esenciales</strong>: necesarias para recordar tu elección de cookies.</li>
+            <li><strong>Cookies analíticas (opcionales)</strong>: solo si das tu consentimiento. (En esta demo no cargamos analítica externa.)</li>
+            <li><strong>Cookies de marketing (opcionales)</strong>: solo si das tu consentimiento. Desactivadas por defecto.</li>
+          </ul>
+
+          <h3>Cómo gestionar cookies</h3>
+          <p>Puedes cambiar tus preferencias en cualquier momento desde <strong>“Preferencias de cookies”</strong> en el pie de página.</p>
+
+          <h3>Más información</h3>
+          <p>Si integras Google Analytics u otras herramientas, debes listar aquí proveedor, finalidad, duración, y si hay transferencias fuera del EEE, además de no cargarlas hasta tener consentimiento.</p>
+        `;
+      }
+    }
+
+    /***********************
+     * Cookie consent (Spain/EU)
+     ***********************/
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookieAccept = document.getElementById('cookieAccept');
+    const cookieReject = document.getElementById('cookieReject');
+    const cookieSettingsBtn = document.getElementById('cookieSettingsBtn');
+
+    const CONSENT_KEY = "nury_cookie_consent"; // stores {essential:true, analytics:boolean, marketing:boolean, ts:...}
+
+    function getConsent(){
+      try{ return JSON.parse(localStorage.getItem(CONSENT_KEY) || "null"); }catch{ return null; }
+    }
+    function setConsent(obj){
+      localStorage.setItem(CONSENT_KEY, JSON.stringify(obj));
+    }
+    function showCookieBannerIfNeeded(){
+      const c = getConsent();
+      if(!c){
+        cookieBanner.classList.add('show');
+      }else{
+        cookieBanner.classList.remove('show');
+      }
+    }
+    function acceptAll(){
+      setConsent({essential:true, analytics:true, marketing:true, ts: new Date().toISOString()});
+      cookieBanner.classList.remove('show');
+      syncCookieToggles();
+    }
+    function rejectAll(){
+      setConsent({essential:true, analytics:false, marketing:false, ts: new Date().toISOString()});
+      cookieBanner.classList.remove('show');
+      syncCookieToggles();
+    }
+
+    cookieAccept.addEventListener('click', acceptAll);
+    cookieReject.addEventListener('click', rejectAll);
+    cookieSettingsBtn.addEventListener('click', ()=> openPolicy('cookieSettings'));
+
+    /***********************
+     * Cookie settings toggles in modal
+     ***********************/
+    const toggleAnalytics = document.getElementById('toggleAnalytics');
+    const toggleMarketing = document.getElementById('toggleMarketing');
+    const saveCookiePrefs = document.getElementById('saveCookiePrefs');
+    const acceptAllFromModal = document.getElementById('acceptAllFromModal');
+    const rejectAllFromModal = document.getElementById('rejectAllFromModal');
+
+    let tmpAnalytics = false;
+    let tmpMarketing = false;
+
+    function syncCookieToggles(){
+      const c = getConsent();
+      if(!c){
+        tmpAnalytics = false;
+        tmpMarketing = false;
+      }else{
+        tmpAnalytics = !!c.analytics;
+        tmpMarketing = !!c.marketing;
+      }
+      toggleAnalytics.classList.toggle('on', tmpAnalytics);
+      toggleAnalytics.setAttribute('aria-checked', String(tmpAnalytics));
+      toggleMarketing.classList.toggle('on', tmpMarketing);
+      toggleMarketing.setAttribute('aria-checked', String(tmpMarketing));
+    }
+
+    function toggleSwitch(el, which){
+      if(which === 'analytics') tmpAnalytics = !tmpAnalytics;
+      if(which === 'marketing') tmpMarketing = !tmpMarketing;
+      syncCookieToggles();
+    }
+
+    toggleAnalytics.addEventListener('click', ()=>{ tmpAnalytics = !tmpAnalytics; syncCookieToggles(); });
+    toggleMarketing.addEventListener('click', ()=>{ tmpMarketing = !tmpMarketing; syncCookieToggles(); });
+
+    saveCookiePrefs.addEventListener('click', ()=>{
+      setConsent({essential:true, analytics: tmpAnalytics, marketing: tmpMarketing, ts: new Date().toISOString()});
+      cookieBanner.classList.remove('show');
+      closePolicy();
+    });
+
+    acceptAllFromModal.addEventListener('click', ()=>{
+      acceptAll();
+      closePolicy();
+    });
+    rejectAllFromModal.addEventListener('click', ()=>{
+      rejectAll();
+      closePolicy();
+    });
+
+    /***********************
+     * Init + misc
+     ***********************/
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // If user opens cookie settings tab, sync toggles
+    function openPolicy(which){
+      policyModal.classList.add('show');
+      policyModal.setAttribute('aria-hidden','false');
+      setTab(which);
+      syncCookieToggles();
+    }
+
+    // Ensure policy docs match language
+    renderPolicyDocs();
+
+    // initial: hero image swap + dots
+    setHeroImage();
+    window.addEventListener('resize', setHeroImage);
+
+    initDots();
+
+    // Init language & apply
+    applyI18n();
+
+    // Cookie banner
+    showCookieBannerIfNeeded();
+
+    // Also ensure calendar builds after fonts/layout (extra safety)
+    window.addEventListener('load', ()=>{
+      renderCalendar();
+      buildSlots();
+    });
   </script>
 </body>
 </html>
