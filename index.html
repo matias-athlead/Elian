@@ -46,6 +46,12 @@
     button{font-family:inherit}
     .container{max-width:var(--max); margin:0 auto; padding:0 18px;}
 
+    /* ✅ Evita que al navegar se “tapen” secciones por la topbar */
+    .section, .hero { scroll-margin-top: 90px; }
+    @media (max-width: 768px){
+      .section, .hero { scroll-margin-top: 70px; }
+    }
+
     /* ===== BACKDROP / SHELL (VERDE MOVIÉNDOSE + BURBUJAS) ===== */
     .page-bg{
       position: relative;
@@ -1270,23 +1276,48 @@
     const WHATSAPP_NUMBER = "34600000000"; // <— cambia el número (sin + ni espacios)
 
     /***********************
-     * Scroll helpers
+     * Scroll helpers (FIXED)
      ***********************/
+    function getHeaderOffset(){
+      const topbar = document.getElementById('topbar');
+      return (topbar ? topbar.offsetHeight : 0) + 10;
+    }
+
     function scrollToId(id){
       const el = document.getElementById(id);
-      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      if(!el) return;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset();
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
-    document.addEventListener('click', (e)=>{
-      const a = e.target.closest('[data-scroll]');
-      if(a){
+
+    // ✅ SOLO interceptamos clicks de navegación, NO clicks globales
+    const topNav = document.querySelector('#topbar .nav-links');
+    if(topNav){
+      topNav.addEventListener('click', (e)=>{
+        const a = e.target.closest('a[data-scroll]');
+        if(!a) return;
         e.preventDefault();
         scrollToId(a.getAttribute('data-scroll'));
-      }
-      const b = e.target.closest('[data-scroll-btn]');
-      if(b){
+      });
+    }
+
+    const sidePanel = document.querySelector('#sheet .sheet-panel');
+    if(sidePanel){
+      sidePanel.addEventListener('click', (e)=>{
+        const a = e.target.closest('a[data-scroll]');
+        if(!a) return;
         e.preventDefault();
-        scrollToId(b.getAttribute('data-scroll-btn'));
-      }
+        scrollToId(a.getAttribute('data-scroll'));
+        closeSheet();
+      });
+    }
+
+    document.querySelectorAll('[data-scroll-btn]').forEach((btn)=>{
+      btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        scrollToId(btn.getAttribute('data-scroll-btn'));
+        if(btn.closest('#sheet')) closeSheet();
+      });
     });
 
     /***********************
@@ -1302,9 +1333,6 @@
     menuBtn.addEventListener('click', openSheet);
     sheetClose.addEventListener('click', closeSheet);
     sheet.addEventListener('click', (e)=>{ if(e.target === sheet) closeSheet(); });
-    document.addEventListener('click', (e)=>{
-      if(e.target.closest('#sheet a') || e.target.closest('[data-scroll-btn]')) closeSheet();
-    });
 
     /***********************
      * WhatsApp
