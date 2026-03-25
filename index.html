@@ -1,160 +1,1261 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Lokalia | Sistemas de Crecimiento con IA para Pymes</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luma Trails — Everyday gear for long days outside</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
-    .gradient-border { border: 1px solid; border-image: linear-gradient(to right, #3b82f6, #8b5cf6) 1; }
-    .text-gradient { background: linear-gradient(135deg, #fff 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    :root {
+      --bg: #f6f3ed;
+      --surface: #fffdf8;
+      --card: #ffffff;
+      --text: #161616;
+      --muted: #666154;
+      --line: rgba(22, 22, 22, 0.1);
+      --accent: #21463a;
+      --accent-2: #d9863b;
+      --soft: #ece6da;
+      --shadow: 0 18px 50px rgba(0,0,0,0.08);
+      --radius: 24px;
+      --radius-sm: 18px;
+      --max: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: var(--text);
+      color: white;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+
+    .topbar-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 40px;
+      text-align: center;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(246, 243, 237, 0.88);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 76px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.1rem;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #3c6e5e);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-btn, .btn {
+      border: 0;
+      border-radius: 999px;
+      transition: .2s ease;
+    }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      background: white;
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+    }
+
+    .icon-btn:hover, .btn:hover { transform: translateY(-1px); }
+
+    .btn {
+      padding: 13px 20px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-copy, .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 620px;
+      background:
+        radial-gradient(circle at top left, rgba(217,134,59,0.12), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.96));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #efe6d7;
+      color: #664c2f;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      width: fit-content;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, h4, p { margin: 0; }
+
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 5.7rem);
+      line-height: .94;
+      letter-spacing: -0.06em;
+      max-width: 11ch;
+    }
+
+    .hero-copy p.lead {
+      max-width: 56ch;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stats {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 620px;
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .floating-product {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(22,22,22,.08);
+      border-radius: 22px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .floating-product small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .section {
+      padding: 74px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .section-head p {
+      max-width: 52ch;
+      color: var(--muted);
+    }
+
+    h2 {
+      font-size: clamp(2rem, 3vw, 3.3rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin-bottom: 10px;
+    }
+
+    .category-grid,
+    .product-grid,
+    .story-grid,
+    .value-grid,
+    .testimonial-grid,
+    .journal-grid,
+    .footer-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .category-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .category-card, .story-card, .value-card, .testimonial, .journal-card, .newsletter, .product-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .category-card {
+      position: relative;
+      min-height: 400px;
+      color: white;
+      display: flex;
+      align-items: end;
+    }
+
+    .category-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.6));
+    }
+
+    .category-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .category-content {
+      position: relative;
+      z-index: 1;
+      padding: 22px;
+    }
+
+    .category-content p {
+      color: rgba(255,255,255,0.86);
+      margin-top: 6px;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(4px);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .filter-chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .filter-chip.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .product-card {
+      padding: 14px;
+    }
+
+    .product-media {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      aspect-ratio: 4 / 4.7;
+      background: var(--soft);
+      margin-bottom: 14px;
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(255,255,255,0.92);
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .wishlist {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+    }
+
+    .product-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 4px;
+    }
+
+    .product-card h3 {
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .product-card p {
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 42px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .price {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.05rem;
+    }
+
+    .mini-btn {
+      border: 0;
+      background: var(--text);
+      color: white;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 600;
+    }
+
+    .story-grid {
+      grid-template-columns: 1.15fr .85fr;
+    }
+
+    .story-card.large {
+      min-height: 600px;
+      position: relative;
+    }
+
+    .story-card.large img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-overlay {
+      position: absolute;
+      inset: auto 22px 22px 22px;
+      background: rgba(255,255,255,.9);
+      border-radius: 24px;
+      padding: 22px;
+      backdrop-filter: blur(10px);
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .story-card.text {
+      padding: 28px;
+      min-height: 291px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #fff, #f5efe4);
+    }
+
+    .story-card.text p,
+    .value-card p,
+    .testimonial p,
+    .journal-card p,
+    footer p,
+    .newsletter p {
+      color: var(--muted);
+    }
+
+    .value-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .value-card {
+      padding: 22px;
+    }
+
+    .value-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: #efe6d7;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .testimonial-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonial {
+      padding: 24px;
+    }
+
+    .stars {
+      letter-spacing: .15em;
+      color: #c27b2e;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .author {
+      margin-top: 16px;
+      font-weight: 700;
+    }
+
+    .journal-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .journal-card img {
+      aspect-ratio: 16 / 10;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .journal-card .content {
+      padding: 18px;
+    }
+
+    .newsletter {
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      background: linear-gradient(135deg, #173a31, #244f43);
+      color: white;
+    }
+
+    .newsletter p { color: rgba(255,255,255,0.76); }
+
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: end;
+    }
+
+    .newsletter input {
+      min-width: 280px;
+      padding: 14px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.1);
+      color: white;
+      outline: none;
+    }
+
+    .newsletter input::placeholder { color: rgba(255,255,255,.7); }
+
+    footer {
+      padding: 40px 0 80px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1.3fr repeat(3, .7fr);
+      gap: 20px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-grid h4 {
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .footer-grid a, .footer-grid p {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: min(420px, 100%);
+      height: 100vh;
+      background: white;
+      border-left: 1px solid var(--line);
+      box-shadow: -24px 0 40px rgba(0,0,0,.08);
+      z-index: 100;
+      transition: right .25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.open { right: 0; }
+
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      z-index: 90;
+    }
+
+    .drawer-backdrop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-head, .cart-footer {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cart-footer {
+      border-top: 1px solid var(--line);
+      border-bottom: 0;
+      margin-top: auto;
+    }
+
+    .cart-items {
+      padding: 10px 20px 20px;
+      overflow: auto;
+      display: grid;
+      gap: 14px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 84px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cart-item img {
+      width: 84px;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .cart-subtotal {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .tiny {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .menu-toggle { display: none; }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .story-grid,
+      .newsletter,
+      .footer-grid,
+      .category-grid,
+      .product-grid,
+      .value-grid,
+      .testimonial-grid,
+      .journal-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .newsletter { grid-template-columns: 1fr; }
+      .newsletter-form { justify-content: start; }
+      .hero-copy, .hero-card { min-height: auto; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links {
+        display: none;
+      }
+      .menu-toggle { display: grid; }
+      .hero-copy { padding: 28px; }
+      .hero-stats,
+      .hero-grid,
+      .story-grid,
+      .category-grid,
+      .product-grid,
+      .value-grid,
+      .testimonial-grid,
+      .journal-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+      .floating-product {
+        flex-direction: column;
+        align-items: start;
+      }
+      .newsletter input { min-width: 100%; }
+    }
   </style>
 </head>
-<body class="bg-[#020617] text-slate-200 antialiased">
-
-<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-4xl">
-  <div class="glass rounded-full px-6 py-3 flex justify-between items-center shadow-2xl">
-    <div class="flex items-center gap-2">
-      <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white italic">L</div>
-      <span class="text-white font-bold tracking-tight">LOKALIA<span class="text-blue-500">.IA</span></span>
-    </div>
-    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
-      <a href="#servicios" class="hover:text-white transition">Soluciones</a>
-      <a href="#metodo" class="hover:text-white transition">Método 14-Días</a>
-      <a href="#contacto" class="bg-white text-black px-5 py-2 rounded-full hover:bg-blue-500 hover:text-white transition">Cerrar Auditoría</a>
-    </div>
-    <a href="https://wa.me/34600000000" class="md:hidden bg-[#25D366] p-2 rounded-full">
-        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-    </a>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">Free shipping in Europe on orders over €120 · New spring drop just launched</div>
   </div>
-</nav>
 
-<section class="relative pt-40 pb-24 px-6 overflow-hidden">
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent -z-10"></div>
-  
-  <div class="max-w-5xl mx-auto text-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold mb-8 animate-pulse">
-      <span>DISPONIBILIDAD: 2 PROYECTOS PARA ABRIL</span>
-    </div>
-    <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-[1.1] tracking-tight">
-        No hacemos webs. Creamos <br> 
-        <span class="text-blue-500">Sistemas Autonómos</span> de Venta.
-    </h1>
-    <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-        Instalamos agentes de IA y automatizaciones en negocios de Barcelona para eliminar el trabajo manual y duplicar la captación de clientes.
-    </p>
-    
-    <div class="flex flex-col md:flex-row gap-4 justify-center">
-      <a href="#contacto" class="bg-white text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-blue-500 hover:text-white transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-        Reservar Auditoría Gratuita
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <span class="brand-mark">L</span>
+        <span>Luma Trails</span>
       </a>
-      <div class="flex items-center justify-center gap-4 px-6 py-4">
-        <div class="flex -space-x-2">
-            <div class="w-8 h-8 rounded-full bg-slate-700 border-2 border-[#020617]"></div>
-            <div class="w-8 h-8 rounded-full bg-slate-600 border-2 border-[#020617]"></div>
-            <div class="w-8 h-8 rounded-full bg-slate-500 border-2 border-[#020617]"></div>
-        </div>
-        <span class="text-xs text-slate-500 font-medium">+12 Pymes automatizadas este mes</span>
+
+      <nav class="nav-links">
+        <a href="#shop">Shop</a>
+        <a href="#collections">Collections</a>
+        <a href="#story">Story</a>
+        <a href="#journal">Journal</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn menu-toggle" aria-label="Open menu">☰</button>
+        <button class="icon-btn" aria-label="Search">⌕</button>
+        <button class="icon-btn" id="cartButton" aria-label="Open cart">🛒</button>
+        <a class="btn" href="#shop">Shop now</a>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<section id="servicios" class="py-24 px-6 bg-slate-900/30">
-  <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Soluciones de Ingeniería Digital</h2>
-        <p class="text-slate-500">Inversión única para rentabilidad recurrente.</p>
-    </div>
-
-    <div class="grid lg:grid-cols-3 gap-8">
-      
-      <div class="glass p-10 rounded-3xl relative overflow-hidden group">
-        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition">
-            <svg class="w-20 h-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        </div>
-        <h3 class="text-xl font-bold mb-2">Ecosistema IA Total</h3>
-        <p class="text-slate-400 text-sm mb-6">Web Pro + Agente de Voz + Automatización de CRM.</p>
-        <div class="text-4xl font-extrabold mb-8 text-white">2.400€ <span class="text-sm font-normal text-slate-500">/ pago único</span></div>
-        <ul class="space-y-4 mb-10 text-sm text-slate-300">
-          <li class="flex items-center gap-3">✅ Web Multi-página High-End</li>
-          <li class="flex items-center gap-3">✅ Clon de voz IA para atención telefónica</li>
-          <li class="flex items-center gap-3">✅ Integración WhatsApp Business API</li>
-          <li class="flex items-center gap-3">✅ Dashboard de métricas en tiempo real</li>
-        </ul>
-        <button class="w-full py-4 rounded-xl border border-white/20 font-bold hover:bg-white hover:text-black transition">Solicitar Diagnóstico</button>
-      </div>
-
-      <div class="bg-blue-600 p-10 rounded-3xl relative transform lg:-translate-y-4 shadow-2xl shadow-blue-500/20">
-        <div class="absolute top-4 right-6 bg-white text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">Más Demandado</div>
-        <h3 class="text-xl font-bold mb-2 text-white">Sistema de Citas Autonómo</h3>
-        <p class="text-blue-100 text-sm mb-6">Ideal para Clínicas, Abogados y Reformas.</p>
-        <div class="text-4xl font-extrabold mb-8 text-white">1.200€ <span class="text-sm font-normal text-blue-200">/ pago único</span></div>
-        <ul class="space-y-4 mb-10 text-sm text-blue-50">
-          <li class="flex items-center gap-3">✅ Web optimizada para reservas</li>
-          <li class="flex items-center gap-3">✅ Calendario auto-gestionado (No-Show Protection)</li>
-          <li class="flex items-center gap-3">✅ Automatización de reseñas en Google</li>
-          <li class="flex items-center gap-3">✅ Soporte técnico prioritario (3 meses)</li>
-        </ul>
-        <button class="w-full py-4 rounded-xl bg-white text-blue-600 font-extrabold hover:bg-slate-100 transition shadow-lg">Empezar Ahora</button>
-      </div>
-
-      <div class="glass p-10 rounded-3xl">
-        <h3 class="text-xl font-bold mb-2">Agente IA (Mantenimiento)</h3>
-        <p class="text-slate-400 text-sm mb-6">Tu empleado digital que no duerme ni pide vacaciones.</p>
-        <div class="text-4xl font-extrabold mb-8 text-white">197€ <span class="text-sm font-normal text-slate-500">/ mes</span></div>
-        <ul class="space-y-4 mb-10 text-sm text-slate-300">
-          <li class="flex items-center gap-3">✅ Atención telefónica 24/7</li>
-          <li class="flex items-center gap-3">✅ Entrenamiento continuo de la IA</li>
-          <li class="flex items-center gap-3">✅ Actualizaciones de seguridad</li>
-          <li class="flex items-center gap-3">✅ Reporte mensual de leads generados</li>
-        </ul>
-        <button class="w-full py-4 rounded-xl border border-white/20 font-bold hover:bg-white hover:text-black transition">Ver Demo de Voz</button>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="py-20 px-6">
-    <div class="max-w-4xl mx-auto glass p-12 rounded-[40px] text-center border-blue-500/30">
-        <h2 class="text-3xl font-bold mb-6">¿Miedo a la tecnología? Te lo ponemos fácil.</h2>
-        <div class="grid md:grid-cols-2 gap-8 text-left">
-            <div class="flex gap-4">
-                <div class="text-blue-500 text-2xl">🛡️</div>
-                <div>
-                    <h4 class="font-bold">Garantía de Entrega</h4>
-                    <p class="text-sm text-slate-400">Si no entregamos tu sistema funcional en 14 días, te devolvemos el 50% de la inversión inicial.</p>
-                </div>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div>
+            <div class="eyebrow">New collection · Built for city escapes</div>
+            <h1>Thoughtful gear for mornings that turn into weekends.</h1>
+            <p class="lead">Luma Trails is an invented premium outdoor-lifestyle store designed as a modern ecommerce template. It mixes editorial storytelling, high-end product presentation, and easy shopping flows inspired by clean brands like Yardsale.</p>
+            <div class="hero-actions">
+              <a href="#shop" class="btn">Explore bestsellers</a>
+              <a href="#story" class="btn secondary">See the brand story</a>
             </div>
-            <div class="flex gap-4">
-                <div class="text-blue-500 text-2xl">💳</div>
-                <div>
-                    <h4 class="font-bold">Pago en Cuotas</h4>
-                    <p class="text-sm text-slate-400">Financiación propia disponible para pymes y autónomos de Barcelona. Sin intereses.</p>
-                </div>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>4.9/5</strong>
+              <span>Average customer rating</span>
             </div>
+            <div class="stat">
+              <strong>48h</strong>
+              <span>Dispatch on stocked items</span>
+            </div>
+            <div class="stat">
+              <strong>32%</strong>
+              <span>Recycled materials in core range</span>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
 
-<section id="contacto" class="py-24 px-6 bg-white text-slate-900 rounded-t-[60px]">
-    <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl md:text-5xl font-extrabold mb-6">¿Hablamos de números?</h2>
-        <p class="text-slate-600 mb-12 text-lg">Reserva una auditoría de 15 min. No es una llamada de ventas, es una sesión técnica donde saldrás con tu mapa de automatización.</p>
-        
-        <div class="bg-slate-100 rounded-3xl overflow-hidden min-h-[600px] border-2 border-slate-200">
-            <iframe src="https://calendly.com/TU_USUARIO/auditoria" width="100%" height="600" frameborder="0"></iframe>
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="Outdoor lifestyle hero image">
+          <div class="floating-product">
+            <div>
+              <small>Featured drop</small>
+              <strong>Northline Weekender</strong>
+              <div class="tiny">Water-resistant canvas · cabin-size · 3 colors</div>
+            </div>
+            <button class="btn add-to-cart" data-name="Northline Weekender" data-price="179" data-image="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80">Add to cart · €179</button>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="collections">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Shop by collection</h2>
+            <p>Four modular blocks your client can easily adapt: bags, layering pieces, daily accessories, and travel essentials.</p>
+          </div>
+          <a href="#shop" class="btn secondary">View all products</a>
+        </div>
+
+        <div class="category-grid">
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=80" alt="Bags collection">
+            <div class="category-content">
+              <span class="pill">Bags</span>
+              <h3>Carry everything, beautifully</h3>
+              <p>Oversized totes, compact slings, and weekender bags for quick escapes.</p>
+            </div>
+          </article>
+
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Apparel collection">
+            <div class="category-content">
+              <span class="pill">Apparel</span>
+              <h3>Layers made to move</h3>
+              <p>Soft merino, weather-ready overshirts, and refined everyday staples.</p>
+            </div>
+          </article>
+
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80" alt="Accessories collection">
+            <div class="category-content">
+              <span class="pill">Accessories</span>
+              <h3>Small tools, big upgrades</h3>
+              <p>Bottles, pouches, notebooks and details that finish the kit.</p>
+            </div>
+          </article>
+
+          <article class="category-card">
+            <img src="https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=900&q=80" alt="Travel collection">
+            <div class="category-content">
+              <span class="pill">Travel</span>
+              <h3>Ready for the next long weekend</h3>
+              <p>Designed for road trips, train platforms, airport gates and mountain towns.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Our bestsellers</h2>
+            <p>This section works as the main sales engine: filter chips, clean cards, lifestyle images, clear prices, and add-to-cart buttons.</p>
+          </div>
+        </div>
+
+        <div class="filters">
+          <button class="filter-chip active">All</button>
+          <button class="filter-chip">Bags</button>
+          <button class="filter-chip">Apparel</button>
+          <button class="filter-chip">Accessories</button>
+          <button class="filter-chip">Travel</button>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <div class="product-media">
+              <span class="tag">Best seller</span>
+              <button class="wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" alt="Northline Weekender bag">
+            </div>
+            <div class="product-top">
+              <div>
+                <h3>Northline Weekender</h3>
+                <p>Cabin-size bag with dedicated shoe pocket and padded tech sleeve.</p>
+              </div>
+            </div>
+            <div class="price-row">
+              <span class="price">€179</span>
+              <button class="mini-btn add-to-cart" data-name="Northline Weekender" data-price="179" data-image="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80">Add</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media">
+              <span class="tag">New</span>
+              <button class="wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=800&q=80" alt="Cove Tote">
+            </div>
+            <div class="product-top">
+              <div>
+                <h3>Cove Tote 24L</h3>
+                <p>Structured daily tote with waterproof base and snap-in organizers.</p>
+              </div>
+            </div>
+            <div class="price-row">
+              <span class="price">€129</span>
+              <button class="mini-btn add-to-cart" data-name="Cove Tote 24L" data-price="129" data-image="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=600&q=80">Add</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media">
+              <span class="tag">Apparel</span>
+              <button class="wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Summit Overshirt">
+            </div>
+            <div class="product-top">
+              <div>
+                <h3>Summit Overshirt</h3>
+                <p>Heavy twill overshirt for layering on cool mornings and late dinners.</p>
+              </div>
+            </div>
+            <div class="price-row">
+              <span class="price">€118</span>
+              <button class="mini-btn add-to-cart" data-name="Summit Overshirt" data-price="118" data-image="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80">Add</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="product-media">
+              <span class="tag">Travel</span>
+              <button class="wishlist">♡</button>
+              <img src="https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=800&q=80" alt="Trail Flask Set">
+            </div>
+            <div class="product-top">
+              <div>
+                <h3>Trail Flask Set</h3>
+                <p>Double-wall bottle and cup kit made for road trips and campfire stops.</p>
+              </div>
+            </div>
+            <div class="price-row">
+              <span class="price">€49</span>
+              <button class="mini-btn add-to-cart" data-name="Trail Flask Set" data-price="49" data-image="https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=600&q=80">Add</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>A homepage that tells a story</h2>
+            <p>The inspiration here is not just product cards. It is the editorial feeling: a calm premium brand world, product lifestyle photography, and concise copy blocks.</p>
+          </div>
+        </div>
+
+        <div class="story-grid">
+          <article class="story-card large">
+            <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1200&q=80" alt="Brand story image">
+            <div class="story-overlay">
+              <div class="eyebrow">Why clients like this type of template</div>
+              <h3 style="font-size: 1.7rem; letter-spacing: -0.04em; margin-bottom: 10px;">It feels like a brand, not just a shop.</h3>
+              <p>This layout helps smaller brands look more established: strong visuals, premium typography, modular sections, and enough interactivity to feel polished without being too complex.</p>
+            </div>
+          </article>
+
+          <div class="stack">
+            <article class="story-card text">
+              <div>
+                <div class="eyebrow">Flexible block</div>
+                <h3 style="font-size: 1.5rem; letter-spacing: -0.04em; margin-bottom: 10px;">Swap this for founder text, campaign messaging, or delivery promises.</h3>
+                <p>Every section is easy to duplicate for other industries too: fashion, home decor, beauty, sports, food gifting, or travel goods.</p>
+              </div>
+              <a href="#contact" class="btn secondary" style="width: fit-content;">Discuss customization</a>
+            </article>
+
+            <article class="story-card text">
+              <div>
+                <div class="eyebrow">Conversion block</div>
+                <h3 style="font-size: 1.5rem; letter-spacing: -0.04em; margin-bottom: 10px;">Clear CTA + social proof + newsletter = stronger conversion.</h3>
+                <p>Use this same structure to guide customers from discovery to action without the page feeling aggressive or cluttered.</p>
+              </div>
+              <a href="#journal" class="btn secondary" style="width: fit-content;">See more content blocks</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Why this template works</h2>
+            <p>It balances premium aesthetics and practical ecommerce structure.</p>
+          </div>
+        </div>
+
+        <div class="value-grid">
+          <article class="value-card">
+            <div class="value-icon">✦</div>
+            <h3>Premium visual language</h3>
+            <p>Large imagery, soft neutrals, rounded cards and editorial spacing make the brand feel elevated.</p>
+          </article>
+          <article class="value-card">
+            <div class="value-icon">⚡</div>
+            <h3>Fast to customize</h3>
+            <p>Single-file HTML, CSS and JS makes it easy to adapt for demos or client pitches.</p>
+          </article>
+          <article class="value-card">
+            <div class="value-icon">🛒</div>
+            <h3>Sales-oriented layout</h3>
+            <p>Hero, collections, bestsellers, trust signals and email capture are already in place.</p>
+          </article>
+          <article class="value-card">
+            <div class="value-icon">📱</div>
+            <h3>Responsive by default</h3>
+            <p>Works across desktop and mobile, so it can be shown directly to potential clients.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>What customers say</h2>
+            <p>Testimonial cards add warmth and trust. They can also be replaced by press quotes or retailer logos.</p>
+          </div>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“The weekender feels premium, holds more than expected, and looks good enough for the city. Exactly the kind of bag I wanted for 3-day trips.”</p>
+            <div class="author">Marta L. · Barcelona</div>
+          </article>
+          <article class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“Love the clean look of the site. I found what I needed fast, and the product pages felt aspirational without being overdesigned.”</p>
+            <div class="author">James R. · London</div>
+          </article>
+          <article class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>“The tote became my everyday bag after one week. Commute, gym, weekend away—it just works for everything.”</p>
+            <div class="author">Chiara D. · Milan</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="journal">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Journal / content section</h2>
+            <p>A useful extra block for SEO, campaigns, or to give the homepage more depth.</p>
+          </div>
+        </div>
+
+        <div class="journal-grid">
+          <article class="journal-card">
+            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1000&q=80" alt="Weekend packing guide">
+            <div class="content">
+              <h3>How to pack for a 48-hour city escape</h3>
+              <p>Use this as a blog module, campaign teaser, or editorial tile linking deeper into the brand world.</p>
+            </div>
+          </article>
+          <article class="journal-card">
+            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=80" alt="Field notes">
+            <div class="content">
+              <h3>Field notes from a coastal spring trip</h3>
+              <p>A strong content section helps premium ecommerce feel more like a magazine and less transactional.</p>
+            </div>
+          </article>
+          <article class="journal-card">
+            <img src="https://images.unsplash.com/photo-1465310477141-6fb93167a273?auto=format&fit=crop&w=1000&q=80" alt="Materials story">
+            <div class="content">
+              <h3>Why we chose waxed canvas and merino</h3>
+              <p>Perfect for storytelling around quality, materials, craftsmanship or product care.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="newsletter">
+          <div>
+            <h2 style="margin-bottom: 10px;">Get early access to new drops</h2>
+            <p>Ideal for capturing leads directly from the homepage before customers leave.</p>
+          </div>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Enter your email address" />
+            <button class="btn" type="button">Join the list</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="margin-bottom: 14px;">
+            <span class="brand-mark">L</span>
+            <span>Luma Trails</span>
+          </div>
+          <p>An ecommerce concept demo created as a reusable client template. Replace the branding, products, imagery and copy to fit your next online store proposal.</p>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <a href="#shop">Bestsellers</a>
+          <a href="#collections">Collections</a>
+          <a href="#">Gift Cards</a>
+          <a href="#">Size Guide</a>
+        </div>
+        <div>
+          <h4>About</h4>
+          <a href="#story">Our Story</a>
+          <a href="#journal">Journal</a>
+          <a href="#">Materials</a>
+          <a href="#">Sustainability</a>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="#">Shipping</a>
+          <a href="#">Returns</a>
+          <a href="#">FAQ</a>
+          <a href="mailto:hello@lumatrails.com">hello@lumatrails.com</a>
+        </div>
+      </div>
     </div>
-</section>
+  </footer>
 
-<footer class="py-10 text-center text-slate-500 text-xs bg-white">
-    <p>© 2026 Lokalia.ia - Barcelona Digital Partner. <br> Construido con IA por emprendedores para negocios reales.</p>
-</footer>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+      <div>
+        <strong>Your cart</strong>
+        <div class="tiny">Demo functionality for client presentation</div>
+      </div>
+      <button class="icon-btn" id="closeCart">✕</button>
+    </div>
 
+    <div class="cart-items" id="cartItems">
+      <p class="tiny">No items yet. Add a few products to show the interaction.</p>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="subtotal">€0</span>
+      </div>
+      <button class="btn" style="width:100%;">Checkout</button>
+    </div>
+  </aside>
+
+  <script>
+    const cartButton = document.getElementById('cartButton');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const closeCart = document.getElementById('closeCart');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const cartItems = document.getElementById('cartItems');
+    const subtotal = document.getElementById('subtotal');
+    const addButtons = document.querySelectorAll('.add-to-cart');
+
+    let cart = [];
+
+    function openCart() {
+      cartDrawer.classList.add('open');
+      drawerBackdrop.classList.add('show');
+    }
+
+    function hideCart() {
+      cartDrawer.classList.remove('open');
+      drawerBackdrop.classList.remove('show');
+    }
+
+    function renderCart() {
+      if (!cart.length) {
+        cartItems.innerHTML = '<p class="tiny">No items yet. Add a few products to show the interaction.</p>';
+        subtotal.textContent = '€0';
+        return;
+      }
+
+      cartItems.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <img src="${item.image}" alt="${item.name}">
+          <div>
+            <strong>${item.name}</strong>
+            <div class="tiny">Qty: ${item.qty}</div>
+            <div class="tiny">€${item.price}</div>
+          </div>
+          <button class="icon-btn" onclick="removeItem(${index})">−</button>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      subtotal.textContent = `€${total}`;
+    }
+
+    function addToCart(name, price, image) {
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name, price: Number(price), image, qty: 1 });
+      }
+      renderCart();
+      openCart();
+    }
+
+    function removeItem(index) {
+      if (cart[index].qty > 1) {
+        cart[index].qty -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+      renderCart();
+    }
+
+    window.removeItem = removeItem;
+
+    cartButton.addEventListener('click', openCart);
+    closeCart.addEventListener('click', hideCart);
+    drawerBackdrop.addEventListener('click', hideCart);
+
+    addButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        addToCart(button.dataset.name, button.dataset.price, button.dataset.image);
+      });
+    });
+  </script>
 </body>
 </html>
