@@ -1,1031 +1,1237 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Campus de Estudio - Historia Francia y España</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Broggos Agency · Webs y Automatizaciones para Negocios Locales</title>
+  <meta name="description" content="Broggos Agency — Webs profesionales y automatizaciones con IA para negocios locales. Entrega en 1–2 semanas, precio cerrado."/>
+  <meta name="robots" content="index,follow"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="es_ES"/>
+  <meta property="og:title" content="Broggos Agency · Webs y Automatizaciones para Negocios Locales"/>
+  <meta property="og:description" content="Broggos Agency — Webs profesionales y automatizaciones con IA para negocios locales. Entrega en 1–2 semanas, precio cerrado."/>
+
+  <!-- ══════════════════════════════════════════════════════════════
+    FAVICON — pon estos archivos en la MISMA carpeta que index.html
+    Nombres exactos que debes usar:
+      favicon.ico          → icono principal (16×16 y 32×32 dentro)
+      favicon-32.png       → PNG 32×32 px
+      favicon-16.png       → PNG 16×16 px
+      apple-touch-icon.png → PNG 180×180 px (iPhone/iPad)
+      site.webmanifest     → archivo de manifiesto (ver abajo)
+
+    Si usas un generador (recomendado: https://realfavicongenerator.net)
+    sube tu logo y descarga el pack completo, copia todos los archivos
+    a la misma carpeta que index.html y ya funciona.
+  ══════════════════════════════════════════════════════════════ -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="manifest" href="site.webmanifest"/>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ProfessionalService","name":"Broggos Agency",
+  "url":"https://broggosagency.com","description":"Webs y automatizaciones para negocios locales.",
+  "email":"broggosagency@gmail.com","contactPoint":{"@type":"ContactPoint","email":"broggosagency@gmail.com","contactType":"customer service"}}
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root {
-      --bg: #0b1020;
-      --panel: #121934;
-      --panel-2: #1a2346;
-      --card: rgba(255,255,255,0.05);
-      --line: rgba(255,255,255,0.12);
-      --text: #eef2ff;
-      --muted: #b8c1e0;
-      --accent: #7c9cff;
-      --accent-2: #59d0c2;
-      --good: #27c281;
-      --bad: #ff6b6b;
-      --warning: #ffbf47;
-      --shadow: 0 18px 40px rgba(0,0,0,.28);
-      --radius: 18px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(124,156,255,.2), transparent 30%),
-        radial-gradient(circle at top left, rgba(89,208,194,.15), transparent 25%),
-        linear-gradient(180deg, #0b1020 0%, #0f1530 100%);
-      color: var(--text);
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-    }
-
-    header {
-      padding: 34px 0 18px;
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(10px);
-      background: rgba(11,16,32,.78);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-
-    .hero {
-      display: grid;
-      gap: 16px;
-      padding: 28px 0 14px;
-    }
-
-    .pill {
-      display: inline-flex;
-      width: fit-content;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--accent-2);
-      font-size: .9rem;
-      font-weight: 700;
-      letter-spacing: .02em;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      line-height: 1.05;
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 880px;
-      font-size: 1.02rem;
-      line-height: 1.65;
-    }
-
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin: 22px 0 12px;
-    }
-
-    .stat {
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .stat small {
-      display: block;
-      color: var(--muted);
-      margin-bottom: 6px;
-      font-size: .85rem;
-    }
-
-    .stat strong {
-      font-size: 1.6rem;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr .8fr auto;
-      gap: 12px;
-      align-items: center;
-      margin: 18px 0 24px;
-    }
-
-    .input, .select, .button {
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color: var(--text);
-      padding: 14px 16px;
-      font-size: .98rem;
-      outline: none;
-    }
-
-    .button {
-      cursor: pointer;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--accent), #8fb3ff);
-      color: #06101d;
-      border: none;
-      transition: transform .16s ease, opacity .16s ease;
-    }
-
-    .button:hover { transform: translateY(-1px); opacity: .95; }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 18px;
-      align-items: start;
-      padding-bottom: 48px;
-    }
-
-    aside {
-      position: sticky;
-      top: 116px;
-      background: rgba(18,25,52,.7);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    aside h3 {
-      margin: 0 0 12px;
-      font-size: 1rem;
-    }
-
-    .nav-list {
-      display: grid;
-      gap: 8px;
-      max-height: 70vh;
-      overflow: auto;
-      padding-right: 4px;
-    }
-
-    .nav-link {
-      display: block;
-      text-decoration: none;
-      color: var(--muted);
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      background: rgba(255,255,255,.02);
-      font-size: .94rem;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: var(--text);
-      border-color: rgba(124,156,255,.4);
-      background: rgba(124,156,255,.12);
-    }
-
-    .block {
-      background: rgba(18,25,52,.72);
-      border: 1px solid var(--line);
-      border-radius: 26px;
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-      overflow: hidden;
-    }
-
-    .block-header {
-      padding: 22px 22px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
-    }
-
-    .block-tag {
-      display: inline-block;
-      font-size: .78rem;
-      color: var(--accent-2);
-      margin-bottom: 8px;
-      font-weight: 800;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-    }
-
-    .block h2 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-
-    .block-sub {
-      margin-top: 6px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .block-body {
-      padding: 22px;
-      display: grid;
-      gap: 18px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      background: rgba(255,255,255,.035);
-    }
-
-    .card h4 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-    }
-
-    .summary {
-      color: var(--text);
-      line-height: 1.7;
-    }
-
-    .summary ul, .list ul { margin: 0; padding-left: 18px; }
-    .summary li, .list li { margin: 8px 0; color: var(--muted); }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(89,208,194,.12);
-      border: 1px solid rgba(89,208,194,.26);
-      color: #dafbf6;
-      font-size: .88rem;
-    }
-
-    .dates {
-      display: grid;
-      gap: 10px;
-    }
-
-    .date-row {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px dashed rgba(255,255,255,.09);
-    }
-
-    .date-row:last-child { border-bottom: none; }
-    .date-year { color: var(--warning); font-weight: 800; }
-    .date-text { color: var(--muted); }
-
-    .quiz {
-      display: grid;
-      gap: 16px;
-    }
-
-    .question {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      background: rgba(255,255,255,.03);
-    }
-
-    .question h5 {
-      margin: 0 0 12px;
-      font-size: 1rem;
-      line-height: 1.45;
-    }
-
-    .options {
-      display: grid;
-      gap: 10px;
-    }
-
-    .option {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      border: 1px solid rgba(255,255,255,.1);
-      padding: 10px 12px;
-      border-radius: 14px;
-      cursor: pointer;
-      color: var(--muted);
-      transition: .16s ease;
-    }
-
-    .option:hover { border-color: rgba(124,156,255,.45); color: var(--text); }
-
-    .option.correct { border-color: rgba(39,194,129,.6); background: rgba(39,194,129,.12); color: #dcfff0; }
-    .option.incorrect { border-color: rgba(255,107,107,.6); background: rgba(255,107,107,.12); color: #ffe0e0; }
-
-    .feedback {
-      margin-top: 10px;
-      font-size: .92rem;
-      color: var(--muted);
-      display: none;
-    }
-
-    .progress-wrap {
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent-2), var(--accent));
-      transition: width .25s ease;
-    }
-
-    .footer-note {
-      color: var(--muted);
-      text-align: center;
-      padding: 14px 0 34px;
-      font-size: .92rem;
-    }
-
-    .empty {
-      border: 1px dashed rgba(255,255,255,.18);
-      border-radius: 18px;
-      padding: 20px;
-      text-align: center;
-      color: var(--muted);
-      display: none;
-    }
-
-    @media (max-width: 980px) {
-      .dashboard, .grid-2, .layout, .toolbar { grid-template-columns: 1fr; }
-      aside { position: static; }
-      header { position: static; }
-      .date-row { grid-template-columns: 1fr; gap: 6px; }
-    }
+    #pillNav{transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;}
+    #pillNav.nav-hidden{transform:translateY(-160%);opacity:0;pointer-events:none;}
+    .modal-box{animation:mIn .22s cubic-bezier(.34,1.2,.64,1) both;}
+    @keyframes mIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    [data-faq-answer]{display:none;}
+    [data-faq-answer].faq-open{display:block;}
+    #cookieBanner{transition:transform .4s ease,opacity .4s ease;}
+    #cookieBanner.ck-hide{transform:translateY(130%);opacity:0;pointer-events:none;}
+    @keyframes btnWiggle{0%,100%{transform:translateX(0)}10%{transform:translateX(-3px) rotate(-1deg)}20%{transform:translateX(3px) rotate(1deg)}30%{transform:translateX(-2px)}40%{transform:translateX(2px)}50%{transform:translateX(0)}}
+    .btn-wiggle{animation:btnWiggle 4s ease-in-out 3s infinite;}
   </style>
 </head>
-<body>
-  <header>
-    <div class="container">
-      <div class="pill">Web de estudio interactiva</div>
-      <div class="hero">
-        <h1>Historia de Francia y España</h1>
-        <p>
-          Plataforma pensada para estudiar por bloques, repasar vocabulario clave, memorizar fechas importantes y comprobar la comprensión con mini exámenes tipo test al final de cada tema.
-        </p>
+<body class="bg-white text-slate-900 antialiased">
+<!-- ═══ COOKIE BANNER (RGPD / LOPD-GDD) ═══ -->
+<div id="cookieBanner" class="fixed bottom-0 left-0 right-0 z-[999] p-3 sm:p-4">
+  <div class="max-w-3xl mx-auto bg-slate-900 text-white rounded-2xl shadow-2xl border border-white/10 px-5 py-4">
+    <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold mb-1">Este sitio usa cookies</p>
+        <p class="text-xs text-slate-300 leading-relaxed">Usamos cookies técnicas necesarias y, con tu consentimiento, cookies para analizar visitas. Consulta nuestra <button type="button" onclick="showLegal('lc')" class="underline hover:text-white">política de cookies</button>.</p>
+      </div>
+      <div class="flex gap-2 flex-wrap flex-shrink-0">
+        <button id="ckReject" type="button" class="px-4 py-2 rounded-full border border-white/25 text-xs text-slate-300 hover:text-white hover:border-white transition-colors">Solo técnicas</button>
+        <button id="ckConfig" type="button" class="px-4 py-2 rounded-full border border-white/25 text-xs text-slate-300 hover:text-white hover:border-white transition-colors">Configurar</button>
+        <button id="ckAccept" type="button" class="px-5 py-2 rounded-full bg-white text-slate-900 text-xs font-bold hover:bg-slate-100 transition-colors">Aceptar todo</button>
       </div>
     </div>
-  </header>
+    <div id="ckPanel" class="hidden mt-4 pt-4 border-t border-white/10 space-y-3">
+      <label class="flex items-start gap-3 cursor-default">
+        <input type="checkbox" checked disabled class="mt-0.5 w-4 h-4 flex-shrink-0"/>
+        <div><p class="text-xs font-semibold">Cookies técnicas (necesarias)</p><p class="text-[11px] text-slate-400">Imprescindibles para el funcionamiento del sitio. No se pueden desactivar.</p></div>
+      </label>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input id="ckAnalytics" type="checkbox" class="mt-0.5 accent-white w-4 h-4 flex-shrink-0"/>
+        <div><p class="text-xs font-semibold">Cookies analíticas</p><p class="text-[11px] text-slate-400">Miden el uso del sitio (visitas, páginas). Nos ayudan a mejorarlo.</p></div>
+      </label>
+      <button id="ckSave" type="button" class="px-5 py-2 rounded-full bg-white text-slate-900 text-xs font-bold hover:bg-slate-100 transition-colors">Guardar preferencias</button>
+    </div>
+  </div>
+</div>
 
-  <main class="container">
-    <section class="dashboard">
-      <article class="stat">
-        <small>Bloques disponibles</small>
-        <strong id="totalTopics">0</strong>
-      </article>
-      <article class="stat">
-        <small>Preguntas tipo test</small>
-        <strong id="totalQuestions">0</strong>
-      </article>
-      <article class="stat">
-        <small>Tu avance global</small>
-        <strong id="globalScore">0%</strong>
-        <div class="progress-wrap"><div class="progress-bar" id="globalBar"></div></div>
-      </article>
-      <article class="stat">
-        <small>Temas completados</small>
-        <strong id="completedTopics">0</strong>
-      </article>
-    </section>
+<!-- ═══ PILL NAV ═══ -->
+<div id="pillNav" class="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
 
-    <section class="toolbar">
-      <input id="searchInput" class="input" type="text" placeholder="Buscar un tema, fecha o concepto..." />
-      <select id="countryFilter" class="select">
-        <option value="all">Todos los bloques</option>
-        <option value="Francia">Solo Francia</option>
-        <option value="España">Solo España</option>
-      </select>
-      <select id="periodFilter" class="select">
-        <option value="all">Todas las épocas</option>
-        <option value="siglo-xviii-xix">Siglos XVIII-XIX</option>
-        <option value="1900-1945">1900-1945</option>
-        <option value="1945-actualidad">1945-actualidad</option>
-      </select>
-      <button class="button" id="resetBtn">Restablecer</button>
-    </section>
-
-    <section class="layout">
-      <aside>
-        <h3>Índice de temas</h3>
-        <div class="nav-list" id="navList"></div>
-      </aside>
-
-      <section>
-        <div class="empty" id="emptyState">No hay resultados para esa búsqueda.</div>
-        <div id="topicsContainer"></div>
-      </section>
-    </section>
-  </main>
-
-  <div class="container footer-note">
-    Web generada en un solo archivo HTML. Puedes ampliarla, cambiar colores, añadir imágenes o convertirla en una web del colegio fácilmente.
+  <!-- DESKTOP: más ancho, más alto, fuente más grande -->
+  <!-- CAMBIO: bg-slate-900 para que sea del mismo color que el fondo del hero -->
+  <div class="hidden md:flex w-full max-w-4xl bg-slate-900 rounded-full shadow-2xl border border-white/15 px-5 py-3.5 items-center justify-between gap-3">
+    <a href="#inicio" class="flex items-center gap-2.5 flex-shrink-0">
+      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+        <svg class="w-4.5 h-4.5 text-slate-900" style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" stroke-width="2"/>
+          <path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="text-white text-base font-light tracking-tight">Broggos Agency</span>
+    </a>
+    <nav class="flex items-center gap-0.5">
+      <a href="#services"      class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Servicios</a>
+      <a href="#mantenimiento" class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Mantenimiento</a>
+      <a href="#proceso"       class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Proceso</a>
+      <a href="#faq"           class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">FAQ</a>
+      <a href="#contacto"      class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Contacto</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href="https://wa.me/34608574225?text=Hola%2C%20quiero%20info%20sobre%20Broggos%20Agency" target="_blank"
+         class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-[#25D366] text-white hover:bg-[#1fad55] transition-colors whitespace-nowrap">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+        WhatsApp
+      </a>
+      <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita"
+         class="flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 transition-colors shadow-sm whitespace-nowrap">
+        Llamada gratis
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+    </div>
   </div>
 
-  <script>
-    const topics = [
-      {
-        id: 'fra-revolution',
-        country: 'Francia',
-        period: 'siglo-xviii-xix',
-        title: 'La fin de l’Ancien Régime et la Révolution française',
-        subtitle: 'Del absolutismo a la soberanía nacional y los derechos del ciudadano.',
-        summary: [
-          'La Francia de finales del siglo XVIII vive una crisis del Antiguo Régimen: deuda pública, desigualdades sociales, ascenso de la burguesía y crisis económica.',
-          'En 1789, Luis XVI convoca los Estados Generales. El Tercer Estado se transforma en Asamblea Nacional y busca redactar una Constitución.',
-          'La toma de la Bastilla simboliza el inicio revolucionario y la Declaración de los Derechos del Hombre y del Ciudadano proclama libertad, igualdad jurídica y soberanía nacional.',
-          'La Revolución rompe con los privilegios y abre paso al liberalismo político, aunque también deja fuera a las mujeres, lo que denuncia Olympe de Gouges.'
-        ],
-        vocab: ['Ancien Régime', 'États Généraux', 'Assemblée nationale', 'DDHC', 'Souveraineté nationale', 'Libéralisme', 'Bastille'],
-        dates: [
-          ['1789', 'Convocatoria de los Estados Generales y comienzo de la Revolución.'],
-          ['17 junio 1789', 'El Tercer Estado crea la Asamblea Nacional.'],
-          ['14 julio 1789', 'Toma de la Bastilla.'],
-          ['26 agosto 1789', 'Declaración de los Derechos del Hombre y del Ciudadano.'],
-          ['1791', 'Olympe de Gouges publica la Declaración de los derechos de la mujer y de la ciudadana.']
-        ],
-        quiz: [
-          { q: '¿Qué hecho simboliza el inicio de la Revolución francesa?', a: 1, options: ['La batalla de Verdún', 'La toma de la Bastilla', 'El Congreso de Viena', 'La Revolución de 1848'], explain: 'La toma de la Bastilla, el 14 de julio de 1789, se convirtió en el gran símbolo del estallido revolucionario.' },
-          { q: '¿Qué principio afirma la DDHC de 1789?', a: 2, options: ['La soberanía reside en el rey', 'La sociedad se basa en privilegios', 'La soberanía reside en la nación', 'Solo la nobleza puede votar'], explain: 'La DDHC afirma que la autoridad política emana de la nación y no del rey absoluto.' },
-          { q: '¿Qué crítica representa Olympe de Gouges?', a: 0, options: ['La exclusión de las mujeres de los derechos políticos', 'La defensa del absolutismo', 'La expansión colonial', 'El rechazo de la educación'], explain: 'Olympe de Gouges denunció que la Declaración de 1789 no incluía a las mujeres como iguales en derechos.' }
-        ]
-      },
-      {
-        id: 'fra-1848',
-        country: 'Francia',
-        period: 'siglo-xviii-xix',
-        title: 'La Deuxième République et le Second Empire',
-        subtitle: 'Revolución, república democ-social y vuelta al autoritarismo imperial.',
-        summary: [
-          'La Monarquía de Julio no consigue resolver la crisis de legitimidad, de sufragio y social.',
-          'La revolución de febrero de 1848 proclama la Segunda República, con fuerte impulso popular, obrero y reformista.',
-          'Surge una república democrática y social, pero las tensiones políticas y sociales la debilitan rápidamente.',
-          'El ciclo termina con el ascenso del Segundo Imperio, que combina autoridad política y modernización.'
-        ],
-        vocab: ['Barricade', 'Suffrage', 'République démoc-soc', 'Nation', 'Révolution de 1848', 'Second Empire'],
-        dates: [
-          ['1830-1848', 'Monarquía de Julio.'],
-          ['24 febrero 1848', 'Proclamación de la Segunda República.'],
-          ['1848', 'Publicación del Manifiesto Comunista y Primavera de los Pueblos.'],
-          ['1852', 'Fin de la Segunda República e inicio del Segundo Imperio.']
-        ],
-        quiz: [
-          { q: '¿Qué régimen cae en febrero de 1848 en Francia?', a: 3, options: ['La III República', 'La V República', 'El régimen de Vichy', 'La Monarquía de Julio'], explain: 'La revolución de 1848 pone fin a la Monarquía de Julio.' },
-          { q: 'La Segunda República nace con un carácter...', a: 1, options: ['Solo militar', 'Popular, obrero y reformista', 'Exclusivamente monárquico', 'Puramente colonial'], explain: 'Los primeros días de la Segunda República tuvieron una clara dimensión popular y social.' },
-          { q: '¿Qué gran proceso europeo coincide con 1848?', a: 2, options: ['La Belle Époque', 'La descolonización', 'La Primavera de los Pueblos', 'La Guerra Fría'], explain: '1848 se inscribe en el gran ciclo revolucionario europeo llamado Primavera de los Pueblos.' }
-        ]
-      },
-      {
-        id: 'fra-iiie-belleepoque',
-        country: 'Francia',
-        period: 'siglo-xviii-xix',
-        title: 'La III République et la Belle Époque',
-        subtitle: 'Una república consolidada en un contexto de progreso, tensiones y nacionalismo.',
-        summary: [
-          'La III República nace tras la derrota de Sedan y una fase inicial muy inestable, marcada por la Commune y el peso de la derrota frente a Prusia.',
-          'Entre 1870 y 1914, Francia vive la Belle Époque, una etapa de crecimiento económico, innovación técnica y optimismo cultural.',
-          'Aun así, Francia sigue siendo en gran parte rural fuera de la región parisina.',
-          'La Exposición Universal de París de 1900 resume el espíritu de progreso, inversión, diplomacia de paz y expansión nacional.'
-        ],
-        vocab: ['Sedan', 'III République', 'Commune', 'Belle Époque', 'Ville Lumière', 'Progrès', 'Nationalisme'],
-        dates: [
-          ['1870', 'Derrota de Sedan y proclamación de la III República.'],
-          ['1871', 'Commune de Paris.'],
-          ['1881', 'Leyes Ferry y consolidación republicana.'],
-          ['1894', 'Affaire Dreyfus.'],
-          ['1900', 'Exposición Universal de París.'],
-          ['1914', 'Fin de la Belle Époque con el estallido de la guerra.']
-        ],
-        quiz: [
-          { q: '¿Entre qué años se suele situar la Belle Époque?', a: 1, options: ['1789-1815', '1870-1914', '1919-1939', '1945-1975'], explain: 'La Belle Époque se suele situar entre la derrota de Sedan y el inicio de la Primera Guerra Mundial.' },
-          { q: '¿Qué ciudad resume el ideal de “ville Lumière”?', a: 0, options: ['París', 'Marsella', 'Lyon', 'Toulouse'], explain: 'París es el gran símbolo de la modernidad y la innovación de la Belle Époque.' },
-          { q: '¿Qué exposición resume el optimismo de esta etapa?', a: 3, options: ['Exposición de Bruselas 1958', 'Conferencia de Berlín', 'Congreso de Viena', 'Exposición Universal de París de 1900'], explain: 'La Exposición Universal de París de 1900 funciona como síntesis visual y política de la Belle Époque.' }
-        ]
-      },
-      {
-        id: 'fra-colonialisme',
-        country: 'Francia',
-        period: '1900-1945',
-        title: 'Le colonialisme français',
-        subtitle: 'Imperio, misión civilizadora, explotación y resistencias.',
-        summary: [
-          'El segundo imperio colonial francés se construye sobre razones económicas, estratégicas y nacionalistas.',
-          'La propaganda republicana habla de “mission civilisatrice”, pero en la práctica el sistema colonial es desigual y explotador.',
-          'Las colonias aportan materias primas, mercados y prestigio internacional a la metrópoli.',
-          'Existen resistencias tanto en las colonias como en la propia metrópoli, donde algunos sectores denuncian la contradicción entre colonialismo y valores republicanos.'
-        ],
-        vocab: ['Colonie', 'Métropole', 'Impérialisme', 'Mission civilisatrice', 'Protectorat', 'AEF', 'AOF', 'Parti colonial'],
-        dates: [
-          ['1884-1885', 'Conferencia de Berlín y reparto colonial.'],
-          ['1870-1914', 'Gran expansión del segundo imperio colonial francés.'],
-          ['1905', 'Se intensifica la propaganda republicana sobre la “misión civilizadora”.'],
-          ['1914', 'Francia llega a la guerra con un vasto imperio colonial.']
-        ],
-        quiz: [
-          { q: '¿Qué idea justificaba moralmente la expansión colonial francesa?', a: 2, options: ['La soberanía obrera', 'La neutralidad armada', 'La misión civilizadora', 'La autogestión local'], explain: 'La “mission civilisatrice” fue una gran justificación ideológica de la colonización.' },
-          { q: '¿Qué aportaban sobre todo las colonias a la metrópoli?', a: 1, options: ['Solo artistas', 'Materias primas y mercados', 'Únicamente soldados', 'Nada relevante'], explain: 'El sistema colonial buscaba recursos, mercados y beneficios económicos para la metrópoli.' },
-          { q: '¿Existieron resistencias al colonialismo?', a: 0, options: ['Sí, tanto en colonias como en la metrópoli', 'No, fue aceptado por todos', 'Solo en Europa del Este', 'Solo después de 1970'], explain: 'Hubo resistencias permanentes en los territorios colonizados y críticas políticas en Francia.' }
-        ]
-      },
-      {
-        id: 'fra-wwi',
-        country: 'Francia',
-        period: '1900-1945',
-        title: 'La Première Guerre mondiale',
-        subtitle: 'Una guerra total que rompe el equilibrio europeo y transforma la sociedad.',
-        summary: [
-          'Europa llega a 1914 dividida en alianzas rivales: Triple Alianza y Triple Entente.',
-          'El asesinato de Francisco Fernando en Sarajevo desencadena una guerra que en realidad venía preparándose por rivalidades imperiales, económicas y militares.',
-          'El conflicto pasa de guerra de movimiento a guerra de posiciones y trincheras.',
-          'Verdún, la Somme, el armisticio y el Tratado de Versalles marcan la memoria del conflicto y sus consecuencias.'
-        ],
-        vocab: ['Triple Entente', 'Triple Alliance', 'Sarajevo', 'Guerre de mouvement', 'Tranchées', 'Armistice', 'Versailles'],
-        dates: [
-          ['28 junio 1914', 'Atentado de Sarajevo.'],
-          ['28 julio 1914', 'Comienzo del conflicto.'],
-          ['1916', 'Grandes batallas de Verdún y la Somme.'],
-          ['11 noviembre 1918', 'Armisticio.'],
-          ['1919', 'Tratado de Versalles.']
-        ],
-        quiz: [
-          { q: '¿Qué hecho desencadena directamente la Primera Guerra Mundial?', a: 1, options: ['La Revolución rusa', 'El atentado de Sarajevo', 'La caída del muro de Berlín', 'La guerra de Cuba'], explain: 'El asesinato del archiduque Francisco Fernando en Sarajevo fue el detonante inmediato.' },
-          { q: '¿Cómo se llama la fase estática del conflicto?', a: 2, options: ['Guerra relámpago', 'Guerra de guerrillas', 'Guerra de trincheras', 'Guerra fría'], explain: 'La guerra de posiciones o de trincheras marcó gran parte del conflicto.' },
-          { q: '¿Qué acuerdo pone fin formalmente a la guerra en 1919?', a: 3, options: ['Tratado de Roma', 'Paz de Utrecht', 'Acuerdos de Evian', 'Tratado de Versalles'], explain: 'El Tratado de Versalles cerró oficialmente la guerra y reorganizó el mapa europeo.' }
-        ]
-      },
-      {
-        id: 'fra-entredeux-vichy',
-        country: 'Francia',
-        period: '1900-1945',
-        title: 'Entre-deux-guerres, Front populaire, Vichy et Résistance',
-        subtitle: 'Crisis económica, totalitarismos, derrota y colaboracionismo.',
-        summary: [
-          'Tras la Primera Guerra Mundial, Francia sale victoriosa pero devastada, endeudada y marcada por el duelo colectivo.',
-          'La crisis de 1929 llega más tarde a Francia, pero afecta a industria, exportaciones, inversión y finanzas públicas.',
-          'En 1940, la República desaparece y nace el Estado francés de Vichy bajo Pétain, régimen autoritario y colaboracionista.',
-          'Frente a Vichy y la ocupación, surge la Resistencia, que se convierte en una referencia central de la memoria política francesa.'
-        ],
-        vocab: ['Entre-deux-guerres', 'Front Populaire', 'Krach de 1929', 'Vichy', 'Collaboration', 'Résistance', 'Pétain'],
-        dates: [
-          ['1919', 'Inicio del período de entreguerras.'],
-          ['1931', 'La crisis económica entra plenamente en Francia.'],
-          ['1936', 'Frente Popular.'],
-          ['10 julio 1940', 'Plenos poderes a Pétain y nacimiento del Estado francés.'],
-          ['1944-1945', 'Liberación de Francia.']
-        ],
-        quiz: [
-          { q: '¿Qué gran problema marca la década de 1930 en Francia?', a: 0, options: ['La crisis económica derivada del crack de 1929', 'La independencia de Argelia', 'La entrada en la UE', 'La caída del comunismo'], explain: 'La crisis de 1929 acabó afectando también a Francia y agravó las tensiones sociales y políticas.' },
-          { q: '¿Quién dirige el régimen de Vichy?', a: 2, options: ['De Gaulle', 'Jules Ferry', 'Pétain', 'Clemenceau'], explain: 'El mariscal Philippe Pétain encabezó el Estado francés de Vichy.' },
-          { q: 'Vichy fue un régimen...', a: 1, options: ['Democrático y parlamentario', 'Autoritario y colaboracionista', 'Anarquista', 'Federalista'], explain: 'La democracia parlamentaria cesa con Vichy, que adopta una lógica autoritaria y de colaboración.' }
-        ]
-      },
-      {
-        id: 'fra-decolonisation',
-        country: 'Francia',
-        period: '1945-actualidad',
-        title: 'La décolonisation et la France après 1945',
-        subtitle: 'Reconstrucción, IV República y fin del imperio colonial.',
-        summary: [
-          'Después de 1945, Francia debe reconstruirse económica y políticamente.',
-          'Se crean la Seguridad Social, políticas de modernización y nacionalizaciones, en un contexto de Guerra Fría.',
-          'La IV República se enfrenta al problema colonial, especialmente en Indochina y Argelia.',
-          'La descolonización avanza entre 1945 y 1962, con procesos pacíficos y otros muy violentos.'
-        ],
-        vocab: ['IV République', 'Sécurité Sociale', 'Plan Marshall', 'Décolonisation', 'Indochine', 'Algérie', 'Guerre froide'],
-        dates: [
-          ['1945', 'Fin de la Segunda Guerra Mundial y comienzo de la reconstrucción.'],
-          ['1946', 'Nace la IV República y la Seguridad Social.'],
-          ['1946-1954', 'Guerra de Indochina.'],
-          ['1956', 'Independencia de Marruecos y Túnez.'],
-          ['1962', 'Independencia de Argelia.']
-        ],
-        quiz: [
-          { q: '¿Qué institución social clave nace en Francia en 1946?', a: 1, options: ['La OTAN', 'La Seguridad Social', 'La ONU', 'La CECA'], explain: 'La Seguridad Social fue una gran conquista social del periodo de posguerra.' },
-          { q: '¿Qué territorio protagoniza una guerra colonial entre 1946 y 1954?', a: 3, options: ['Canadá', 'Bélgica', 'Suiza', 'Indochina'], explain: 'La guerra de Indochina es uno de los grandes conflictos de la descolonización francesa.' },
-          { q: '¿Qué independencia marca el final de una larga guerra entre 1954 y 1962?', a: 0, options: ['Argelia', 'Portugal', 'Italia', 'Austria'], explain: 'La independencia de Argelia puso fin a uno de los conflictos más traumáticos para la Francia contemporánea.' }
-        ]
-      },
-      {
-        id: 'fra-vrepublique',
-        country: 'Francia',
-        period: '1945-actualidad',
-        title: 'La Ve République et le monde d’aujourd’hui',
-        subtitle: 'Nueva Constitución, fortalecimiento presidencial y construcción europea.',
-        summary: [
-          'La V República nace en 1958 con una nueva Constitución que fortalece claramente el poder presidencial.',
-          'El presidente nombra al primer ministro, puede disolver la Asamblea y recurrir al referéndum.',
-          'En 1962, la elección presidencial pasa al sufragio universal directo, reforzando todavía más su legitimidad.',
-          'Francia participa de forma central en la construcción europea desde Schuman, la CECA y el Tratado de Roma.'
-        ],
-        vocab: ['Ve République', 'Constitution de 1958', 'Référendum', 'Suffrage universel direct', 'CECA', 'CEE', 'Schuman'],
-        dates: [
-          ['9 mayo 1950', 'Declaración Schuman.'],
-          ['18 abril 1951', 'Creación de la CECA.'],
-          ['25 marzo 1957', 'Tratado de Roma.'],
-          ['28 septiembre 1958', 'Referéndum y nueva Constitución.'],
-          ['1962', 'Elección presidencial por sufragio universal directo.']
-        ],
-        quiz: [
-          { q: '¿En qué año nace la V República?', a: 2, options: ['1946', '1951', '1958', '1968'], explain: 'La nueva Constitución de 1958 marca el inicio de la V República.' },
-          { q: '¿Qué cambio se aprueba en 1962?', a: 0, options: ['Elección del presidente por sufragio universal directo', 'Abolición del Parlamento', 'Fin de la República', 'Salida de Europa'], explain: 'Desde 1962, el presidente francés es elegido directamente por los ciudadanos.' },
-          { q: '¿Qué tratado crea la CEE?', a: 1, options: ['Versalles', 'Roma', 'Utrecht', 'Evian'], explain: 'El Tratado de Roma de 1957 crea la Comunidad Económica Europea.' }
-        ]
-      },
-      {
-        id: 'esp-antiguo-cadiz',
-        country: 'España',
-        period: 'siglo-xviii-xix',
-        title: 'Antiguo Régimen, Guerra de la Independencia y Constitución de 1812',
-        subtitle: 'Crisis de la monarquía borbónica y nacimiento del liberalismo español.',
-        summary: [
-          'La España del Antiguo Régimen se basa en una sociedad estamental, una economía agraria y una monarquía cada vez más centralizadora con los Borbones.',
-          'La invasión napoleónica de 1808 provoca la crisis de la monarquía, el levantamiento popular y la Guerra de la Independencia.',
-          'En Cádiz se reúnen las Cortes, que impulsan la primera gran ruptura legal con el Antiguo Régimen.',
-          'La Constitución de 1812 proclama soberanía nacional, división de poderes, derechos individuales y sufragio masculino indirecto.'
-        ],
-        vocab: ['Antiguo Régimen', 'Borbones', 'Dos de Mayo', 'Cortes de Cádiz', 'La Pepa', 'Soberanía nacional', 'Guerrilla'],
-        dates: [
-          ['1707-1716', 'Decretos de Nueva Planta y centralización borbónica.'],
-          ['1808', 'Abdicaciones de Bayona y comienzo de la Guerra de la Independencia.'],
-          ['1810-1814', 'Cortes de Cádiz.'],
-          ['19 marzo 1812', 'Constitución de 1812.'],
-          ['1814', 'Regreso de Fernando VII y restauración absolutista.']
-        ],
-        quiz: [
-          { q: '¿Qué nombre recibe popularmente la Constitución de 1812?', a: 2, options: ['La Gloriosa', 'La Niña', 'La Pepa', 'La Armada'], explain: 'La Constitución de 1812 es conocida popularmente como “La Pepa”.' },
-          { q: '¿Qué principio político introduce la Constitución de 1812?', a: 0, options: ['La soberanía nacional', 'La monarquía absoluta', 'La vuelta del feudalismo', 'La desaparición de las Cortes'], explain: 'La gran novedad es la soberanía nacional frente al absolutismo.' },
-          { q: '¿Qué conflicto comienza en 1808?', a: 1, options: ['La Guerra Fría', 'La Guerra de la Independencia', 'La Guerra Civil', 'La Guerra de Sucesión'], explain: 'La invasión napoleónica desencadena la Guerra de la Independencia española.' }
-        ]
-      },
-      {
-        id: 'esp-liberal-restauracion',
-        country: 'España',
-        period: 'siglo-xviii-xix',
-        title: 'Construcción del Estado liberal y Restauración borbónica',
-        subtitle: 'De Isabel II al sistema canovista, entre inestabilidad, turnismo y caciquismo.',
-        summary: [
-          'Tras la crisis del absolutismo, España construye lentamente un Estado liberal marcado por guerras carlistas, pronunciamientos e inestabilidad.',
-          'Durante el reinado de Isabel II se forman partidos moderados y progresistas, y se consolida una monarquía parlamentaria muy limitada.',
-          'La Restauración borbónica intenta estabilizar el sistema con el turnismo entre conservadores y liberales.',
-          'Pero el régimen arrastra problemas estructurales: caciquismo, conflictividad social, cuestión regional y crisis colonial.'
-        ],
-        vocab: ['Carlismo', 'Pronunciamiento', 'Monarquía parlamentaria', 'Restauración', 'Turnismo', 'Caciquismo', 'Canovismo'],
-        dates: [
-          ['1833', 'Inicio del reinado de Isabel II y primera guerra carlista.'],
-          ['1845', 'Constitución moderada.'],
-          ['1868', 'La Gloriosa.'],
-          ['1873-1874', 'Primera República.'],
-          ['1874', 'Inicio de la Restauración borbónica.'],
-          ['1898', 'Crisis colonial y regeneracionismo.']
-        ],
-        quiz: [
-          { q: '¿Qué mecanismo político define la Restauración?', a: 1, options: ['Sufragio femenino', 'Turnismo entre partidos', 'Gobierno obrero', 'República federal estable'], explain: 'El sistema canovista se basa en la alternancia pactada entre partidos.' },
-          { q: '¿Qué práctica deformaba la vida política local?', a: 3, options: ['Federalismo', 'Sindicalismo', 'Abolicionismo', 'Caciquismo'], explain: 'El caciquismo manipulaba elecciones y controlaba la política local.' },
-          { q: '¿Qué gran crisis golpea al régimen en 1898?', a: 0, options: ['La pérdida del imperio colonial', 'La caída del euro', 'La guerra mundial', 'La Revolución rusa'], explain: 'La crisis de 1898 supuso una fuerte sacudida política, moral y colonial.' }
-        ]
-      },
-      {
-        id: 'esp-segundarepublica',
-        country: 'España',
-        period: '1900-1945',
-        title: 'La Segunda República española',
-        subtitle: 'Democracia, reformas y polarización política.',
-        summary: [
-          'La Segunda República se proclama el 14 de abril de 1931 y abre una etapa democrática y reformista.',
-          'La Constitución de 1931 define un régimen republicano, laico, progresista, con derechos y libertades y sufragio para ambos sexos.',
-          'Se intentan reformas del ejército, la educación, el campo y la cuestión territorial.',
-          'La polarización entre derechas e izquierdas bloquea el proyecto republicano y prepara el camino hacia la guerra civil.'
-        ],
-        vocab: ['República', 'Constitución de 1931', 'Laicismo', 'Autonomía', 'Bienio reformista', 'CEDA', 'Frente Popular'],
-        dates: [
-          ['14 abril 1931', 'Proclamación de la Segunda República.'],
-          ['1931', 'Nueva Constitución republicana.'],
-          ['1931-1933', 'Bienio reformista.'],
-          ['1933-1935', 'Bienio conservador.'],
-          ['1936', 'Victoria del Frente Popular.']
-        ],
-        quiz: [
-          { q: '¿Qué rasgo define la Constitución de 1931?', a: 2, options: ['Monarquía absoluta', 'Estado confesional', 'Estado laico y democrático', 'Dictadura militar'], explain: 'La Constitución de 1931 establece un régimen republicano, democrático y laico.' },
-          { q: '¿Qué día se proclama la Segunda República?', a: 0, options: ['14 de abril de 1931', '18 de julio de 1936', '1 de enero de 1900', '6 de diciembre de 1978'], explain: 'La proclamación republicana se produce el 14 de abril de 1931.' },
-          { q: '¿Qué victoria electoral en 1936 agrava la tensión política?', a: 1, options: ['La de la UCD', 'La del Frente Popular', 'La del PP', 'La de la Falange en solitario'], explain: 'La victoria del Frente Popular antecede al levantamiento militar de julio de 1936.' }
-        ]
-      },
-      {
-        id: 'esp-guerracivil',
-        country: 'España',
-        period: '1900-1945',
-        title: 'La Guerra Civil española',
-        subtitle: 'Golpe militar, país dividido y conflicto internacionalizado.',
-        summary: [
-          'El 17-18 de julio de 1936 comienza el golpe militar que fracasa parcialmente y desemboca en una guerra civil.',
-          'España queda dividida entre el bando republicano y el nacional, con bases sociales, ideológicas y territoriales diferentes.',
-          'El conflicto se internacionaliza con apoyos exteriores a ambos bandos.',
-          'La guerra deja una sociedad devastada y abre el camino a una larga dictadura.'
-        ],
-        vocab: ['Golpe de Estado', 'Republicanos', 'Nacionales', 'Brigadas Internacionales', 'Franco', 'No pasarán', 'Guerra civil'],
-        dates: [
-          ['17 julio 1936', 'Inicio del golpe militar en Marruecos.'],
-          ['18 julio 1936', 'Extensión del levantamiento a la península.'],
-          ['1936-1939', 'Desarrollo de la Guerra Civil.'],
-          ['1939', 'Victoria franquista y final de la guerra.']
-        ],
-        quiz: [
-          { q: '¿Qué desencadena la Guerra Civil española?', a: 3, options: ['Un tratado europeo', 'Una crisis bancaria', 'Una independencia colonial', 'Un golpe militar fallido parcialmente'], explain: 'La guerra nace del golpe militar de julio de 1936, que no triunfa completamente.' },
-          { q: '¿Cómo se llamaba el bando leal a la legalidad republicana?', a: 0, options: ['Republicano', 'Carlista', 'Alfonsino', 'Canovista'], explain: 'El bando republicano defendía la continuidad de la República.' },
-          { q: '¿Fue un conflicto aislado o internacionalizado?', a: 1, options: ['Aislado', 'Internacionalizado', 'Solo económico', 'Solo colonial'], explain: 'La guerra tuvo una dimensión internacional muy importante.' }
-        ]
-      },
-      {
-        id: 'esp-franquismo',
-        country: 'España',
-        period: '1900-1945',
-        title: 'El régimen franquista',
-        subtitle: 'Dictadura, nacionalcatolicismo, represión y evolución interna.',
-        summary: [
-          'El franquismo se legitima por la victoria en la guerra civil, el poder personal del dictador, el ejército, la Iglesia y el anticomunismo.',
-          'Es un régimen antiliberal, corporativista, de partido único y fuerte represión.',
-          'Primero vive una etapa de autarquía y aislamiento; después, una fase tecnócrata de apertura y desarrollo económico.',
-          'En su crisis final aparecen el desgaste político, la oposición y las tensiones del final del régimen.'
-        ],
-        vocab: ['Franquismo', 'Caudillo', 'Nacionalcatolicismo', 'Autarquía', 'Falange', 'Represión', 'Movimiento Nacional'],
-        dates: [
-          ['1939', 'Inicio de la dictadura franquista.'],
-          ['1937-1959', 'Etapa de afirmación, autarquía y consolidación.'],
-          ['1959-1973', 'Etapa tecnócrata y desarrollo económico.'],
-          ['1973-1975', 'Crisis final del régimen.'],
-          ['1975', 'Muerte de Franco.']
-        ],
-        quiz: [
-          { q: '¿Qué ideología resume bien el franquismo?', a: 2, options: ['Liberalismo parlamentario', 'Socialismo democrático', 'Nacionalcatolicismo', 'Federalismo plural'], explain: 'El franquismo se apoya en el nacionalismo español, el catolicismo político y el anticomunismo.' },
-          { q: '¿Cómo se llama la política económica de autosuficiencia de la primera etapa?', a: 1, options: ['Librecambio', 'Autarquía', 'Neoliberalismo', 'Marshallismo'], explain: 'La primera etapa franquista se caracteriza por la autarquía y el aislamiento.' },
-          { q: '¿Qué año marca el final de la dictadura?', a: 0, options: ['1975', '1931', '1958', '1982'], explain: 'La muerte de Franco en 1975 abre la etapa de la transición.' }
-        ]
-      },
-      {
-        id: 'esp-transicion',
-        country: 'España',
-        period: '1945-actualidad',
-        title: 'La Transición y la democracia',
-        subtitle: 'De la muerte de Franco al Estado democrático.',
-        summary: [
-          'La Transición española, entre 1975 y 1982, es el proceso por el que España pasa de la dictadura a la democracia.',
-          'Tras la muerte de Franco se abren tres opciones: continuismo, ruptura y reforma; finalmente triunfa la vía reformista.',
-          'Juan Carlos I, Torcuato Fernández-Miranda y Adolfo Suárez desempeñan un papel central en este cambio.',
-          'El periodo está marcado por el consenso, pero también por violencia política, miedo al golpe de Estado y fuerte inestabilidad.'
-        ],
-        vocab: ['Transición', 'Consenso', 'Reforma política', 'UCD', 'PSOE', 'Constitución de 1978', '23F'],
-        dates: [
-          ['1975', 'Muerte de Franco.'],
-          ['1976', 'Ley para la Reforma Política.'],
-          ['1977', 'Primeras elecciones democráticas.'],
-          ['1978', 'Constitución española.'],
-          ['1981', 'Intento de golpe de Estado del 23F.'],
-          ['1982', 'Victoria del PSOE y consolidación democrática.']
-        ],
-        quiz: [
-          { q: '¿Entre qué años se suele situar la Transición española?', a: 1, options: ['1931-1939', '1975-1982', '1959-1973', '1986-1992'], explain: 'La cronología habitual va desde la muerte de Franco hasta la victoria socialista de 1982.' },
-          { q: '¿Qué ley abrió el marco legal hacia la democracia?', a: 0, options: ['Ley para la Reforma Política', 'Ley Sálica', 'Ley de Vagos y Maleantes', 'Fuero del Trabajo'], explain: 'La Ley para la Reforma Política fue la base jurídica del cambio.' },
-          { q: '¿Qué episodio de 1981 puso en peligro la democracia?', a: 2, options: ['La Semana Trágica', 'La Gloriosa', 'El 23F', 'El Desastre de Annual'], explain: 'El intento de golpe del 23F fue uno de los momentos más críticos de la Transición.' }
-        ]
-      }
-    ];
+  <!-- MOBILE: fondo sólido opaco, sin transparencias -->
+  <div class="flex md:hidden w-full max-w-sm bg-slate-900 rounded-full shadow-2xl border border-slate-700 px-3 py-2.5 items-center justify-between">
+    <a href="#inicio" class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+        <svg style="width:14px;height:14px" class="text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" stroke-width="2"/>
+          <path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="text-white text-sm font-light">Broggos Agency</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <a href="https://wa.me/34608574225?text=Hola" target="_blank" aria-label="WhatsApp"
+         class="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center">
+        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+      </a>
+      <button id="hamBtn" type="button" aria-label="Menú"
+         class="w-9 h-9 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-white">
+        <svg id="hamIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="closeIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </div>
 
-    const container = document.getElementById('topicsContainer');
-    const navList = document.getElementById('navList');
-    const emptyState = document.getElementById('emptyState');
-    const totalTopics = document.getElementById('totalTopics');
-    const totalQuestions = document.getElementById('totalQuestions');
-    const globalScore = document.getElementById('globalScore');
-    const globalBar = document.getElementById('globalBar');
-    const completedTopics = document.getElementById('completedTopics');
+  <!-- Mobile dropdown: sólido, perfectamente legible -->
+  <div id="mobileMenu" class="hidden md:hidden absolute top-[58px] left-2 right-2 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
+    <nav class="p-3 space-y-0.5">
+      <a href="#services"      class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Servicios</a>
+      <a href="#mantenimiento" class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Mantenimiento</a>
+      <a href="#proceso"       class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Proceso</a>
+      <a href="#faq"           class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">FAQ</a>
+      <a href="#contacto"      class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Contacto</a>
+    </nav>
+    <div class="p-3 space-y-2 border-t border-slate-700">
+      <a href="https://wa.me/34608574225?text=Hola%2C%20quiero%20info%20sobre%20Broggos%20Agency" target="_blank"
+         class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold bg-[#25D366] text-white">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+        WhatsApp
+      </a>
+      <a href="mailto:broggosagency@gmail.com?subject=Consulta%20Broggos%20Agency"
+         class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-medium bg-slate-800 text-white hover:bg-slate-700 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        broggosagency@gmail.com
+      </a>
+      <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita"
+         class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 transition-colors">
+        Reservar llamada gratuita →
+      </a>
+    </div>
+  </div>
+</div>
 
-    const searchInput = document.getElementById('searchInput');
-    const countryFilter = document.getElementById('countryFilter');
-    const periodFilter = document.getElementById('periodFilter');
-    const resetBtn = document.getElementById('resetBtn');
+<!-- ═══ HOME PAGE ═══ -->
+<main id="homePage">
 
-    const state = {
-      answers: {},
-      visibleTopics: [...topics]
-    };
+<!-- HERO -->
+<section id="inicio" class="pt-32 sm:pt-40 pb-16 sm:pb-20 px-4 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-white">
+  <div class="max-w-5xl mx-auto text-center">
+    <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/10 border border-white/20 mb-6 tracking-wide">Agencia digital · Negocios locales</span>
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-5">
+      Tu negocio merece
+      <span class="italic font-normal block mt-1">una presencia que vende</span>
+    </h1>
+    <p class="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+      Webs profesionales y automatizaciones con IA. Entrega en <strong class="text-white font-semibold">1–2 semanas</strong>, precio cerrado, <strong class="text-white font-semibold">pago en cuotas disponible</strong>.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center flex-wrap">
+      <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita" class="btn-wiggle flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-slate-900 hover:bg-slate-100 text-sm font-bold shadow-lg transition-colors">
+        Reservar llamada gratuita<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://wa.me/34608574225?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20Broggos%20Agency" target="_blank"
+         class="flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#25D366] text-white hover:bg-[#1fad55] text-sm font-medium shadow-lg transition-colors">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.10-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+        WhatsApp
+      </a>
+      <a href="mailto:broggosagency@gmail.com" class="flex items-center gap-2 px-6 py-3.5 rounded-full border border-slate-600 text-sm font-medium text-slate-200 hover:border-white hover:text-white transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        broggosagency@gmail.com
+      </a>
+    </div>
+    <p class="text-slate-500 text-xs mt-4">20 min · Sin compromiso · Respuesta &lt;24h</p>
+    <div class="mt-12 pt-8 border-t border-white/10 grid grid-cols-3 gap-4 max-w-sm mx-auto">
+      <div><p class="text-3xl font-light">1–2</p><p class="text-slate-400 text-xs mt-1">semanas entrega</p></div>
+      <div><p class="text-3xl font-light">0€</p><p class="text-slate-400 text-xs mt-1">primera consulta</p></div>
+      <div><p class="text-3xl font-light">100%</p><p class="text-slate-400 text-xs mt-1">atención personal</p></div>
+    </div>
+  </div>
+</section>
 
-    function getQuestionKey(topicId, qIndex) {
-      return `${topicId}__${qIndex}`;
-    }
+<!-- SERVICES -->
+<section id="services" class="py-16 sm:py-20 px-4 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div>
+        <h2 class="text-2xl sm:text-4xl font-light mb-2">Servicios para digitalizar tu negocio</h2>
+        <p class="text-slate-500 text-sm max-w-lg">Webs profesionales y automatizaciones con IA. Todos con posibilidad de pago en cuotas.</p>
+      </div>
+      <p class="text-slate-400 text-xs">Entrega 1–2 semanas · Precio cerrado · Pago en cuotas disponible</p>
+    </div>
 
-    function getStats() {
-      const allQuestions = topics.reduce((sum, t) => sum + t.quiz.length, 0);
-      let correct = 0;
-      let completed = 0;
+    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Webs profesionales</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web Básica</h3><p class="text-slate-500 text-xs">1 página esencial</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">449€</span></div>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>1 página completa</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Diseño adaptado a móvil</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Google Maps integrado</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="web-basica" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
 
-      topics.forEach(topic => {
-        let topicDone = true;
-        topic.quiz.forEach((q, i) => {
-          const key = getQuestionKey(topic.id, i);
-          const ans = state.answers[key];
-          if (ans === q.a) correct++;
-          if (ans === undefined) topicDone = false;
-        });
-        if (topicDone) completed++;
-      });
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web Profesional</h3><p class="text-slate-500 text-xs">Diseño personalizado</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">597€</span></div>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>3–5 páginas a medida</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Formularios de contacto</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>SEO básico incluido</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="web-pro" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
 
-      return {
-        totalTopics: topics.length,
-        allQuestions,
-        correct,
-        completed,
-        scorePct: allQuestions ? Math.round((correct / allQuestions) * 100) : 0
-      };
-    }
+      <article class="group rounded-2xl border-2 border-slate-900 bg-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">⭐ Más solicitada · Mejor valor</span>
+        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web con Reservas</h3><p class="text-slate-500 text-xs">Citas online automatizadas</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">897€</span></div>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Sistema de reservas integrado</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Confirmaciones automáticas</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Calendario sincronizado</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="web-reservas" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
 
-    function renderStats() {
-      const s = getStats();
-      totalTopics.textContent = s.totalTopics;
-      totalQuestions.textContent = s.allQuestions;
-      globalScore.textContent = `${s.scorePct}%`;
-      globalBar.style.width = `${s.scorePct}%`;
-      completedTopics.textContent = s.completed;
-    }
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web con Catálogo</h3><p class="text-slate-500 text-xs">Escaparate con filtros</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">697€</span></div>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Catálogo con filtros</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Fichas de producto</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Diseño visual de impacto</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="web-catalogo" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
+    </div>
 
-    function renderNav(list) {
-      navList.innerHTML = list.map(t => `
-        <a href="#${t.id}" class="nav-link">${t.country} · ${t.title}</a>
-      `).join('');
-    }
+    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Automatizaciones e inteligencia artificial</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Asistente WhatsApp 24/7</h3><p class="text-slate-500 text-xs">Respuestas 24/7</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">249€</span></div>
+        <p class="text-xs text-slate-400 mb-3">o 69€/mes · <span class="text-emerald-600 font-semibold">solo 2,30€/día</span></p>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Respuestas automáticas 24/7</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Menú interactivo de opciones</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Info del negocio al instante</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="whatsapp" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
 
-    function renderTopics(list) {
-      container.innerHTML = '';
-      emptyState.style.display = list.length ? 'none' : 'block';
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Agente Web IA</h3><p class="text-slate-500 text-xs">Asistente inteligente</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">297€</span></div>
+        <p class="text-xs text-slate-400 mb-3">o 69€/mes · <span class="text-emerald-600 font-semibold">solo 2,30€/día</span></p>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Respuestas inteligentes personalizadas</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Captación de leads</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Integración directa en tu web</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="chatbot" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
 
-      list.forEach(topic => {
-        const topicEl = document.createElement('article');
-        topicEl.className = 'block';
-        topicEl.id = topic.id;
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col relative">
+        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">🔥 Más popular · Oferta limitada</span>
+        <div class="mb-1"><h3 class="text-base font-light mb-0.5">Recepcionista IA Premium</h3><p class="text-slate-500 text-xs">Teléfono 24/7 por IA</p></div>
+        <p class="text-sm font-bold text-slate-900 mb-1">Desde 197€/mes</p>
+        <p class="text-xs text-slate-400 mb-3"><span class="text-emerald-600 font-semibold">solo 6,57€/día</span></p>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Atención 24/7 sin personal</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Gestión automática de citas</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Precio según volumen</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="agente-ia" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Cuota mensual adaptada</span>
+        </div>
+      </article>
 
-        topicEl.innerHTML = `
-          <div class="block-header">
-            <div class="block-tag">${topic.country} · ${topic.period.replaceAll('-', ' ')}</div>
-            <h2>${topic.title}</h2>
-            <div class="block-sub">${topic.subtitle}</div>
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">📅 Nuevo servicio</span>
+        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Sistema de Reservas Automático</h3><p class="text-slate-500 text-xs">Citas gestionadas sin esfuerzo</p></div></div>
+        <div class="flex items-baseline gap-1 mb-1"><span class="text-sm font-bold text-slate-900">149€</span><span class="text-xs text-slate-400">setup</span></div>
+        <p class="text-xs text-slate-400 mb-3">+ <span class="text-emerald-600 font-semibold">39€/mes</span></p>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Confirmación automática por WhatsApp</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Recordatorio 24h antes de la cita</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Sincronización con Google Calendar</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="reservas-auto" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
+
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">🎯 Alta conversión</span>
+        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Seguimiento Automático de Leads</h3><p class="text-slate-500 text-xs">Ningún cliente interesado se escapa</p></div></div>
+        <div class="flex items-baseline gap-1 mb-1"><span class="text-sm font-bold text-slate-900">199€</span><span class="text-xs text-slate-400">setup</span></div>
+        <p class="text-xs text-slate-400 mb-3">+ <span class="text-emerald-600 font-semibold">49€/mes</span></p>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Email automático a las 24h del contacto</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Seguimiento por WhatsApp a los 3 días</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Recordatorio final personalizado a los 7 días</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="seguimiento-leads" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
+
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">⭐ Más reseñas = más clientes</span>
+        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Recopilador de Reseñas Google</h3><p class="text-slate-500 text-xs">Acumula reseñas en Google sin esfuerzo</p></div></div>
+        <div class="flex items-baseline gap-1 mb-1"><span class="text-sm font-bold text-slate-900">99€</span><span class="text-xs text-slate-400">setup</span></div>
+        <p class="text-xs text-slate-400 mb-3">+ <span class="text-emerald-600 font-semibold">29€/mes</span></p>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Petición automática tras cada servicio</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Link directo a Google My Business</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Feedback negativo redirigido en privado</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="resenas-google" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
+
+      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">📊 Incluido en mantenimiento</span>
+        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Reporte Mensual Automático</h3><p class="text-slate-500 text-xs">Tu cliente recibe resultados cada mes</p></div></div>
+        <p class="text-sm font-bold text-slate-900 mb-3">+20€/mes al plan de mantenimiento</p>
+        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Datos de visitas y rendimiento web</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Resumen generado con IA personalizado</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Envío automático el día 1 de cada mes</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="reporte-mensual" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Se añade al plan de mantenimiento</span>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border-2 border-slate-900 bg-slate-900 text-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+        <span class="text-[9px] font-bold uppercase tracking-widest bg-yellow-400 text-slate-900 px-2.5 py-0.5 rounded-full self-start mb-2">Ahorra más de 1.000€ · Pack completo</span>
+        <div class="flex items-start justify-between mb-1"><div><h3 class="text-base font-light mb-0.5">Pack Todo en Uno</h3><p class="text-slate-300 text-xs">Web + automatizaciones</p></div><span class="text-sm font-bold text-white ml-2 whitespace-nowrap"><span class="line-through text-slate-400 text-xs font-normal mr-1">2.999€</span>1.997€</span></div>
+        <p class="text-xs text-slate-400 mb-3">Valor individual de los servicios: 2.999€</p>
+        <ul class="space-y-1.5 text-xs text-slate-300 mb-4 flex-1">
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Web profesional incluida</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>WhatsApp + Chatbot IA + Reservas</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Seguimiento de leads automático</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Reseñas Google automatizadas</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Reporte mensual incluido</li>
+          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Soporte post-entrega</li>
+        </ul>
+        <div class="flex flex-col gap-2 mt-auto">
+          <button type="button" data-open-service="pack-todo" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-900 hover:bg-slate-100 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MANTENIMIENTO -->
+<section id="mantenimiento" class="py-16 sm:py-20 px-4 bg-slate-50">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Servicio mensual</span>
+      <h2 class="text-2xl sm:text-4xl font-light mb-3">Plan de mantenimiento web</h2>
+      <p class="text-slate-500 text-sm max-w-xl mx-auto">Tu web siempre actualizada, segura y con soporte. Empieza desde <strong class="text-slate-900">29€/mes</strong> — <span class="text-emerald-600 font-semibold">menos de 1€/día</span> — y activa solo lo que necesitas.</p>
+      <div class="w-16 h-px bg-slate-900 mx-auto mt-6"></div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="bg-slate-900 px-6 py-5 flex items-center justify-between">
+        <div>
+          <p class="text-white text-lg font-light">Plan mensual personalizado</p>
+          <p class="text-slate-400 text-xs mt-0.5">Sin permanencia · Cancela cuando quieras</p>
+        </div>
+        <div class="text-right">
+          <p class="text-white text-3xl font-light transition-all"><span id="mntTotal">30</span>€<span class="text-slate-400 text-base">/mes</span></p>
+          <p class="text-slate-500 text-[10px] uppercase tracking-wide">precio total</p>
+        </div>
+      </div>
+
+      <div class="px-6 pt-5 pb-4 border-b border-slate-100">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Siempre incluido · base 29€/mes</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Dominio personalizado (.es o .com)</div>
+          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Alojamiento web de alta velocidad</div>
+          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Certificado SSL (HTTPS)</div>
+          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Monitoreo de disponibilidad 24/7</div>
+        </div>
+      </div>
+
+      <div class="px-6 py-5">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Extras — activa los que necesites</p>
+        <div class="space-y-3">
+          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" data-extra="10" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
+              <div><p class="text-sm font-medium text-slate-900">Revisiones y actualizaciones de contenido</p><p class="text-xs text-slate-500">Cambios de textos, imágenes y precios cuando lo necesites</p></div>
+            </div>
+            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+10€</span>
+          </label>
+          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" data-extra="15" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
+              <div><p class="text-sm font-medium text-slate-900">Soporte prioritario</p><p class="text-xs text-slate-500">Respuesta garantizada en menos de 4 horas en horario laboral</p></div>
+            </div>
+            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+15€</span>
+          </label>
+          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" data-extra="10" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
+              <div><p class="text-sm font-medium text-slate-900">Copias de seguridad diarias</p><p class="text-xs text-slate-500">Backup automático cada 24h con restauración incluida</p></div>
+            </div>
+            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+10€</span>
+          </label>
+          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
+            <div class="flex items-center gap-3">
+              <input type="checkbox" data-extra="20" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
+              <div><p class="text-sm font-medium text-slate-900">Informe mensual de rendimiento</p><p class="text-xs text-slate-500">Visitas, páginas más vistas y resumen de actividad mensual</p></div>
+            </div>
+            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+20€</span>
+          </label>
+        </div>
+
+        <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p class="text-xs text-slate-500">Total mensual estimado</p>
+            <p class="text-3xl font-light text-slate-900"><span id="mntTotalBottom">30</span>€<span class="text-sm text-slate-500">/mes</span></p>
+            <p class="text-[10px] text-slate-400 mt-0.5">Sin permanencia · Cancela cuando quieras</p>
           </div>
-          <div class="block-body">
-            <div class="card summary">
-              <h4>Resumen del tema</h4>
-              <ul>${topic.summary.map(item => `<li>${item}</li>`).join('')}</ul>
+          <div class="flex gap-2 flex-wrap">
+            <a href="https://wa.me/34608574225?text=Hola%2C%20me%20interesa%20el%20plan%20de%20mantenimiento%20web" target="_blank"
+               class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-sm font-medium hover:bg-[#1fad55] transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+              Contratar por WhatsApp
+            </a>
+            <a href="mailto:broggosagency@gmail.com?subject=Plan%20mantenimiento%20Broggos%20Agency"
+               class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-700 text-sm font-medium hover:border-slate-900 hover:bg-slate-50 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              Enviar email
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso" class="py-16 sm:py-20 px-4 bg-white">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-4xl font-light mb-2">De cero a online en cuatro pasos</h2>
+      <p class="text-slate-500 text-sm max-w-md mx-auto">Un proceso claro, con un punto de contacto directo en todo momento.</p>
+      <div class="w-16 h-px bg-slate-900 mx-auto mt-5"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">1</span>
+        <h3 class="text-base font-semibold mb-1.5">Llamada de descubrimiento</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">20 minutos para entender tu negocio, tus clientes y lo que necesitas. Sin tecnicismos, sin presión.</p>
+        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">Gratuito · 20 minutos</p>
+      </article>
+      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">2</span>
+        <h3 class="text-base font-semibold mb-1.5">Propuesta con precio cerrado</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">Recibes alcance, plazo y precio final en un documento claro. Con opción de pago en cuotas. Sin sorpresas.</p>
+        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">En 24–48 horas</p>
+      </article>
+      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">3</span>
+        <h3 class="text-base font-semibold mb-1.5">Diseño y desarrollo</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">Me encargo de todo. Solo necesito la info básica de tu negocio. Te muestro el avance antes de publicar para que valides.</p>
+        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">1–2 semanas</p>
+      </article>
+      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">4</span>
+        <h3 class="text-base font-semibold mb-1.5">Entrega y soporte</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">Tu web en marcha. Incluye soporte post-entrega y formación básica para gestionar el contenido tú mismo.</p>
+        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">Soporte incluido</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-16 sm:py-20 px-4 bg-slate-50">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-4xl font-light mb-2">Preguntas frecuentes</h2>
+      <p class="text-slate-500 text-sm max-w-md mx-auto">Todo lo que suelen preguntar antes de empezar.</p>
+      <div class="w-16 h-px bg-slate-900 mx-auto mt-5"></div>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-hidden">
+      <article>
+        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
+          <span class="font-medium text-base pr-4">¿Cuánto tarda en estar lista la web?</span>
+          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Entre 1 y 2 semanas para proyectos estándar. El plazo exacto lo acordamos en la propuesta antes de empezar, y nunca arranco sin que lo tengas claro.</div>
+      </article>
+      <article>
+        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
+          <span class="font-medium text-base pr-4">¿Puedo pagar en cuotas?</span>
+          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Sí. Todos los proyectos tienen posibilidad de pago fraccionado. Lo habitual es 50% al inicio y 50% en la entrega, aunque podemos acordar otras fórmulas. Consúltame sin compromiso.</div>
+      </article>
+      <article>
+        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
+          <span class="font-medium text-base pr-4">¿Cuánto cuesta exactamente una web?</span>
+          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Precios fijos: Web Básica 449€, Profesional 597€, con Reservas 897€ (la más solicitada), con Catálogo 697€. Si dudas qué opción necesitas, lo vemos en la llamada gratuita y te doy el precio exacto antes de empezar.</div>
+      </article>
+      <article>
+        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
+          <span class="font-medium text-base pr-4">¿Necesito saber de tecnología?</span>
+          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>No. Me encargo de dominio, alojamiento, diseño y puesta en marcha. Solo necesito la info básica de tu negocio. Al entregar te enseño a gestionar contenidos sin código.</div>
+      </article>
+      <article>
+        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
+          <span class="font-medium text-base pr-4">¿Qué pasa si el resultado no me convence?</span>
+          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Incluyo revisiones hasta que el resultado te guste. Siempre muestro referencias antes de empezar y aprobamos el diseño antes del desarrollo final.</div>
+      </article>
+      <article>
+        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
+          <span class="font-medium text-base pr-4">¿La web necesita textos legales?</span>
+          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Si la web recoge datos de usuarios (formulario de contacto, newsletter…) necesita aviso legal, política de privacidad y política de cookies. En Broggos Agency incluyo una base legal orientativa en todas las webs. Para que sea completamente válida, te recomiendo revisarla con un asesor una vez tengas el proyecto registrado.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="py-16 sm:py-20 px-4 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
+      <div class="space-y-5">
+        <h2 class="text-2xl sm:text-4xl font-light">Reserva tu llamada gratuita</h2>
+        <p class="text-slate-500 text-sm max-w-md">20 minutos para analizar tu negocio, ver qué encaja y cuánto costaría. Al final sabes exactamente lo que necesitas.</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">20'</div>
+            <div><p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Duración</p><p class="text-sm font-medium text-slate-900">20 min · Al grano, sin rodeos</p></div>
+          </div>
+          <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+            <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm flex-shrink-0">✓</div>
+            <div><p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Sin compromiso</p><p class="text-sm text-slate-700">Si no encajamos, te lo digo con honestidad</p></div>
+          </div>
+        </div>
+        <div class="pt-2">
+          <p class="text-[10px] text-slate-400 mb-3 uppercase tracking-wider font-bold">Contacto directo</p>
+          <div class="flex gap-3 flex-wrap">
+            <a href="https://wa.me/34608574225?text=Hola%2C%20quiero%20reservar%20una%20llamada%20gratuita" target="_blank"
+               class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-sm font-medium hover:bg-[#1fad55] transition-colors shadow-sm">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+              WhatsApp
+            </a>
+            <a href="mailto:broggosagency@gmail.com?subject=Consulta%20servicios%20Broggos%20Agency"
+               class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-700 text-sm font-medium hover:border-slate-900 hover:bg-slate-50 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              broggosagency@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+        <h3 class="text-lg font-light mb-2">Reserva cita directamente</h3>
+        <p class="text-slate-500 text-sm mb-5">Elige el servicio, la fecha y la hora. Confirmo en menos de 2 horas.</p>
+        <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita" class="flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-slate-900 text-white hover:bg-slate-800 text-sm font-bold w-full mb-3 transition-colors">
+          Abrir calendario de reservas<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+        <p class="text-slate-400 text-xs">Sin compromiso · 20 min · Gratis</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEGAL SECTIONS (hidden, shown via footer) -->
+<div id="legalWrap" class="hidden bg-white border-t border-slate-100">
+  <div class="max-w-4xl mx-auto px-4 py-14 space-y-10 text-sm text-slate-600 leading-relaxed">
+    <div class="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-700">
+      <strong>Aviso:</strong> Broggos Agency es un proyecto en fase de constitución. Los textos legales incluidos son una base orientativa. Se recomienda revisarlos con un asesor legal antes de operar comercialmente.
+    </div>
+
+    <div id="la">
+      <h2 class="text-xl font-semibold text-slate-900 mb-4">Aviso Legal</h2>
+      <p class="mb-3">En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información:</p>
+      <ul class="space-y-2 list-none">
+        <li><strong>Titular:</strong> Matias Broggi y Gonzalo Garcia (Broggos Agency — proyecto en fase de constitución)</li>
+        <li><strong>DNI titular principal:</strong> 46421671N</li>
+        <li><strong>Localización:</strong> Barcelona, España</li>
+        <li><strong>Email:</strong> broggosagency@gmail.com</li>
+        <li><strong>Actividad:</strong> Diseño web y automatizaciones digitales para negocios locales</li>
+      </ul>
+      <p class="mt-4">Los precios publicados en este sitio son orientativos e incluyen todos los impuestos aplicables. La contratación se formaliza mediante propuesta escrita aceptada por el cliente.</p>
+    </div>
+
+    <div id="lp">
+      <h2 class="text-xl font-semibold text-slate-900 mb-4">Política de Privacidad</h2>
+      <p class="mb-3">De conformidad con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPD-GDD):</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Responsable del tratamiento</h3>
+      <p>Matias Broggi y Gonzalo Garcia · broggosagency@gmail.com · Barcelona, España</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Datos que recabamos y finalidad</h3>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>Formulario de contacto y reservas:</strong> nombre, teléfono, email y datos del negocio. Finalidad: gestionar la solicitud de información o cita.</li>
+        <li><strong>Newsletter:</strong> email. Finalidad: envío de comunicaciones comerciales sobre servicios de Broggos Agency. Puedes darte de baja en cualquier momento.</li>
+      </ul>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Base jurídica</h3>
+      <p>Consentimiento del interesado (Art. 6.1.a RGPD) para la newsletter, y ejecución de medidas precontractuales (Art. 6.1.b RGPD) para el formulario de contacto.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Conservación</h3>
+      <p>Los datos se conservarán mientras sean necesarios para la finalidad indicada y durante los plazos legalmente exigibles. Para la newsletter, hasta que solicites la baja.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Destinatarios</h3>
+      <p>Los datos personales recabados no serán cedidos a terceros salvo obligación legal. Únicamente se comparten con prestadores técnicos necesarios (proveedor de email, hosting), con quienes se han formalizado los acuerdos de tratamiento correspondientes.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Tus derechos</h3>
+      <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a broggosagency@gmail.com. También puedes reclamar ante la <a href="https://www.aepd.es" target="_blank" class="underline hover:text-slate-900">Agencia Española de Protección de Datos</a>.</p>
+    </div>
+
+    <div id="lc">
+      <h2 class="text-xl font-semibold text-slate-900 mb-4">Política de Cookies</h2>
+      <p class="mb-3">Este sitio utiliza cookies conforme a la LSSI-CE y las directrices de la AEPD (guía de cookies, enero 2024).</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">¿Qué son las cookies?</h3>
+      <p>Pequeños ficheros de datos almacenados en tu dispositivo que permiten recordar información sobre tu visita.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Cookies que utilizamos</h3>
+      <div class="overflow-x-auto mt-2">
+        <table class="w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50"><tr>
+            <th class="px-3 py-2 text-left font-semibold text-slate-700">Cookie</th>
+            <th class="px-3 py-2 text-left font-semibold text-slate-700">Tipo</th>
+            <th class="px-3 py-2 text-left font-semibold text-slate-700">Finalidad</th>
+            <th class="px-3 py-2 text-left font-semibold text-slate-700">Duración</th>
+          </tr></thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2">broggos_ck</td><td class="px-3 py-2">Técnica</td><td class="px-3 py-2">Guarda tus preferencias de cookies</td><td class="px-3 py-2">1 año</td></tr>
+            <tr><td class="px-3 py-2">_ga, _gid</td><td class="px-3 py-2">Analítica (Google)</td><td class="px-3 py-2">Mide visitas y comportamiento de navegación (solo si aceptas)</td><td class="px-3 py-2">2 años / 24h</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Cómo gestionarlas</h3>
+      <p>Puedes aceptar, rechazar o configurar las cookies mediante el panel de consentimiento. También puedes eliminarlas desde la configuración de tu navegador. Desactivar las técnicas puede afectar al funcionamiento del sitio.</p>
+    </div>
+
+    <div id="lt">
+      <h2 class="text-xl font-semibold text-slate-900 mb-4">Condiciones de Prestación de Servicios</h2>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Objeto</h3>
+      <p>Estas condiciones regulan la contratación de servicios de diseño web, automatización y mantenimiento ofrecidos bajo la marca Broggos Agency.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Proceso de contratación</h3>
+      <p>La contratación se formaliza mediante propuesta escrita aceptada por el cliente (por escrito o email). Hasta dicha aceptación no existe relación contractual vinculante.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Precios y pago</h3>
+      <p>Los precios indicados en el sitio web son orientativos e incluyen todos los impuestos. El precio definitivo se establece en la propuesta formal enviada al cliente. El pago puede fraccionarse (habitual: 50% inicio + 50% entrega). Los servicios de mantenimiento mensual se facturan al inicio de cada período.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Plazos de entrega</h3>
+      <p>Los plazos indicados (1–2 semanas) son estimaciones para proyectos estándar. El plazo definitivo se establece en la propuesta y puede variar según complejidad y velocidad de feedback del cliente.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Revisiones incluidas</h3>
+      <p>Cada proyecto incluye rondas de revisión hasta alcanzar el resultado acordado. Las modificaciones que excedan el alcance inicial podrán implicar un coste adicional acordado por escrito.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Propiedad del resultado</h3>
+      <p>Una vez completado el pago íntegro, el cliente adquiere los derechos de uso sobre el resultado entregado. Broggos Agency puede mencionar el proyecto en su portfolio salvo acuerdo expreso en contrario.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Responsabilidad</h3>
+      <p>Broggos Agency no se responsabiliza de daños por uso incorrecto del servicio, ni de contenidos aportados por el cliente que puedan infringir derechos de terceros. El cliente es responsable de la veracidad y legalidad del contenido que aporta.</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Contacto</h3>
+      <p>Para cualquier consulta sobre estas condiciones: broggosagency@gmail.com</p>
+      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Legislación aplicable</h3>
+      <p>Estas condiciones se rigen por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales del domicilio del prestador.</p>
+    </div>
+
+    <button type="button" onclick="document.getElementById('legalWrap').classList.add('hidden'); window.scrollTo({top:0,behavior:'smooth'});"
+       class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-600 text-sm hover:border-slate-900 transition-colors">
+      ↑ Cerrar textos legales
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 border-t border-slate-800 py-10 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+            <svg style="width:14px;height:14px" class="text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <span class="text-white text-sm font-light">Broggos Agency</span>
+        </div>
+        <p class="text-slate-400 text-xs leading-relaxed">Webs profesionales y automatizaciones IA para negocios locales.</p>
+      </div>
+      <div>
+        <p class="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-3">Contacto</p>
+        <div class="space-y-2">
+          <a href="https://wa.me/34608574225" target="_blank" class="flex items-center gap-2 text-slate-300 hover:text-[#25D366] text-xs transition-colors">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+            WhatsApp
+          </a>
+          <a href="mailto:broggosagency@gmail.com" class="flex items-center gap-2 text-slate-300 hover:text-white text-xs transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            broggosagency@gmail.com
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-3">Legal</p>
+        <div class="space-y-2">
+          <button type="button" onclick="showLegal('la')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Aviso Legal</button>
+          <button type="button" onclick="showLegal('lp')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Política de Privacidad</button>
+          <button type="button" onclick="showLegal('lc')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Política de Cookies</button>
+          <button type="button" onclick="showLegal('lt')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Condiciones del Servicio</button>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <p class="text-slate-500 text-xs">© 2025 Broggos Agency · Todos los derechos reservados</p>
+      <p class="text-slate-600 text-[10px]">Diseñado y desarrollado por Broggos Agency</p>
+    </div>
+  </div>
+</footer>
+</main>
+
+<!-- BOOKING PAGE -->
+<div id="projectPage" class="hidden">
+  <div class="max-w-5xl mx-auto px-4 pt-6 flex justify-end">
+    <button type="button" data-go-home class="px-5 py-2 rounded-full bg-white text-slate-900 text-sm font-bold shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors">
+      Volver a la web
+    </button>
+  </div>
+
+  <main class="pt-6 pb-16 px-4 bg-slate-50 min-h-screen">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl sm:text-3xl font-light mb-2">Reserva tu llamada gratuita</h1>
+        <p class="text-slate-500 text-sm">Elige servicio, fecha y hora. Confirmo en menos de 2 horas.</p>
+        <div class="w-12 h-px bg-slate-900 mx-auto mt-4"></div>
+      </div>
+      <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-slate-900 px-6 py-4 flex items-center justify-between">
+          <span class="text-white text-sm font-light" id="calStepTitle">Elige el servicio</span>
+          <div class="flex gap-1.5">
+            <div class="w-2 h-2 rounded-full bg-white" id="dot1"></div>
+            <div class="w-2 h-2 rounded-full bg-white/30" id="dot2"></div>
+            <div class="w-2 h-2 rounded-full bg-white/30" id="dot3"></div>
+          </div>
+        </div>
+        <div class="p-5 sm:p-6">
+          <!-- Step 1 -->
+          <div id="cStep1">
+            <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-4 font-bold">Paso 1 de 3 — Servicio</p>
+            <div class="space-y-2">
+
+              <!-- CAMBIO: de radio a checkbox para permitir seleccionar varios -->
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Web Básica (450€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Web Básica</p><p class="text-sm text-slate-500">1 página esencial</p></div></div>
+                <span class="text-base font-bold text-slate-900">450€</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Web Profesional (600€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Web Profesional</p><p class="text-sm text-slate-500">3–5 páginas</p></div></div>
+                <span class="text-base font-bold text-slate-900">600€</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Web con Reservas (900€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Web con Reservas</p><p class="text-sm text-slate-500">Sistema de reservas integrado</p></div></div>
+                <span class="text-base font-bold text-slate-900">900€</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Asistente WhatsApp 24/7 (249€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Asistente WhatsApp 24/7</p><p class="text-sm text-slate-500">Respuestas 24/7</p></div></div>
+                <span class="text-base font-bold text-slate-900">249€</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Sistema de Reservas Automático (149€ setup + 39€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Sistema de Reservas Automático</p><p class="text-sm text-slate-500">149€ setup + 39€/mes</p></div></div>
+                <span class="text-base font-bold text-slate-900">149€+</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Seguimiento Automático de Leads (199€ setup + 49€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Seguimiento Automático de Leads</p><p class="text-sm text-slate-500">199€ setup + 49€/mes</p></div></div>
+                <span class="text-base font-bold text-slate-900">199€+</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Recopilador de Reseñas Google (99€ setup + 29€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Recopilador de Reseñas Google</p><p class="text-sm text-slate-500">99€ setup + 29€/mes</p></div></div>
+                <span class="text-base font-bold text-slate-900">99€+</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Reporte Mensual Automático (+20€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Reporte Mensual Automático</p><p class="text-sm text-slate-500">+20€/mes</p></div></div>
+                <span class="text-base font-bold text-slate-900">+20€/mes</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Pack Todo en Uno (1.997€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Pack Todo en Uno</p><p class="text-sm text-slate-500">Web + automatizaciones</p></div></div>
+                <span class="text-base font-bold text-slate-900">1.997€</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Plan de mantenimiento (30€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Plan de mantenimiento</p><p class="text-sm text-slate-500">Desde 30€/mes</p></div></div>
+                <span class="text-base font-bold text-slate-900">30€/mes</span>
+              </label>
+              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
+                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Asesoramiento general" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">No lo tengo claro</p><p class="text-sm text-slate-500">Quiero asesoramiento</p></div></div>
+                <span class="text-base font-bold text-slate-900">Gratis</span>
+              </label>
+
             </div>
-
-            <div class="grid-2">
-              <div class="card">
-                <h4>Vocabulario clave</h4>
-                <div class="chips">${topic.vocab.map(v => `<span class="chip">${v}</span>`).join('')}</div>
-              </div>
-
-              <div class="card">
-                <h4>Fechas destacadas</h4>
-                <div class="dates">
-                  ${topic.dates.map(([year, text]) => `
-                    <div class="date-row">
-                      <div class="date-year">${year}</div>
-                      <div class="date-text">${text}</div>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <h4>Mini examen tipo test</h4>
-              <div class="quiz" data-topic="${topic.id}">
-                ${topic.quiz.map((q, qIndex) => {
-                  const key = getQuestionKey(topic.id, qIndex);
-                  const selected = state.answers[key];
-                  return `
-                    <div class="question">
-                      <h5>${qIndex + 1}. ${q.q}</h5>
-                      <div class="options">
-                        ${q.options.map((opt, optIndex) => {
-                          let extraClass = '';
-                          if (selected !== undefined) {
-                            if (optIndex === q.a) extraClass = 'correct';
-                            else if (optIndex === selected) extraClass = 'incorrect';
-                          }
-                          return `
-                            <label class="option ${extraClass}">
-                              <input type="radio" name="${key}" value="${optIndex}" ${selected === optIndex ? 'checked' : ''} ${selected !== undefined ? 'disabled' : ''} />
-                              <span>${opt}</span>
-                            </label>
-                          `;
-                        }).join('')}
-                      </div>
-                      <div class="feedback" style="display:${selected !== undefined ? 'block' : 'none'}">
-                        ${selected === q.a ? '✅ Correcto. ' : '❌ Respuesta revisada. '}${q.explain}
-                      </div>
-                    </div>
-                  `;
-                }).join('')}
-              </div>
+            <div class="flex justify-end mt-5">
+              <button id="nextBtn1" type="button" onclick="calStep(2)" disabled class="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors disabled:bg-slate-200 disabled:cursor-not-allowed">
+                Siguiente<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </button>
             </div>
           </div>
-        `;
 
-        container.appendChild(topicEl);
+          <!-- Step 2 -->
+          <div id="cStep2" class="hidden">
+            <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-4 font-bold">Paso 2 de 3 — Fecha y hora</p>
+            <div id="calSummary2" class="text-xs text-slate-500 bg-slate-50 rounded-xl px-4 py-2 mb-4"></div>
+            <div class="flex items-center justify-between mb-3">
+              <button type="button" onclick="prevMo()" class="w-8 h-8 rounded-full border border-slate-200 hover:border-slate-900 flex items-center justify-center text-slate-600 transition-colors">‹</button>
+              <p class="text-sm font-semibold" id="calMonthLabel"></p>
+              <button type="button" onclick="nextMo()" class="w-8 h-8 rounded-full border border-slate-200 hover:border-slate-900 flex items-center justify-center text-slate-600 transition-colors">›</button>
+            </div>
+            <div class="grid grid-cols-7 text-center mb-1">
+              <span class="text-[10px] text-slate-400 font-bold py-1">Lu</span><span class="text-[10px] text-slate-400 font-bold py-1">Ma</span><span class="text-[10px] text-slate-400 font-bold py-1">Mi</span><span class="text-[10px] text-slate-400 font-bold py-1">Ju</span><span class="text-[10px] text-slate-400 font-bold py-1">Vi</span><span class="text-[10px] text-slate-400 font-bold py-1">Sa</span><span class="text-[10px] text-slate-400 font-bold py-1">Do</span>
+            </div>
+            <div class="grid grid-cols-7 gap-1 mb-4" id="calGrid"></div>
+            <div id="timeSection" class="hidden">
+              <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Horario disponible</p>
+              <div class="grid grid-cols-4 gap-2" id="timeGrid"></div>
+            </div>
+            <div class="flex justify-between mt-5">
+              <button type="button" onclick="calStep(1)" class="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium border border-slate-200 text-slate-600 hover:border-slate-900 transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>Atrás</button>
+              <button id="nextBtn2" type="button" onclick="calStep(3)" disabled class="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors disabled:bg-slate-200 disabled:cursor-not-allowed">Siguiente<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div id="cStep3" class="hidden">
+            <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-4 font-bold">Paso 3 de 3 — Tus datos</p>
+            <div id="calSummary3" class="text-xs text-slate-500 bg-slate-50 rounded-xl px-4 py-2 mb-4"></div>
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Nombre *</label><input id="cName" type="text" placeholder="María García" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl" oninput="chkCal()"></div>
+                <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Teléfono *</label><input id="cPhone" type="tel" placeholder="+34 600 000 000" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl" oninput="chkCal()"></div>
+              </div>
+              <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Email *</label><input id="cEmail" type="email" placeholder="maria@tunegocio.es" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl" oninput="chkCal()"></div>
+              <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Negocio (opcional)</label><input id="cBiz" type="text" placeholder="Restaurante La Paloma" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl"></div>
+              <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Comentarios</label><textarea id="cNotes" rows="3" placeholder="Cuéntame brevemente en qué punto está tu negocio..." class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl resize-none"></textarea></div>
+              <p class="text-[10px] text-slate-400 leading-relaxed">Al enviar aceptas nuestra <button type="button" onclick="showLegal('lp')" class="underline hover:text-slate-700">política de privacidad</button>. Tus datos se usarán únicamente para gestionar la solicitud de cita.</p>
+            </div>
+            <div class="flex justify-between mt-5">
+              <button type="button" onclick="calStep(2)" class="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium border border-slate-200 text-slate-600 hover:border-slate-900 transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>Atrás</button>
+              <button id="confirmBtn" type="button" onclick="confirmCal()" disabled class="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors disabled:bg-slate-200 disabled:cursor-not-allowed">Confirmar llamada<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l14-7-7 14-2-5-5-2z"/></svg></button>
+            </div>
+          </div>
+
+          <!-- Success -->
+          <div id="cStepOk" class="hidden text-center py-8">
+            <div class="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-4 text-emerald-600 text-xl">✓</div>
+            <h3 class="text-xl font-light mb-2">¡Reserva confirmada!</h3>
+            <p class="text-slate-500 text-sm max-w-xs mx-auto" id="okMsg">Te confirmo en breve.</p>
+            <a href="#" id="waBtn" target="_blank" class="inline-flex items-center gap-2 mt-5 px-6 py-3 rounded-full bg-[#25D366] text-white text-sm font-medium hover:bg-[#1fad55] transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+              Confirmar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- SERVICE MODAL -->
+<div id="svcModal" class="fixed inset-0 z-[60] hidden items-center justify-center px-4 py-6">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="modalOverlay"></div>
+  <div class="relative max-w-md w-full bg-white rounded-2xl shadow-2xl flex flex-col max-h-[88vh] modal-box">
+    <div class="bg-slate-900 px-5 pt-5 pb-4 rounded-t-2xl flex-shrink-0">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex-1">
+          <span id="mTag" class="block text-[10px] font-bold uppercase tracking-widest text-white/40 mb-1.5"></span>
+          <h3 id="mTitle" class="text-xl font-light text-white leading-snug"></h3>
+          <p id="mPrice" class="text-sm text-white/50 mt-0.5 font-medium"></p>
+        </div>
+        <button id="closeModalBtn" type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/60 hover:text-white transition-colors flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="overflow-y-auto flex-1 px-5 py-5 space-y-4">
+      <p id="mDesc" class="text-sm text-slate-700 leading-relaxed"></p>
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Qué incluye</p>
+        <ul id="mPoints" class="space-y-2.5"></ul>
+      </div>
+      <div class="bg-slate-50 rounded-xl px-4 py-3.5">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1.5">Ideal para</p>
+        <p id="mFor" class="text-xs text-slate-600 leading-relaxed"></p>
+      </div>
+    </div>
+    <div class="border-t border-slate-100 px-5 py-4 flex-shrink-0 flex flex-col sm:flex-row gap-2">
+      <button type="button" id="mContract" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-colors text-xs font-bold">Contratar<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+      <a id="mWaBtn" href="#" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] text-white hover:bg-[#1fad55] transition-colors text-xs font-medium">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
+        WhatsApp
+      </a>
+      <a id="mMailBtn" href="#" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:border-slate-900 hover:bg-slate-50 transition-colors text-xs font-medium">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+// ── PAGES ──────────────────────────────────────────────
+const home = document.getElementById('homePage');
+const proj = document.getElementById('projectPage');
+
+function goProject(){
+  closeSvcModal();
+  home.classList.add('hidden');
+  proj.classList.remove('hidden');
+  document.getElementById('pillNav')?.classList.add('hidden'); // ocultar header en booking
+  window.scrollTo({top:0});
+}
+function goHome(){
+  proj.classList.add('hidden');
+  home.classList.remove('hidden');
+  document.getElementById('pillNav')?.classList.remove('hidden'); // mostrar header al volver
+  window.scrollTo({top:0});
+}
+document.querySelectorAll('[data-go-project]').forEach(b=>b.addEventListener('click',goProject));
+document.querySelectorAll('[data-go-home]').forEach(b=>b.addEventListener('click',goHome));
+
+// ── PILL NAV scroll-hide ───────────────────────────────
+const nav = document.getElementById('pillNav');
+let lastY = 0;
+window.addEventListener('scroll',()=>{
+  const y = window.scrollY;
+  nav.classList.toggle('nav-hidden', y > lastY && y > 100);
+  lastY = y;
+},{passive:true});
+
+// ── MOBILE MENU ────────────────────────────────────────
+const hamBtn = document.getElementById('hamBtn');
+const mMenu = document.getElementById('mobileMenu');
+const hamIcon = document.getElementById('hamIcon');
+const closeIcon = document.getElementById('closeIcon');
+function closeMM(){ mMenu.classList.add('hidden'); hamIcon.classList.remove('hidden'); closeIcon.classList.add('hidden'); }
+hamBtn&&hamBtn.addEventListener('click',e=>{
+  e.stopPropagation();
+  const open=!mMenu.classList.contains('hidden');
+  mMenu.classList.toggle('hidden',open);
+  hamIcon.classList.toggle('hidden',!open);
+  closeIcon.classList.toggle('hidden',open);
+});
+document.addEventListener('click',e=>{ if(!nav.contains(e.target)) closeMM(); });
+mMenu&&mMenu.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',closeMM));
+
+// ── FAQ ────────────────────────────────────────────────
+document.querySelectorAll('[data-faq-toggle]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const ans=btn.parentElement.querySelector('[data-faq-answer]');
+    const ch=btn.querySelector('[data-faq-chevron]');
+    const open=ans.classList.contains('faq-open');
+    document.querySelectorAll('[data-faq-answer]').forEach(e=>e.classList.remove('faq-open'));
+    document.querySelectorAll('[data-faq-chevron]').forEach(c=>c.classList.remove('rotate-180'));
+    if(!open){ ans.classList.add('faq-open'); ch.classList.add('rotate-180'); }
+  });
+});
+
+// ── LEGAL ──────────────────────────────────────────────
+window.showLegal = function(id){
+  const wrap=document.getElementById('legalWrap');
+  const target=document.getElementById(id);
+  if(!wrap||!target) return;
+  wrap.classList.remove('hidden');
+  setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),60);
+};
+
+// ── MAINTENANCE PRICE ──────────────────────────────────
+function updateMnt(){
+  let t=29;
+  document.querySelectorAll('.mntCheck').forEach(cb=>{ if(cb.checked) t+=parseInt(cb.dataset.extra||0); });
+  ['mntTotal','mntTotalBottom'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=t;
+  });
+}
+document.querySelectorAll('.mntCheck').forEach(cb=>cb.addEventListener('change',updateMnt));
+
+// ── SERVICE MODAL DATA ─────────────────────────────────
+const SVC={
+  'web-basica':{tag:'Web profesional',title:'Web Básica',price:'449€ · Pago único o en cuotas',
+    desc:'La solución más directa para que tu negocio tenga presencia online. Una página bien diseñada, adaptada a móvil, con todo lo que un cliente necesita: quiénes sois, qué ofrecéis, dónde estáis y cómo contactar. Entrega en 1–2 semanas.',
+    forWhom:'Negocios que arrancan, locales sin web o cualquier proyecto que quiere dar el primer paso digital sin complicaciones.',
+    points:['1 página completa (inicio, servicios, contacto)','Diseño moderno adaptado a móvil','Formulario de contacto integrado','Google Maps integrado','SEO básico para búsquedas locales','Textos legales base incluidos','Entrega en 1–2 semanas']},
+  'web-pro':{tag:'Web profesional',title:'Web Profesional',price:'597€ · Pago único o en cuotas',
+    desc:'Con varias secciones y diseño completamente personalizado, transmite confianza desde el primer segundo y convierte visitas en clientes. SEO básico para mejorar tu visibilidad en Google.',
+    forWhom:'Negocios con varios servicios que quieren destacar frente a la competencia y reflejar su identidad de marca.',
+    points:['3–5 páginas personalizadas','Diseño a medida de tu imagen de marca','Formularios de contacto avanzados','Integración con redes sociales','SEO básico incluido','Adaptado a todos los dispositivos','Textos legales base incluidos']},
+  'web-reservas':{tag:'Web + reservas',title:'Web con Reservas',price:'897€ · Pago único o en cuotas (antes 1.000€)',
+    desc:'Tu web hace el trabajo de recepcionista. Los clientes ven disponibilidad, eligen su cita y reciben confirmación automática. Sin llamadas innecesarias, sin huecos vacíos por olvidos.',
+    forWhom:'Restaurantes, peluquerías, clínicas, centros de estética y cualquier negocio que gestione citas.',
+    points:['Todo lo de Web Profesional','Sistema de reservas online integrado','Confirmaciones automáticas por email','Gestión de disponibilidad y horarios','Recordatorios opcionales','Textos legales base incluidos']},
+  'web-catalogo':{tag:'Web + catálogo',title:'Web con Catálogo',price:'697€ · Pago único o en cuotas',
+    desc:'Muestra tu oferta completa con filtros y categorías de forma visual e impactante. Sin tienda online ni pasarela de pago: un escaparate digital que inspira y genera consultas.',
+    forWhom:'Tiendas, talleres y distribuidores con amplia gama de productos que quieren presentarla profesionalmente.',
+    points:['Catálogo de productos/servicios con filtros','Fichas individuales con fotos y descripción','Diseño visual de alto impacto','SEO básico incluido','Adaptado a móvil','Textos legales base incluidos']},
+  'whatsapp':{tag:'Automatización',title:'Asistente WhatsApp 24/7',price:'249€ único · o 69€/mes',
+    desc:'Respuestas automáticas en tu número de WhatsApp actual para que tus clientes reciban respuesta al instante, incluso a las 3 de la mañana. Sin cambiar de número ni de app.',
+    forWhom:'Negocios que reciben muchas consultas por WhatsApp y pierden tiempo respondiendo siempre lo mismo, o que quieren atender fuera del horario.',
+    points:['Respuestas automáticas 24/7 en tu número actual','Menú interactivo de opciones','Info del negocio al instante','Confirmación y recordatorio de citas','Mensajes personalizados por tipo de consulta','Configuración en menos de 48h']},
+  'chatbot':{tag:'Automatización IA',title:'Agente Web IA',price:'297€ único · o 69€/mes (solo 2,30€/día)',
+    desc:'Un asistente inteligente en tu web que responde preguntas en tiempo real, guía a los visitantes y recoge datos de contacto aunque no estés disponible. Aprende sobre tu negocio y responde como si fueras tú.',
+    forWhom:'Webs con tráfico que quieren captar más leads o mejorar la experiencia del visitante sin trabajo adicional.',
+    points:['Respuestas inteligentes personalizadas','Captación de leads automática','Disponible 24/7','Personalización de tono y estilo','Integración en cualquier web','Panel de métricas de uso']},
+  'agente-ia':{tag:'IA avanzada',title:'Recepcionista IA Premium',price:'Desde 197€/mes · solo 6,57€/día',
+    desc:'El teléfono de tu negocio atendido las 24 horas. Da información, gestiona citas y transfiere solo las llamadas que realmente lo necesitan. El precio escala con tu volumen de llamadas.',
+    forWhom:'Restaurantes, clínicas, academias y negocios con alto volumen de llamadas donde el teléfono no para.',
+    points:['Atención 24/7 sin coste de personal','Voz natural con IA conversacional','Gestión de citas por voz','Transferencia de llamadas cuando se necesita','Desde 197€/mes para pequeños negocios','Precio adaptado según volumen']},
+  'reservas-auto':{tag:'Automatización',title:'Sistema de Reservas Automático',price:'149€ setup + 39€/mes',
+    desc:'Olvídate de gestionar citas manualmente. Tus clientes reservan solos en cualquier momento del día, reciben confirmación automática y recordatorios antes de su cita. Cero llamadas, cero huecos vacíos por olvidos.',
+    forWhom:'Peluquerías, clínicas, centros de estética, consultorios y cualquier negocio que trabaje con citas.',
+    points:['Calendario de reservas online 24/7','Confirmaciones automáticas por WhatsApp o email','Recordatorios 24h antes de la cita','Gestión de disponibilidad y horarios','Integración con tu web existente','Configuración en menos de 72h']},
+  'seguimiento-leads':{tag:'Automatización',title:'Seguimiento Automático de Leads',price:'199€ setup + 49€/mes',
+    desc:'Cada nuevo contacto que llega a tu negocio recibe seguimiento automático por email o WhatsApp. Sin dejar escapar ninguna oportunidad, sin que tengas que acordarte de hacer el seguimiento manualmente.',
+    forWhom:'Negocios que generan leads online (formularios, anuncios, redes sociales) y quieren maximizar la conversión.',
+    points:['Seguimiento automático tras cada nuevo contacto','Secuencias de mensajes personalizados','Notificaciones al equipo de ventas','Integración con formularios web','Panel de estado de cada lead','Configuración inicial incluida']},
+  'resenas-google':{tag:'Reputación',title:'Recopilador de Reseñas Google',price:'99€ setup + 29€/mes',
+    desc:'Más reseñas en Google = más clientes. Enviamos mensajes automáticos a tus clientes después de cada visita o servicio pidiéndoles que valoren su experiencia. Sin esfuerzo por tu parte.',
+    forWhom:'Cualquier negocio local que quiera mejorar su reputación online y aparecer más arriba en Google Maps.',
+    points:['Solicitudes automáticas de reseña por WhatsApp o email','Momento óptimo de envío tras el servicio','Plantillas de mensaje personalizadas','Seguimiento de respuestas','Informes mensuales de reputación','Activación en menos de 48h']},
+  'reporte-mensual':{tag:'Analítica',title:'Reporte Mensual Automático',price:'+20€/mes · Incluido en mantenimiento',
+    desc:'Cada mes recibes un informe automático con las métricas más importantes de tu negocio: visitas a la web, consultas recibidas, citas gestionadas y más. Todo en un PDF claro y sin tecnicismos.',
+    forWhom:'Propietarios de negocios que quieren estar al día de cómo va su presencia digital sin tener que interpretar datos complejos.',
+    points:['Informe mensual automático en PDF','Visitas web y páginas más vistas','Formularios y consultas recibidas','Rendimiento de automatizaciones activas','Comparativa mes anterior','Recomendaciones de mejora incluidas']},
+  'pack-todo':{tag:'Pack completo',title:'Pack Todo en Uno',price:'1.997€ · Ahorra más de 1.000€ vs. servicios por separado',
+    desc:'La forma más completa de digitalizar tu negocio en un solo proyecto. Web profesional + todas las automatizaciones integradas y funcionando desde el día uno.',
+    forWhom:'Negocios que quieren dar el salto digital de golpe y aprovechar todas las herramientas sin gestionarlas por separado.',
+    points:['Web profesional incluida','WhatsApp + Chatbot IA + Reservas','Seguimiento de leads automático','Reseñas Google automatizadas','Reporte mensual incluido','Soporte post-entrega']}
+};
+
+function openModal(key){
+  const d=SVC[key]; if(!d) return;
+  document.getElementById('mTag').textContent=d.tag;
+  document.getElementById('mTitle').textContent=d.title;
+  document.getElementById('mPrice').textContent=d.price;
+  document.getElementById('mDesc').textContent=d.desc;
+  document.getElementById('mFor').textContent=d.forWhom;
+  const ul=document.getElementById('mPoints'); ul.innerHTML='';
+  d.points.forEach(p=>{
+    const li=document.createElement('li'); li.className='flex items-start gap-2.5';
+    li.innerHTML='<span class="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px]">✓</span><span class="text-sm text-slate-700 leading-snug">'+p+'</span>';
+    ul.appendChild(li);
+  });
+  const wa=encodeURIComponent('Hola, me interesa el servicio de '+d.title+'. ¿Podéis darme más info?');
+  const ml=encodeURIComponent(d.title);
+  document.getElementById('mWaBtn').href='https://wa.me/34608574225?text='+wa;
+  document.getElementById('mMailBtn').href='mailto:broggosagency@gmail.com?subject=Consulta%20sobre%20'+ml;
+  const modal=document.getElementById('svcModal');
+  modal.classList.remove('hidden'); modal.classList.add('flex');
+  document.body.style.overflow='hidden';
+}
+function closeSvcModal(){
+  const modal=document.getElementById('svcModal');
+  modal.classList.add('hidden'); modal.classList.remove('flex');
+  document.body.style.overflow='';
+}
+window.closeSvcModal=closeSvcModal;
+document.querySelectorAll('[data-open-service]').forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.openService)));
+document.getElementById('closeModalBtn').addEventListener('click',closeSvcModal);
+document.getElementById('modalOverlay').addEventListener('click',closeSvcModal);
+document.getElementById('mContract').addEventListener('click',()=>{ closeSvcModal(); goProject(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeSvcModal(); });
+
+// ── CALENDAR ───────────────────────────────────────────
+// CAMBIO: multi-selección de servicios (array)
+let selSvc=[], selDate=null, selTime=null;
+let calY=new Date().getFullYear(), calM=new Date().getMonth();
+const NOW=new Date();
+const TIMES=['09:00','09:30','10:00','10:30','11:00','11:30','12:00','16:00','16:30','17:00','17:30','18:00'];
+const BLOCKED=['09:30','11:00','16:30'];
+const MN=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+function refreshSvcSelection(){
+  selSvc=[...document.querySelectorAll('input[name="svc"]:checked')].map(i=>i.value);
+  document.getElementById('nextBtn1').disabled = selSvc.length===0;
+}
+document.querySelectorAll('input[name="svc"]').forEach(i=>{
+  i.addEventListener('change',refreshSvcSelection);
+});
+
+function svcText(){
+  return selSvc.length ? selSvc.join(', ') : '';
+}
+
+window.calStep=function(n){
+  [1,2,3,'Ok'].forEach(i=>{ const el=document.getElementById('cStep'+i); if(el) el.classList.add('hidden'); });
+  document.getElementById('cStep'+n).classList.remove('hidden');
+  ['dot1','dot2','dot3'].forEach((id,i)=>{
+    document.getElementById(id).className='w-2 h-2 rounded-full '+(i<n?'bg-white':'bg-white/30');
+  });
+  const titles={1:'Elige el servicio',2:'Fecha y hora',3:'Tus datos'};
+  document.getElementById('calStepTitle').textContent=titles[n]||'';
+  if(n===2){
+    document.getElementById('calSummary2').innerHTML='Servicio(s): <strong class="text-slate-900">'+svcText()+'</strong>';
+    renderCal();
+  }
+  if(n===3){
+    const ds=selDate.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+    document.getElementById('calSummary3').innerHTML='<strong class="text-slate-900">'+svcText()+'</strong> &nbsp;·&nbsp; '+ds+' a las <strong class="text-slate-900">'+selTime+'</strong>';
+    chkCal();
+  }
+};
+
+function renderCal(){
+  document.getElementById('calMonthLabel').textContent=MN[calM]+' '+calY;
+  const grid=document.getElementById('calGrid'); grid.innerHTML='';
+  const fd=new Date(calY,calM,1).getDay(), off=fd===0?6:fd-1;
+  const dm=new Date(calY,calM+1,0).getDate();
+  const today=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
+  for(let i=0;i<off;i++){ const d=document.createElement('div'); d.className='h-8'; grid.appendChild(d); }
+  for(let d=1;d<=dm;d++){
+    const btn=document.createElement('button'); btn.type='button'; btn.textContent=d;
+    const dt=new Date(calY,calM,d);
+    const isWk=dt.getDay()===0||dt.getDay()===6;
+    const isPast=dt<today;
+    if(isPast||isWk){ btn.className='h-8 w-full text-xs text-slate-200 cursor-not-allowed'; btn.disabled=true; }
+    else{
+      const isSel=selDate&&dt.toDateString()===selDate.toDateString();
+      const isTd=dt.toDateString()===today.toDateString();
+      btn.className='h-8 w-full text-xs rounded-lg transition-colors '+(isSel?'bg-slate-900 text-white font-bold':isTd?'font-bold border border-slate-300 hover:bg-slate-50':'text-slate-700 hover:bg-slate-100');
+      btn.addEventListener('click',()=>pickDate(dt));
+    }
+    grid.appendChild(btn);
+  }
+}
+
+function pickDate(dt){
+  selDate=dt; selTime=null; document.getElementById('nextBtn2').disabled=true;
+  renderCal();
+  document.getElementById('timeSection').classList.remove('hidden');
+  const tg=document.getElementById('timeGrid'); tg.innerHTML='';
+  TIMES.forEach(t=>{
+    const btn=document.createElement('button'); btn.type='button'; btn.textContent=t;
+    if(BLOCKED.includes(t)){ btn.className='px-2 py-2 rounded-lg border border-slate-100 text-xs text-slate-200 line-through cursor-not-allowed'; btn.disabled=true; }
+    else{
+      btn.className='px-2 py-2 rounded-lg border border-slate-200 text-xs text-slate-700 hover:border-slate-900 hover:bg-slate-50 transition-colors';
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('#timeGrid button:not(:disabled)').forEach(b=>{ b.className='px-2 py-2 rounded-lg border border-slate-200 text-xs text-slate-700 hover:border-slate-900 hover:bg-slate-50 transition-colors'; });
+        btn.className='px-2 py-2 rounded-lg border-2 border-slate-900 bg-slate-900 text-white text-xs font-bold';
+        selTime=t; document.getElementById('nextBtn2').disabled=false;
       });
-
-      attachQuizEvents();
-      activateNavOnScroll();
     }
+    tg.appendChild(btn);
+  });
+}
 
-    function attachQuizEvents() {
-      container.querySelectorAll('input[type="radio"]').forEach(input => {
-        input.addEventListener('change', (e) => {
-          const [topicId, qIndexStr] = e.target.name.split('__');
-          const qIndex = Number(qIndexStr);
-          state.answers[e.target.name] = Number(e.target.value);
-          render();
-          const block = document.getElementById(topicId);
-          if (block) block.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-      });
-    }
+window.prevMo=()=>{ calM--; if(calM<0){calM=11;calY--;} renderCal(); };
+window.nextMo=()=>{ calM++; if(calM>11){calM=0;calY++;} renderCal(); };
 
-    function filterTopics() {
-      const text = searchInput.value.trim().toLowerCase();
-      const country = countryFilter.value;
-      const period = periodFilter.value;
+window.chkCal=function(){
+  const ok=document.getElementById('cName')?.value.trim()&&document.getElementById('cPhone')?.value.trim()&&document.getElementById('cEmail')?.value.trim();
+  const btn=document.getElementById('confirmBtn'); if(btn) btn.disabled=!ok;
+};
 
-      state.visibleTopics = topics.filter(topic => {
-        const haystack = [
-          topic.country,
-          topic.title,
-          topic.subtitle,
-          ...topic.summary,
-          ...topic.vocab,
-          ...topic.dates.map(d => d.join(' '))
-        ].join(' ').toLowerCase();
+window.confirmCal=function(){
+  [1,2,3].forEach(i=>{ const el=document.getElementById('cStep'+i); if(el) el.classList.add('hidden'); });
+  document.getElementById('cStepOk').classList.remove('hidden');
+  document.getElementById('calStepTitle').textContent='Reserva confirmada';
+  ['dot1','dot2','dot3'].forEach(id=>{ document.getElementById(id).className='w-2 h-2 rounded-full bg-white'; });
+  const nm=document.getElementById('cName').value.trim();
+  const ph=document.getElementById('cPhone').value.trim();
+  const bz=document.getElementById('cBiz').value.trim();
+  const ds=selDate.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('okMsg').textContent='Reserva para el '+ds+' a las '+selTime+'. Te confirmo en breve, '+nm+'.';
+  const msg=encodeURIComponent('Hola, soy '+nm+(bz?' de '+bz:'')+'. He reservado llamada para el '+ds+' a las '+selTime+' sobre: '+svcText()+'. Mi teléfono: '+ph+'.');
+  document.getElementById('waBtn').href='https://wa.me/34608574225?text='+msg;
+};
 
-        const textOk = !text || haystack.includes(text);
-        const countryOk = country === 'all' || topic.country === country;
-        const periodOk = period === 'all' || topic.period === period;
-        return textOk && countryOk && periodOk;
-      });
-    }
+// ── COOKIES ───────────────────────────────────────────
+const CKKEY='broggos_ck';
+function setCkPref(v){ try{localStorage.setItem(CKKEY,v);}catch(e){} }
+function getCkPref(){ try{return localStorage.getItem(CKKEY);}catch(e){return null;} }
+const banner=document.getElementById('cookieBanner');
+if(getCkPref()){ banner.classList.add('ck-hide'); }
+document.getElementById('ckAccept').addEventListener('click',()=>{ setCkPref('all'); banner.classList.add('ck-hide'); });
+document.getElementById('ckReject').addEventListener('click',()=>{ setCkPref('technical'); banner.classList.add('ck-hide'); });
+document.getElementById('ckConfig').addEventListener('click',()=>{ document.getElementById('ckPanel').classList.toggle('hidden'); });
+document.getElementById('ckSave').addEventListener('click',()=>{
+  const analytics=document.getElementById('ckAnalytics').checked;
+  setCkPref(analytics?'all':'technical'); banner.classList.add('ck-hide');
+});
 
-    function activateNavOnScroll() {
-      const blocks = [...document.querySelectorAll('.block')];
-      const links = [...document.querySelectorAll('.nav-link')];
-      if (!blocks.length || !links.length) return;
-
-      const onScroll = () => {
-        let current = blocks[0]?.id;
-        blocks.forEach(block => {
-          const rect = block.getBoundingClientRect();
-          if (rect.top <= 180) current = block.id;
-        });
-        links.forEach(link => {
-          const active = link.getAttribute('href') === `#${current}`;
-          link.classList.toggle('active', active);
-        });
-      };
-
-      onScroll();
-      window.onscroll = onScroll;
-    }
-
-    function render() {
-      filterTopics();
-      renderStats();
-      renderNav(state.visibleTopics);
-      renderTopics(state.visibleTopics);
-    }
-
-    searchInput.addEventListener('input', render);
-    countryFilter.addEventListener('change', render);
-    periodFilter.addEventListener('change', render);
-    resetBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      countryFilter.value = 'all';
-      periodFilter.value = 'all';
-      render();
-    });
-
-    render();
-  </script>
+})();
+</script>
 </body>
 </html>
