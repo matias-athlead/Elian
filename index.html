@@ -1,1261 +1,1031 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luma Trails — Everyday gear for long days outside</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Campus de Estudio - Historia Francia y España</title>
   <style>
     :root {
-      --bg: #f6f3ed;
-      --surface: #fffdf8;
-      --card: #ffffff;
-      --text: #161616;
-      --muted: #666154;
-      --line: rgba(22, 22, 22, 0.1);
-      --accent: #21463a;
-      --accent-2: #d9863b;
-      --soft: #ece6da;
-      --shadow: 0 18px 50px rgba(0,0,0,0.08);
-      --radius: 24px;
-      --radius-sm: 18px;
-      --max: 1240px;
+      --bg: #0b1020;
+      --panel: #121934;
+      --panel-2: #1a2346;
+      --card: rgba(255,255,255,0.05);
+      --line: rgba(255,255,255,0.12);
+      --text: #eef2ff;
+      --muted: #b8c1e0;
+      --accent: #7c9cff;
+      --accent-2: #59d0c2;
+      --good: #27c281;
+      --bad: #ff6b6b;
+      --warning: #ffbf47;
+      --shadow: 0 18px 40px rgba(0,0,0,.28);
+      --radius: 18px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(124,156,255,.2), transparent 30%),
+        radial-gradient(circle at top left, rgba(89,208,194,.15), transparent 25%),
+        linear-gradient(180deg, #0b1020 0%, #0f1530 100%);
       color: var(--text);
-      background: var(--bg);
-      line-height: 1.5;
     }
 
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; cursor: pointer; }
-
     .container {
-      width: min(var(--max), calc(100% - 32px));
+      width: min(1180px, calc(100% - 28px));
       margin: 0 auto;
     }
 
-    .topbar {
-      background: var(--text);
-      color: white;
-      font-size: 13px;
-      letter-spacing: .02em;
-    }
-
-    .topbar-inner {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 40px;
-      text-align: center;
-    }
-
     header {
+      padding: 34px 0 18px;
       position: sticky;
       top: 0;
-      z-index: 50;
-      backdrop-filter: blur(18px);
-      background: rgba(246, 243, 237, 0.88);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      min-height: 76px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      font-size: 1.1rem;
-    }
-
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent), #3c6e5e);
-      color: white;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      box-shadow: var(--shadow);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      color: var(--muted);
-      font-size: 14px;
-      flex-wrap: wrap;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .icon-btn, .btn {
-      border: 0;
-      border-radius: 999px;
-      transition: .2s ease;
-    }
-
-    .icon-btn {
-      width: 44px;
-      height: 44px;
-      background: white;
-      border: 1px solid var(--line);
-      display: grid;
-      place-items: center;
-    }
-
-    .icon-btn:hover, .btn:hover { transform: translateY(-1px); }
-
-    .btn {
-      padding: 13px 20px;
-      background: var(--accent);
-      color: white;
-      font-weight: 600;
-      box-shadow: var(--shadow);
-    }
-
-    .btn.secondary {
-      background: white;
-      color: var(--text);
-      border: 1px solid var(--line);
-      box-shadow: none;
+      z-index: 30;
+      backdrop-filter: blur(10px);
+      background: rgba(11,16,32,.78);
+      border-bottom: 1px solid rgba(255,255,255,.07);
     }
 
     .hero {
-      padding: 34px 0 18px;
-    }
-
-    .hero-grid {
       display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .hero-copy, .hero-card {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: calc(var(--radius) + 6px);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-copy {
-      padding: 52px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 620px;
-      background:
-        radial-gradient(circle at top left, rgba(217,134,59,0.12), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.96));
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #efe6d7;
-      color: #664c2f;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      width: fit-content;
-      margin-bottom: 18px;
-    }
-
-    h1, h2, h3, h4, p { margin: 0; }
-
-    h1 {
-      font-size: clamp(2.8rem, 6vw, 5.7rem);
-      line-height: .94;
-      letter-spacing: -0.06em;
-      max-width: 11ch;
-    }
-
-    .hero-copy p.lead {
-      max-width: 56ch;
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 28px;
-      flex-wrap: wrap;
-    }
-
-    .hero-stats {
-      margin-top: 34px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .stat {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 18px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.4rem;
-      letter-spacing: -0.04em;
-      margin-bottom: 4px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .hero-card {
-      position: relative;
-      min-height: 620px;
-    }
-
-    .hero-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .floating-product {
-      position: absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 22px;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(22,22,22,.08);
-      border-radius: 22px;
-      padding: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 16px;
-    }
-
-    .floating-product small {
-      display: block;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .section {
-      padding: 74px 0;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 26px;
-    }
-
-    .section-head p {
-      max-width: 52ch;
-      color: var(--muted);
-    }
-
-    h2 {
-      font-size: clamp(2rem, 3vw, 3.3rem);
-      line-height: 1;
-      letter-spacing: -0.05em;
-      margin-bottom: 10px;
-    }
-
-    .category-grid,
-    .product-grid,
-    .story-grid,
-    .value-grid,
-    .testimonial-grid,
-    .journal-grid,
-    .footer-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    .category-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .category-card, .story-card, .value-card, .testimonial, .journal-card, .newsletter, .product-card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .category-card {
-      position: relative;
-      min-height: 400px;
-      color: white;
-      display: flex;
-      align-items: end;
-    }
-
-    .category-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.6));
-    }
-
-    .category-card img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .category-content {
-      position: relative;
-      z-index: 1;
-      padding: 22px;
-    }
-
-    .category-content p {
-      color: rgba(255,255,255,0.86);
-      margin-top: 6px;
-      margin-bottom: 14px;
-      font-size: 14px;
+      padding: 28px 0 14px;
     }
 
     .pill {
       display: inline-flex;
-      padding: 8px 12px;
+      width: fit-content;
+      padding: 8px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.14);
-      backdrop-filter: blur(4px);
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-
-    .filter-chip {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: white;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .filter-chip.active {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-
-    .product-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .product-card {
-      padding: 14px;
-    }
-
-    .product-media {
-      position: relative;
-      border-radius: 22px;
-      overflow: hidden;
-      aspect-ratio: 4 / 4.7;
-      background: var(--soft);
-      margin-bottom: 14px;
-    }
-
-    .product-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .tag {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      background: rgba(255,255,255,0.92);
-      padding: 8px 11px;
-      border-radius: 999px;
-      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--accent-2);
+      font-size: .9rem;
       font-weight: 700;
+      letter-spacing: .02em;
     }
 
-    .wishlist {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 38px;
-      height: 38px;
-      border: 0;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.92);
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.05;
     }
 
-    .product-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: start;
-      margin-bottom: 4px;
-    }
-
-    .product-card h3 {
-      font-size: 1rem;
-      letter-spacing: -0.03em;
-    }
-
-    .product-card p {
+    .hero p {
+      margin: 0;
       color: var(--muted);
-      font-size: 14px;
-      min-height: 42px;
+      max-width: 880px;
+      font-size: 1.02rem;
+      line-height: 1.65;
     }
 
-    .price-row {
-      display: flex;
-      justify-content: space-between;
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 22px 0 12px;
+    }
+
+    .stat {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-size: .85rem;
+    }
+
+    .stat strong {
+      font-size: 1.6rem;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr auto;
+      gap: 12px;
       align-items: center;
-      gap: 10px;
-      margin-top: 14px;
+      margin: 18px 0 24px;
     }
 
-    .price {
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      font-size: 1.05rem;
-    }
-
-    .mini-btn {
-      border: 0;
-      background: var(--text);
-      color: white;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: 600;
-    }
-
-    .story-grid {
-      grid-template-columns: 1.15fr .85fr;
-    }
-
-    .story-card.large {
-      min-height: 600px;
-      position: relative;
-    }
-
-    .story-card.large img {
+    .input, .select, .button {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      padding: 14px 16px;
+      font-size: .98rem;
+      outline: none;
     }
 
-    .story-overlay {
-      position: absolute;
-      inset: auto 22px 22px 22px;
-      background: rgba(255,255,255,.9);
-      border-radius: 24px;
+    .button {
+      cursor: pointer;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent), #8fb3ff);
+      color: #06101d;
+      border: none;
+      transition: transform .16s ease, opacity .16s ease;
+    }
+
+    .button:hover { transform: translateY(-1px); opacity: .95; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding-bottom: 48px;
+    }
+
+    aside {
+      position: sticky;
+      top: 116px;
+      background: rgba(18,25,52,.7);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    aside h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 8px;
+      max-height: 70vh;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .nav-link {
+      display: block;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: rgba(255,255,255,.02);
+      font-size: .94rem;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text);
+      border-color: rgba(124,156,255,.4);
+      background: rgba(124,156,255,.12);
+    }
+
+    .block {
+      background: rgba(18,25,52,.72);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .block-header {
+      padding: 22px 22px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
+    }
+
+    .block-tag {
+      display: inline-block;
+      font-size: .78rem;
+      color: var(--accent-2);
+      margin-bottom: 8px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .block h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .block-sub {
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .block-body {
       padding: 22px;
-      backdrop-filter: blur(10px);
-    }
-
-    .stack {
       display: grid;
       gap: 18px;
     }
 
-    .story-card.text {
-      padding: 28px;
-      min-height: 291px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(180deg, #fff, #f5efe4);
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
     }
 
-    .story-card.text p,
-    .value-card p,
-    .testimonial p,
-    .journal-card p,
-    footer p,
-    .newsletter p {
-      color: var(--muted);
-    }
-
-    .value-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .value-card {
-      padding: 22px;
-    }
-
-    .value-icon {
-      width: 52px;
-      height: 52px;
+    .card {
+      border: 1px solid var(--line);
       border-radius: 18px;
-      background: #efe6d7;
-      display: grid;
-      place-items: center;
-      margin-bottom: 20px;
-      font-size: 22px;
+      padding: 16px;
+      background: rgba(255,255,255,.035);
     }
 
-    .testimonial-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
     }
 
-    .testimonial {
-      padding: 24px;
+    .summary {
+      color: var(--text);
+      line-height: 1.7;
     }
 
-    .stars {
-      letter-spacing: .15em;
-      color: #c27b2e;
-      margin-bottom: 12px;
-      font-size: 14px;
-    }
+    .summary ul, .list ul { margin: 0; padding-left: 18px; }
+    .summary li, .list li { margin: 8px 0; color: var(--muted); }
 
-    .author {
-      margin-top: 16px;
-      font-weight: 700;
-    }
-
-    .journal-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .journal-card img {
-      aspect-ratio: 16 / 10;
-      width: 100%;
-      object-fit: cover;
-    }
-
-    .journal-card .content {
-      padding: 18px;
-    }
-
-    .newsletter {
-      padding: 34px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: center;
-      background: linear-gradient(135deg, #173a31, #244f43);
-      color: white;
-    }
-
-    .newsletter p { color: rgba(255,255,255,0.76); }
-
-    .newsletter-form {
+    .chips {
       display: flex;
-      gap: 12px;
       flex-wrap: wrap;
-      justify-content: end;
+      gap: 8px;
     }
 
-    .newsletter input {
-      min-width: 280px;
-      padding: 14px 16px;
+    .chip {
+      padding: 8px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.1);
-      color: white;
-      outline: none;
+      background: rgba(89,208,194,.12);
+      border: 1px solid rgba(89,208,194,.26);
+      color: #dafbf6;
+      font-size: .88rem;
     }
 
-    .newsletter input::placeholder { color: rgba(255,255,255,.7); }
-
-    footer {
-      padding: 40px 0 80px;
-    }
-
-    .footer-grid {
-      grid-template-columns: 1.3fr repeat(3, .7fr);
-      gap: 20px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-    }
-
-    .footer-grid h4 {
-      margin-bottom: 12px;
-      font-size: 15px;
-    }
-
-    .footer-grid a, .footer-grid p {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    .cart-drawer {
-      position: fixed;
-      top: 0;
-      right: -420px;
-      width: min(420px, 100%);
-      height: 100vh;
-      background: white;
-      border-left: 1px solid var(--line);
-      box-shadow: -24px 0 40px rgba(0,0,0,.08);
-      z-index: 100;
-      transition: right .25s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cart-drawer.open { right: 0; }
-
-    .drawer-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.35);
-      opacity: 0;
-      pointer-events: none;
-      transition: .25s ease;
-      z-index: 90;
-    }
-
-    .drawer-backdrop.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .cart-head, .cart-footer {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .cart-footer {
-      border-top: 1px solid var(--line);
-      border-bottom: 0;
-      margin-top: auto;
-    }
-
-    .cart-items {
-      padding: 10px 20px 20px;
-      overflow: auto;
+    .dates {
       display: grid;
-      gap: 14px;
+      gap: 10px;
     }
 
-    .cart-item {
+    .date-row {
       display: grid;
-      grid-template-columns: 84px 1fr auto;
-      gap: 14px;
-      align-items: center;
+      grid-template-columns: 110px 1fr;
+      gap: 12px;
       padding: 10px 0;
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px dashed rgba(255,255,255,.09);
     }
 
-    .cart-item img {
-      width: 84px;
-      height: 84px;
-      object-fit: cover;
+    .date-row:last-child { border-bottom: none; }
+    .date-year { color: var(--warning); font-weight: 800; }
+    .date-text { color: var(--muted); }
+
+    .quiz {
+      display: grid;
+      gap: 16px;
+    }
+
+    .question {
+      border: 1px solid var(--line);
       border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,.03);
     }
 
-    .cart-subtotal {
+    .question h5 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
       display: flex;
-      justify-content: space-between;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .tiny {
-      font-size: 12px;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
       color: var(--muted);
+      transition: .16s ease;
     }
 
-    .menu-toggle { display: none; }
+    .option:hover { border-color: rgba(124,156,255,.45); color: var(--text); }
 
-    @media (max-width: 1100px) {
-      .hero-grid,
-      .story-grid,
-      .newsletter,
-      .footer-grid,
-      .category-grid,
-      .product-grid,
-      .value-grid,
-      .testimonial-grid,
-      .journal-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .option.correct { border-color: rgba(39,194,129,.6); background: rgba(39,194,129,.12); color: #dcfff0; }
+    .option.incorrect { border-color: rgba(255,107,107,.6); background: rgba(255,107,107,.12); color: #ffe0e0; }
 
-      .newsletter { grid-template-columns: 1fr; }
-      .newsletter-form { justify-content: start; }
-      .hero-copy, .hero-card { min-height: auto; }
+    .feedback {
+      margin-top: 10px;
+      font-size: .92rem;
+      color: var(--muted);
+      display: none;
     }
 
-    @media (max-width: 760px) {
-      .nav-links {
-        display: none;
-      }
-      .menu-toggle { display: grid; }
-      .hero-copy { padding: 28px; }
-      .hero-stats,
-      .hero-grid,
-      .story-grid,
-      .category-grid,
-      .product-grid,
-      .value-grid,
-      .testimonial-grid,
-      .journal-grid,
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-      .section-head {
-        flex-direction: column;
-        align-items: start;
-      }
-      .floating-product {
-        flex-direction: column;
-        align-items: start;
-      }
-      .newsletter input { min-width: 100%; }
+    .progress-wrap {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      transition: width .25s ease;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      text-align: center;
+      padding: 14px 0 34px;
+      font-size: .92rem;
+    }
+
+    .empty {
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+      display: none;
+    }
+
+    @media (max-width: 980px) {
+      .dashboard, .grid-2, .layout, .toolbar { grid-template-columns: 1fr; }
+      aside { position: static; }
+      header { position: static; }
+      .date-row { grid-template-columns: 1fr; gap: 6px; }
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="container topbar-inner">Free shipping in Europe on orders over €120 · New spring drop just launched</div>
-  </div>
-
   <header>
-    <div class="container nav">
-      <a href="#" class="brand">
-        <span class="brand-mark">L</span>
-        <span>Luma Trails</span>
-      </a>
-
-      <nav class="nav-links">
-        <a href="#shop">Shop</a>
-        <a href="#collections">Collections</a>
-        <a href="#story">Story</a>
-        <a href="#journal">Journal</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="nav-actions">
-        <button class="icon-btn menu-toggle" aria-label="Open menu">☰</button>
-        <button class="icon-btn" aria-label="Search">⌕</button>
-        <button class="icon-btn" id="cartButton" aria-label="Open cart">🛒</button>
-        <a class="btn" href="#shop">Shop now</a>
+    <div class="container">
+      <div class="pill">Web de estudio interactiva</div>
+      <div class="hero">
+        <h1>Historia de Francia y España</h1>
+        <p>
+          Plataforma pensada para estudiar por bloques, repasar vocabulario clave, memorizar fechas importantes y comprobar la comprensión con mini exámenes tipo test al final de cada tema.
+        </p>
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div>
-            <div class="eyebrow">New collection · Built for city escapes</div>
-            <h1>Thoughtful gear for mornings that turn into weekends.</h1>
-            <p class="lead">Luma Trails is an invented premium outdoor-lifestyle store designed as a modern ecommerce template. It mixes editorial storytelling, high-end product presentation, and easy shopping flows inspired by clean brands like Yardsale.</p>
-            <div class="hero-actions">
-              <a href="#shop" class="btn">Explore bestsellers</a>
-              <a href="#story" class="btn secondary">See the brand story</a>
-            </div>
-          </div>
-
-          <div class="hero-stats">
-            <div class="stat">
-              <strong>4.9/5</strong>
-              <span>Average customer rating</span>
-            </div>
-            <div class="stat">
-              <strong>48h</strong>
-              <span>Dispatch on stocked items</span>
-            </div>
-            <div class="stat">
-              <strong>32%</strong>
-              <span>Recycled materials in core range</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" alt="Outdoor lifestyle hero image">
-          <div class="floating-product">
-            <div>
-              <small>Featured drop</small>
-              <strong>Northline Weekender</strong>
-              <div class="tiny">Water-resistant canvas · cabin-size · 3 colors</div>
-            </div>
-            <button class="btn add-to-cart" data-name="Northline Weekender" data-price="179" data-image="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80">Add to cart · €179</button>
-          </div>
-        </div>
-      </div>
+  <main class="container">
+    <section class="dashboard">
+      <article class="stat">
+        <small>Bloques disponibles</small>
+        <strong id="totalTopics">0</strong>
+      </article>
+      <article class="stat">
+        <small>Preguntas tipo test</small>
+        <strong id="totalQuestions">0</strong>
+      </article>
+      <article class="stat">
+        <small>Tu avance global</small>
+        <strong id="globalScore">0%</strong>
+        <div class="progress-wrap"><div class="progress-bar" id="globalBar"></div></div>
+      </article>
+      <article class="stat">
+        <small>Temas completados</small>
+        <strong id="completedTopics">0</strong>
+      </article>
     </section>
 
-    <section class="section" id="collections">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Shop by collection</h2>
-            <p>Four modular blocks your client can easily adapt: bags, layering pieces, daily accessories, and travel essentials.</p>
-          </div>
-          <a href="#shop" class="btn secondary">View all products</a>
-        </div>
-
-        <div class="category-grid">
-          <article class="category-card">
-            <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=80" alt="Bags collection">
-            <div class="category-content">
-              <span class="pill">Bags</span>
-              <h3>Carry everything, beautifully</h3>
-              <p>Oversized totes, compact slings, and weekender bags for quick escapes.</p>
-            </div>
-          </article>
-
-          <article class="category-card">
-            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Apparel collection">
-            <div class="category-content">
-              <span class="pill">Apparel</span>
-              <h3>Layers made to move</h3>
-              <p>Soft merino, weather-ready overshirts, and refined everyday staples.</p>
-            </div>
-          </article>
-
-          <article class="category-card">
-            <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80" alt="Accessories collection">
-            <div class="category-content">
-              <span class="pill">Accessories</span>
-              <h3>Small tools, big upgrades</h3>
-              <p>Bottles, pouches, notebooks and details that finish the kit.</p>
-            </div>
-          </article>
-
-          <article class="category-card">
-            <img src="https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=900&q=80" alt="Travel collection">
-            <div class="category-content">
-              <span class="pill">Travel</span>
-              <h3>Ready for the next long weekend</h3>
-              <p>Designed for road trips, train platforms, airport gates and mountain towns.</p>
-            </div>
-          </article>
-        </div>
-      </div>
+    <section class="toolbar">
+      <input id="searchInput" class="input" type="text" placeholder="Buscar un tema, fecha o concepto..." />
+      <select id="countryFilter" class="select">
+        <option value="all">Todos los bloques</option>
+        <option value="Francia">Solo Francia</option>
+        <option value="España">Solo España</option>
+      </select>
+      <select id="periodFilter" class="select">
+        <option value="all">Todas las épocas</option>
+        <option value="siglo-xviii-xix">Siglos XVIII-XIX</option>
+        <option value="1900-1945">1900-1945</option>
+        <option value="1945-actualidad">1945-actualidad</option>
+      </select>
+      <button class="button" id="resetBtn">Restablecer</button>
     </section>
 
-    <section class="section" id="shop">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Our bestsellers</h2>
-            <p>This section works as the main sales engine: filter chips, clean cards, lifestyle images, clear prices, and add-to-cart buttons.</p>
-          </div>
-        </div>
+    <section class="layout">
+      <aside>
+        <h3>Índice de temas</h3>
+        <div class="nav-list" id="navList"></div>
+      </aside>
 
-        <div class="filters">
-          <button class="filter-chip active">All</button>
-          <button class="filter-chip">Bags</button>
-          <button class="filter-chip">Apparel</button>
-          <button class="filter-chip">Accessories</button>
-          <button class="filter-chip">Travel</button>
-        </div>
-
-        <div class="product-grid">
-          <article class="product-card">
-            <div class="product-media">
-              <span class="tag">Best seller</span>
-              <button class="wishlist">♡</button>
-              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" alt="Northline Weekender bag">
-            </div>
-            <div class="product-top">
-              <div>
-                <h3>Northline Weekender</h3>
-                <p>Cabin-size bag with dedicated shoe pocket and padded tech sleeve.</p>
-              </div>
-            </div>
-            <div class="price-row">
-              <span class="price">€179</span>
-              <button class="mini-btn add-to-cart" data-name="Northline Weekender" data-price="179" data-image="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80">Add</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-media">
-              <span class="tag">New</span>
-              <button class="wishlist">♡</button>
-              <img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=800&q=80" alt="Cove Tote">
-            </div>
-            <div class="product-top">
-              <div>
-                <h3>Cove Tote 24L</h3>
-                <p>Structured daily tote with waterproof base and snap-in organizers.</p>
-              </div>
-            </div>
-            <div class="price-row">
-              <span class="price">€129</span>
-              <button class="mini-btn add-to-cart" data-name="Cove Tote 24L" data-price="129" data-image="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=600&q=80">Add</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-media">
-              <span class="tag">Apparel</span>
-              <button class="wishlist">♡</button>
-              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Summit Overshirt">
-            </div>
-            <div class="product-top">
-              <div>
-                <h3>Summit Overshirt</h3>
-                <p>Heavy twill overshirt for layering on cool mornings and late dinners.</p>
-              </div>
-            </div>
-            <div class="price-row">
-              <span class="price">€118</span>
-              <button class="mini-btn add-to-cart" data-name="Summit Overshirt" data-price="118" data-image="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80">Add</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-media">
-              <span class="tag">Travel</span>
-              <button class="wishlist">♡</button>
-              <img src="https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=800&q=80" alt="Trail Flask Set">
-            </div>
-            <div class="product-top">
-              <div>
-                <h3>Trail Flask Set</h3>
-                <p>Double-wall bottle and cup kit made for road trips and campfire stops.</p>
-              </div>
-            </div>
-            <div class="price-row">
-              <span class="price">€49</span>
-              <button class="mini-btn add-to-cart" data-name="Trail Flask Set" data-price="49" data-image="https://images.unsplash.com/photo-1501554728187-ce583db33af7?auto=format&fit=crop&w=600&q=80">Add</button>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="story">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>A homepage that tells a story</h2>
-            <p>The inspiration here is not just product cards. It is the editorial feeling: a calm premium brand world, product lifestyle photography, and concise copy blocks.</p>
-          </div>
-        </div>
-
-        <div class="story-grid">
-          <article class="story-card large">
-            <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1200&q=80" alt="Brand story image">
-            <div class="story-overlay">
-              <div class="eyebrow">Why clients like this type of template</div>
-              <h3 style="font-size: 1.7rem; letter-spacing: -0.04em; margin-bottom: 10px;">It feels like a brand, not just a shop.</h3>
-              <p>This layout helps smaller brands look more established: strong visuals, premium typography, modular sections, and enough interactivity to feel polished without being too complex.</p>
-            </div>
-          </article>
-
-          <div class="stack">
-            <article class="story-card text">
-              <div>
-                <div class="eyebrow">Flexible block</div>
-                <h3 style="font-size: 1.5rem; letter-spacing: -0.04em; margin-bottom: 10px;">Swap this for founder text, campaign messaging, or delivery promises.</h3>
-                <p>Every section is easy to duplicate for other industries too: fashion, home decor, beauty, sports, food gifting, or travel goods.</p>
-              </div>
-              <a href="#contact" class="btn secondary" style="width: fit-content;">Discuss customization</a>
-            </article>
-
-            <article class="story-card text">
-              <div>
-                <div class="eyebrow">Conversion block</div>
-                <h3 style="font-size: 1.5rem; letter-spacing: -0.04em; margin-bottom: 10px;">Clear CTA + social proof + newsletter = stronger conversion.</h3>
-                <p>Use this same structure to guide customers from discovery to action without the page feeling aggressive or cluttered.</p>
-              </div>
-              <a href="#journal" class="btn secondary" style="width: fit-content;">See more content blocks</a>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Why this template works</h2>
-            <p>It balances premium aesthetics and practical ecommerce structure.</p>
-          </div>
-        </div>
-
-        <div class="value-grid">
-          <article class="value-card">
-            <div class="value-icon">✦</div>
-            <h3>Premium visual language</h3>
-            <p>Large imagery, soft neutrals, rounded cards and editorial spacing make the brand feel elevated.</p>
-          </article>
-          <article class="value-card">
-            <div class="value-icon">⚡</div>
-            <h3>Fast to customize</h3>
-            <p>Single-file HTML, CSS and JS makes it easy to adapt for demos or client pitches.</p>
-          </article>
-          <article class="value-card">
-            <div class="value-icon">🛒</div>
-            <h3>Sales-oriented layout</h3>
-            <p>Hero, collections, bestsellers, trust signals and email capture are already in place.</p>
-          </article>
-          <article class="value-card">
-            <div class="value-icon">📱</div>
-            <h3>Responsive by default</h3>
-            <p>Works across desktop and mobile, so it can be shown directly to potential clients.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>What customers say</h2>
-            <p>Testimonial cards add warmth and trust. They can also be replaced by press quotes or retailer logos.</p>
-          </div>
-        </div>
-
-        <div class="testimonial-grid">
-          <article class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p>“The weekender feels premium, holds more than expected, and looks good enough for the city. Exactly the kind of bag I wanted for 3-day trips.”</p>
-            <div class="author">Marta L. · Barcelona</div>
-          </article>
-          <article class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p>“Love the clean look of the site. I found what I needed fast, and the product pages felt aspirational without being overdesigned.”</p>
-            <div class="author">James R. · London</div>
-          </article>
-          <article class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p>“The tote became my everyday bag after one week. Commute, gym, weekend away—it just works for everything.”</p>
-            <div class="author">Chiara D. · Milan</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="journal">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Journal / content section</h2>
-            <p>A useful extra block for SEO, campaigns, or to give the homepage more depth.</p>
-          </div>
-        </div>
-
-        <div class="journal-grid">
-          <article class="journal-card">
-            <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1000&q=80" alt="Weekend packing guide">
-            <div class="content">
-              <h3>How to pack for a 48-hour city escape</h3>
-              <p>Use this as a blog module, campaign teaser, or editorial tile linking deeper into the brand world.</p>
-            </div>
-          </article>
-          <article class="journal-card">
-            <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1000&q=80" alt="Field notes">
-            <div class="content">
-              <h3>Field notes from a coastal spring trip</h3>
-              <p>A strong content section helps premium ecommerce feel more like a magazine and less transactional.</p>
-            </div>
-          </article>
-          <article class="journal-card">
-            <img src="https://images.unsplash.com/photo-1465310477141-6fb93167a273?auto=format&fit=crop&w=1000&q=80" alt="Materials story">
-            <div class="content">
-              <h3>Why we chose waxed canvas and merino</h3>
-              <p>Perfect for storytelling around quality, materials, craftsmanship or product care.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="newsletter">
-          <div>
-            <h2 style="margin-bottom: 10px;">Get early access to new drops</h2>
-            <p>Ideal for capturing leads directly from the homepage before customers leave.</p>
-          </div>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Enter your email address" />
-            <button class="btn" type="button">Join the list</button>
-          </form>
-        </div>
-      </div>
+      <section>
+        <div class="empty" id="emptyState">No hay resultados para esa búsqueda.</div>
+        <div id="topicsContainer"></div>
+      </section>
     </section>
   </main>
 
-  <footer id="contact">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="brand" style="margin-bottom: 14px;">
-            <span class="brand-mark">L</span>
-            <span>Luma Trails</span>
-          </div>
-          <p>An ecommerce concept demo created as a reusable client template. Replace the branding, products, imagery and copy to fit your next online store proposal.</p>
-        </div>
-        <div>
-          <h4>Shop</h4>
-          <a href="#shop">Bestsellers</a>
-          <a href="#collections">Collections</a>
-          <a href="#">Gift Cards</a>
-          <a href="#">Size Guide</a>
-        </div>
-        <div>
-          <h4>About</h4>
-          <a href="#story">Our Story</a>
-          <a href="#journal">Journal</a>
-          <a href="#">Materials</a>
-          <a href="#">Sustainability</a>
-        </div>
-        <div>
-          <h4>Support</h4>
-          <a href="#">Shipping</a>
-          <a href="#">Returns</a>
-          <a href="#">FAQ</a>
-          <a href="mailto:hello@lumatrails.com">hello@lumatrails.com</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <div class="drawer-backdrop" id="drawerBackdrop"></div>
-  <aside class="cart-drawer" id="cartDrawer">
-    <div class="cart-head" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-      <div>
-        <strong>Your cart</strong>
-        <div class="tiny">Demo functionality for client presentation</div>
-      </div>
-      <button class="icon-btn" id="closeCart">✕</button>
-    </div>
-
-    <div class="cart-items" id="cartItems">
-      <p class="tiny">No items yet. Add a few products to show the interaction.</p>
-    </div>
-
-    <div class="cart-footer">
-      <div class="cart-subtotal">
-        <span>Subtotal</span>
-        <span id="subtotal">€0</span>
-      </div>
-      <button class="btn" style="width:100%;">Checkout</button>
-    </div>
-  </aside>
+  <div class="container footer-note">
+    Web generada en un solo archivo HTML. Puedes ampliarla, cambiar colores, añadir imágenes o convertirla en una web del colegio fácilmente.
+  </div>
 
   <script>
-    const cartButton = document.getElementById('cartButton');
-    const cartDrawer = document.getElementById('cartDrawer');
-    const closeCart = document.getElementById('closeCart');
-    const drawerBackdrop = document.getElementById('drawerBackdrop');
-    const cartItems = document.getElementById('cartItems');
-    const subtotal = document.getElementById('subtotal');
-    const addButtons = document.querySelectorAll('.add-to-cart');
-
-    let cart = [];
-
-    function openCart() {
-      cartDrawer.classList.add('open');
-      drawerBackdrop.classList.add('show');
-    }
-
-    function hideCart() {
-      cartDrawer.classList.remove('open');
-      drawerBackdrop.classList.remove('show');
-    }
-
-    function renderCart() {
-      if (!cart.length) {
-        cartItems.innerHTML = '<p class="tiny">No items yet. Add a few products to show the interaction.</p>';
-        subtotal.textContent = '€0';
-        return;
+    const topics = [
+      {
+        id: 'fra-revolution',
+        country: 'Francia',
+        period: 'siglo-xviii-xix',
+        title: 'La fin de l’Ancien Régime et la Révolution française',
+        subtitle: 'Del absolutismo a la soberanía nacional y los derechos del ciudadano.',
+        summary: [
+          'La Francia de finales del siglo XVIII vive una crisis del Antiguo Régimen: deuda pública, desigualdades sociales, ascenso de la burguesía y crisis económica.',
+          'En 1789, Luis XVI convoca los Estados Generales. El Tercer Estado se transforma en Asamblea Nacional y busca redactar una Constitución.',
+          'La toma de la Bastilla simboliza el inicio revolucionario y la Declaración de los Derechos del Hombre y del Ciudadano proclama libertad, igualdad jurídica y soberanía nacional.',
+          'La Revolución rompe con los privilegios y abre paso al liberalismo político, aunque también deja fuera a las mujeres, lo que denuncia Olympe de Gouges.'
+        ],
+        vocab: ['Ancien Régime', 'États Généraux', 'Assemblée nationale', 'DDHC', 'Souveraineté nationale', 'Libéralisme', 'Bastille'],
+        dates: [
+          ['1789', 'Convocatoria de los Estados Generales y comienzo de la Revolución.'],
+          ['17 junio 1789', 'El Tercer Estado crea la Asamblea Nacional.'],
+          ['14 julio 1789', 'Toma de la Bastilla.'],
+          ['26 agosto 1789', 'Declaración de los Derechos del Hombre y del Ciudadano.'],
+          ['1791', 'Olympe de Gouges publica la Declaración de los derechos de la mujer y de la ciudadana.']
+        ],
+        quiz: [
+          { q: '¿Qué hecho simboliza el inicio de la Revolución francesa?', a: 1, options: ['La batalla de Verdún', 'La toma de la Bastilla', 'El Congreso de Viena', 'La Revolución de 1848'], explain: 'La toma de la Bastilla, el 14 de julio de 1789, se convirtió en el gran símbolo del estallido revolucionario.' },
+          { q: '¿Qué principio afirma la DDHC de 1789?', a: 2, options: ['La soberanía reside en el rey', 'La sociedad se basa en privilegios', 'La soberanía reside en la nación', 'Solo la nobleza puede votar'], explain: 'La DDHC afirma que la autoridad política emana de la nación y no del rey absoluto.' },
+          { q: '¿Qué crítica representa Olympe de Gouges?', a: 0, options: ['La exclusión de las mujeres de los derechos políticos', 'La defensa del absolutismo', 'La expansión colonial', 'El rechazo de la educación'], explain: 'Olympe de Gouges denunció que la Declaración de 1789 no incluía a las mujeres como iguales en derechos.' }
+        ]
+      },
+      {
+        id: 'fra-1848',
+        country: 'Francia',
+        period: 'siglo-xviii-xix',
+        title: 'La Deuxième République et le Second Empire',
+        subtitle: 'Revolución, república democ-social y vuelta al autoritarismo imperial.',
+        summary: [
+          'La Monarquía de Julio no consigue resolver la crisis de legitimidad, de sufragio y social.',
+          'La revolución de febrero de 1848 proclama la Segunda República, con fuerte impulso popular, obrero y reformista.',
+          'Surge una república democrática y social, pero las tensiones políticas y sociales la debilitan rápidamente.',
+          'El ciclo termina con el ascenso del Segundo Imperio, que combina autoridad política y modernización.'
+        ],
+        vocab: ['Barricade', 'Suffrage', 'République démoc-soc', 'Nation', 'Révolution de 1848', 'Second Empire'],
+        dates: [
+          ['1830-1848', 'Monarquía de Julio.'],
+          ['24 febrero 1848', 'Proclamación de la Segunda República.'],
+          ['1848', 'Publicación del Manifiesto Comunista y Primavera de los Pueblos.'],
+          ['1852', 'Fin de la Segunda República e inicio del Segundo Imperio.']
+        ],
+        quiz: [
+          { q: '¿Qué régimen cae en febrero de 1848 en Francia?', a: 3, options: ['La III República', 'La V República', 'El régimen de Vichy', 'La Monarquía de Julio'], explain: 'La revolución de 1848 pone fin a la Monarquía de Julio.' },
+          { q: 'La Segunda República nace con un carácter...', a: 1, options: ['Solo militar', 'Popular, obrero y reformista', 'Exclusivamente monárquico', 'Puramente colonial'], explain: 'Los primeros días de la Segunda República tuvieron una clara dimensión popular y social.' },
+          { q: '¿Qué gran proceso europeo coincide con 1848?', a: 2, options: ['La Belle Époque', 'La descolonización', 'La Primavera de los Pueblos', 'La Guerra Fría'], explain: '1848 se inscribe en el gran ciclo revolucionario europeo llamado Primavera de los Pueblos.' }
+        ]
+      },
+      {
+        id: 'fra-iiie-belleepoque',
+        country: 'Francia',
+        period: 'siglo-xviii-xix',
+        title: 'La III République et la Belle Époque',
+        subtitle: 'Una república consolidada en un contexto de progreso, tensiones y nacionalismo.',
+        summary: [
+          'La III República nace tras la derrota de Sedan y una fase inicial muy inestable, marcada por la Commune y el peso de la derrota frente a Prusia.',
+          'Entre 1870 y 1914, Francia vive la Belle Époque, una etapa de crecimiento económico, innovación técnica y optimismo cultural.',
+          'Aun así, Francia sigue siendo en gran parte rural fuera de la región parisina.',
+          'La Exposición Universal de París de 1900 resume el espíritu de progreso, inversión, diplomacia de paz y expansión nacional.'
+        ],
+        vocab: ['Sedan', 'III République', 'Commune', 'Belle Époque', 'Ville Lumière', 'Progrès', 'Nationalisme'],
+        dates: [
+          ['1870', 'Derrota de Sedan y proclamación de la III República.'],
+          ['1871', 'Commune de Paris.'],
+          ['1881', 'Leyes Ferry y consolidación republicana.'],
+          ['1894', 'Affaire Dreyfus.'],
+          ['1900', 'Exposición Universal de París.'],
+          ['1914', 'Fin de la Belle Époque con el estallido de la guerra.']
+        ],
+        quiz: [
+          { q: '¿Entre qué años se suele situar la Belle Époque?', a: 1, options: ['1789-1815', '1870-1914', '1919-1939', '1945-1975'], explain: 'La Belle Époque se suele situar entre la derrota de Sedan y el inicio de la Primera Guerra Mundial.' },
+          { q: '¿Qué ciudad resume el ideal de “ville Lumière”?', a: 0, options: ['París', 'Marsella', 'Lyon', 'Toulouse'], explain: 'París es el gran símbolo de la modernidad y la innovación de la Belle Époque.' },
+          { q: '¿Qué exposición resume el optimismo de esta etapa?', a: 3, options: ['Exposición de Bruselas 1958', 'Conferencia de Berlín', 'Congreso de Viena', 'Exposición Universal de París de 1900'], explain: 'La Exposición Universal de París de 1900 funciona como síntesis visual y política de la Belle Époque.' }
+        ]
+      },
+      {
+        id: 'fra-colonialisme',
+        country: 'Francia',
+        period: '1900-1945',
+        title: 'Le colonialisme français',
+        subtitle: 'Imperio, misión civilizadora, explotación y resistencias.',
+        summary: [
+          'El segundo imperio colonial francés se construye sobre razones económicas, estratégicas y nacionalistas.',
+          'La propaganda republicana habla de “mission civilisatrice”, pero en la práctica el sistema colonial es desigual y explotador.',
+          'Las colonias aportan materias primas, mercados y prestigio internacional a la metrópoli.',
+          'Existen resistencias tanto en las colonias como en la propia metrópoli, donde algunos sectores denuncian la contradicción entre colonialismo y valores republicanos.'
+        ],
+        vocab: ['Colonie', 'Métropole', 'Impérialisme', 'Mission civilisatrice', 'Protectorat', 'AEF', 'AOF', 'Parti colonial'],
+        dates: [
+          ['1884-1885', 'Conferencia de Berlín y reparto colonial.'],
+          ['1870-1914', 'Gran expansión del segundo imperio colonial francés.'],
+          ['1905', 'Se intensifica la propaganda republicana sobre la “misión civilizadora”.'],
+          ['1914', 'Francia llega a la guerra con un vasto imperio colonial.']
+        ],
+        quiz: [
+          { q: '¿Qué idea justificaba moralmente la expansión colonial francesa?', a: 2, options: ['La soberanía obrera', 'La neutralidad armada', 'La misión civilizadora', 'La autogestión local'], explain: 'La “mission civilisatrice” fue una gran justificación ideológica de la colonización.' },
+          { q: '¿Qué aportaban sobre todo las colonias a la metrópoli?', a: 1, options: ['Solo artistas', 'Materias primas y mercados', 'Únicamente soldados', 'Nada relevante'], explain: 'El sistema colonial buscaba recursos, mercados y beneficios económicos para la metrópoli.' },
+          { q: '¿Existieron resistencias al colonialismo?', a: 0, options: ['Sí, tanto en colonias como en la metrópoli', 'No, fue aceptado por todos', 'Solo en Europa del Este', 'Solo después de 1970'], explain: 'Hubo resistencias permanentes en los territorios colonizados y críticas políticas en Francia.' }
+        ]
+      },
+      {
+        id: 'fra-wwi',
+        country: 'Francia',
+        period: '1900-1945',
+        title: 'La Première Guerre mondiale',
+        subtitle: 'Una guerra total que rompe el equilibrio europeo y transforma la sociedad.',
+        summary: [
+          'Europa llega a 1914 dividida en alianzas rivales: Triple Alianza y Triple Entente.',
+          'El asesinato de Francisco Fernando en Sarajevo desencadena una guerra que en realidad venía preparándose por rivalidades imperiales, económicas y militares.',
+          'El conflicto pasa de guerra de movimiento a guerra de posiciones y trincheras.',
+          'Verdún, la Somme, el armisticio y el Tratado de Versalles marcan la memoria del conflicto y sus consecuencias.'
+        ],
+        vocab: ['Triple Entente', 'Triple Alliance', 'Sarajevo', 'Guerre de mouvement', 'Tranchées', 'Armistice', 'Versailles'],
+        dates: [
+          ['28 junio 1914', 'Atentado de Sarajevo.'],
+          ['28 julio 1914', 'Comienzo del conflicto.'],
+          ['1916', 'Grandes batallas de Verdún y la Somme.'],
+          ['11 noviembre 1918', 'Armisticio.'],
+          ['1919', 'Tratado de Versalles.']
+        ],
+        quiz: [
+          { q: '¿Qué hecho desencadena directamente la Primera Guerra Mundial?', a: 1, options: ['La Revolución rusa', 'El atentado de Sarajevo', 'La caída del muro de Berlín', 'La guerra de Cuba'], explain: 'El asesinato del archiduque Francisco Fernando en Sarajevo fue el detonante inmediato.' },
+          { q: '¿Cómo se llama la fase estática del conflicto?', a: 2, options: ['Guerra relámpago', 'Guerra de guerrillas', 'Guerra de trincheras', 'Guerra fría'], explain: 'La guerra de posiciones o de trincheras marcó gran parte del conflicto.' },
+          { q: '¿Qué acuerdo pone fin formalmente a la guerra en 1919?', a: 3, options: ['Tratado de Roma', 'Paz de Utrecht', 'Acuerdos de Evian', 'Tratado de Versalles'], explain: 'El Tratado de Versalles cerró oficialmente la guerra y reorganizó el mapa europeo.' }
+        ]
+      },
+      {
+        id: 'fra-entredeux-vichy',
+        country: 'Francia',
+        period: '1900-1945',
+        title: 'Entre-deux-guerres, Front populaire, Vichy et Résistance',
+        subtitle: 'Crisis económica, totalitarismos, derrota y colaboracionismo.',
+        summary: [
+          'Tras la Primera Guerra Mundial, Francia sale victoriosa pero devastada, endeudada y marcada por el duelo colectivo.',
+          'La crisis de 1929 llega más tarde a Francia, pero afecta a industria, exportaciones, inversión y finanzas públicas.',
+          'En 1940, la República desaparece y nace el Estado francés de Vichy bajo Pétain, régimen autoritario y colaboracionista.',
+          'Frente a Vichy y la ocupación, surge la Resistencia, que se convierte en una referencia central de la memoria política francesa.'
+        ],
+        vocab: ['Entre-deux-guerres', 'Front Populaire', 'Krach de 1929', 'Vichy', 'Collaboration', 'Résistance', 'Pétain'],
+        dates: [
+          ['1919', 'Inicio del período de entreguerras.'],
+          ['1931', 'La crisis económica entra plenamente en Francia.'],
+          ['1936', 'Frente Popular.'],
+          ['10 julio 1940', 'Plenos poderes a Pétain y nacimiento del Estado francés.'],
+          ['1944-1945', 'Liberación de Francia.']
+        ],
+        quiz: [
+          { q: '¿Qué gran problema marca la década de 1930 en Francia?', a: 0, options: ['La crisis económica derivada del crack de 1929', 'La independencia de Argelia', 'La entrada en la UE', 'La caída del comunismo'], explain: 'La crisis de 1929 acabó afectando también a Francia y agravó las tensiones sociales y políticas.' },
+          { q: '¿Quién dirige el régimen de Vichy?', a: 2, options: ['De Gaulle', 'Jules Ferry', 'Pétain', 'Clemenceau'], explain: 'El mariscal Philippe Pétain encabezó el Estado francés de Vichy.' },
+          { q: 'Vichy fue un régimen...', a: 1, options: ['Democrático y parlamentario', 'Autoritario y colaboracionista', 'Anarquista', 'Federalista'], explain: 'La democracia parlamentaria cesa con Vichy, que adopta una lógica autoritaria y de colaboración.' }
+        ]
+      },
+      {
+        id: 'fra-decolonisation',
+        country: 'Francia',
+        period: '1945-actualidad',
+        title: 'La décolonisation et la France après 1945',
+        subtitle: 'Reconstrucción, IV República y fin del imperio colonial.',
+        summary: [
+          'Después de 1945, Francia debe reconstruirse económica y políticamente.',
+          'Se crean la Seguridad Social, políticas de modernización y nacionalizaciones, en un contexto de Guerra Fría.',
+          'La IV República se enfrenta al problema colonial, especialmente en Indochina y Argelia.',
+          'La descolonización avanza entre 1945 y 1962, con procesos pacíficos y otros muy violentos.'
+        ],
+        vocab: ['IV République', 'Sécurité Sociale', 'Plan Marshall', 'Décolonisation', 'Indochine', 'Algérie', 'Guerre froide'],
+        dates: [
+          ['1945', 'Fin de la Segunda Guerra Mundial y comienzo de la reconstrucción.'],
+          ['1946', 'Nace la IV República y la Seguridad Social.'],
+          ['1946-1954', 'Guerra de Indochina.'],
+          ['1956', 'Independencia de Marruecos y Túnez.'],
+          ['1962', 'Independencia de Argelia.']
+        ],
+        quiz: [
+          { q: '¿Qué institución social clave nace en Francia en 1946?', a: 1, options: ['La OTAN', 'La Seguridad Social', 'La ONU', 'La CECA'], explain: 'La Seguridad Social fue una gran conquista social del periodo de posguerra.' },
+          { q: '¿Qué territorio protagoniza una guerra colonial entre 1946 y 1954?', a: 3, options: ['Canadá', 'Bélgica', 'Suiza', 'Indochina'], explain: 'La guerra de Indochina es uno de los grandes conflictos de la descolonización francesa.' },
+          { q: '¿Qué independencia marca el final de una larga guerra entre 1954 y 1962?', a: 0, options: ['Argelia', 'Portugal', 'Italia', 'Austria'], explain: 'La independencia de Argelia puso fin a uno de los conflictos más traumáticos para la Francia contemporánea.' }
+        ]
+      },
+      {
+        id: 'fra-vrepublique',
+        country: 'Francia',
+        period: '1945-actualidad',
+        title: 'La Ve République et le monde d’aujourd’hui',
+        subtitle: 'Nueva Constitución, fortalecimiento presidencial y construcción europea.',
+        summary: [
+          'La V República nace en 1958 con una nueva Constitución que fortalece claramente el poder presidencial.',
+          'El presidente nombra al primer ministro, puede disolver la Asamblea y recurrir al referéndum.',
+          'En 1962, la elección presidencial pasa al sufragio universal directo, reforzando todavía más su legitimidad.',
+          'Francia participa de forma central en la construcción europea desde Schuman, la CECA y el Tratado de Roma.'
+        ],
+        vocab: ['Ve République', 'Constitution de 1958', 'Référendum', 'Suffrage universel direct', 'CECA', 'CEE', 'Schuman'],
+        dates: [
+          ['9 mayo 1950', 'Declaración Schuman.'],
+          ['18 abril 1951', 'Creación de la CECA.'],
+          ['25 marzo 1957', 'Tratado de Roma.'],
+          ['28 septiembre 1958', 'Referéndum y nueva Constitución.'],
+          ['1962', 'Elección presidencial por sufragio universal directo.']
+        ],
+        quiz: [
+          { q: '¿En qué año nace la V República?', a: 2, options: ['1946', '1951', '1958', '1968'], explain: 'La nueva Constitución de 1958 marca el inicio de la V República.' },
+          { q: '¿Qué cambio se aprueba en 1962?', a: 0, options: ['Elección del presidente por sufragio universal directo', 'Abolición del Parlamento', 'Fin de la República', 'Salida de Europa'], explain: 'Desde 1962, el presidente francés es elegido directamente por los ciudadanos.' },
+          { q: '¿Qué tratado crea la CEE?', a: 1, options: ['Versalles', 'Roma', 'Utrecht', 'Evian'], explain: 'El Tratado de Roma de 1957 crea la Comunidad Económica Europea.' }
+        ]
+      },
+      {
+        id: 'esp-antiguo-cadiz',
+        country: 'España',
+        period: 'siglo-xviii-xix',
+        title: 'Antiguo Régimen, Guerra de la Independencia y Constitución de 1812',
+        subtitle: 'Crisis de la monarquía borbónica y nacimiento del liberalismo español.',
+        summary: [
+          'La España del Antiguo Régimen se basa en una sociedad estamental, una economía agraria y una monarquía cada vez más centralizadora con los Borbones.',
+          'La invasión napoleónica de 1808 provoca la crisis de la monarquía, el levantamiento popular y la Guerra de la Independencia.',
+          'En Cádiz se reúnen las Cortes, que impulsan la primera gran ruptura legal con el Antiguo Régimen.',
+          'La Constitución de 1812 proclama soberanía nacional, división de poderes, derechos individuales y sufragio masculino indirecto.'
+        ],
+        vocab: ['Antiguo Régimen', 'Borbones', 'Dos de Mayo', 'Cortes de Cádiz', 'La Pepa', 'Soberanía nacional', 'Guerrilla'],
+        dates: [
+          ['1707-1716', 'Decretos de Nueva Planta y centralización borbónica.'],
+          ['1808', 'Abdicaciones de Bayona y comienzo de la Guerra de la Independencia.'],
+          ['1810-1814', 'Cortes de Cádiz.'],
+          ['19 marzo 1812', 'Constitución de 1812.'],
+          ['1814', 'Regreso de Fernando VII y restauración absolutista.']
+        ],
+        quiz: [
+          { q: '¿Qué nombre recibe popularmente la Constitución de 1812?', a: 2, options: ['La Gloriosa', 'La Niña', 'La Pepa', 'La Armada'], explain: 'La Constitución de 1812 es conocida popularmente como “La Pepa”.' },
+          { q: '¿Qué principio político introduce la Constitución de 1812?', a: 0, options: ['La soberanía nacional', 'La monarquía absoluta', 'La vuelta del feudalismo', 'La desaparición de las Cortes'], explain: 'La gran novedad es la soberanía nacional frente al absolutismo.' },
+          { q: '¿Qué conflicto comienza en 1808?', a: 1, options: ['La Guerra Fría', 'La Guerra de la Independencia', 'La Guerra Civil', 'La Guerra de Sucesión'], explain: 'La invasión napoleónica desencadena la Guerra de la Independencia española.' }
+        ]
+      },
+      {
+        id: 'esp-liberal-restauracion',
+        country: 'España',
+        period: 'siglo-xviii-xix',
+        title: 'Construcción del Estado liberal y Restauración borbónica',
+        subtitle: 'De Isabel II al sistema canovista, entre inestabilidad, turnismo y caciquismo.',
+        summary: [
+          'Tras la crisis del absolutismo, España construye lentamente un Estado liberal marcado por guerras carlistas, pronunciamientos e inestabilidad.',
+          'Durante el reinado de Isabel II se forman partidos moderados y progresistas, y se consolida una monarquía parlamentaria muy limitada.',
+          'La Restauración borbónica intenta estabilizar el sistema con el turnismo entre conservadores y liberales.',
+          'Pero el régimen arrastra problemas estructurales: caciquismo, conflictividad social, cuestión regional y crisis colonial.'
+        ],
+        vocab: ['Carlismo', 'Pronunciamiento', 'Monarquía parlamentaria', 'Restauración', 'Turnismo', 'Caciquismo', 'Canovismo'],
+        dates: [
+          ['1833', 'Inicio del reinado de Isabel II y primera guerra carlista.'],
+          ['1845', 'Constitución moderada.'],
+          ['1868', 'La Gloriosa.'],
+          ['1873-1874', 'Primera República.'],
+          ['1874', 'Inicio de la Restauración borbónica.'],
+          ['1898', 'Crisis colonial y regeneracionismo.']
+        ],
+        quiz: [
+          { q: '¿Qué mecanismo político define la Restauración?', a: 1, options: ['Sufragio femenino', 'Turnismo entre partidos', 'Gobierno obrero', 'República federal estable'], explain: 'El sistema canovista se basa en la alternancia pactada entre partidos.' },
+          { q: '¿Qué práctica deformaba la vida política local?', a: 3, options: ['Federalismo', 'Sindicalismo', 'Abolicionismo', 'Caciquismo'], explain: 'El caciquismo manipulaba elecciones y controlaba la política local.' },
+          { q: '¿Qué gran crisis golpea al régimen en 1898?', a: 0, options: ['La pérdida del imperio colonial', 'La caída del euro', 'La guerra mundial', 'La Revolución rusa'], explain: 'La crisis de 1898 supuso una fuerte sacudida política, moral y colonial.' }
+        ]
+      },
+      {
+        id: 'esp-segundarepublica',
+        country: 'España',
+        period: '1900-1945',
+        title: 'La Segunda República española',
+        subtitle: 'Democracia, reformas y polarización política.',
+        summary: [
+          'La Segunda República se proclama el 14 de abril de 1931 y abre una etapa democrática y reformista.',
+          'La Constitución de 1931 define un régimen republicano, laico, progresista, con derechos y libertades y sufragio para ambos sexos.',
+          'Se intentan reformas del ejército, la educación, el campo y la cuestión territorial.',
+          'La polarización entre derechas e izquierdas bloquea el proyecto republicano y prepara el camino hacia la guerra civil.'
+        ],
+        vocab: ['República', 'Constitución de 1931', 'Laicismo', 'Autonomía', 'Bienio reformista', 'CEDA', 'Frente Popular'],
+        dates: [
+          ['14 abril 1931', 'Proclamación de la Segunda República.'],
+          ['1931', 'Nueva Constitución republicana.'],
+          ['1931-1933', 'Bienio reformista.'],
+          ['1933-1935', 'Bienio conservador.'],
+          ['1936', 'Victoria del Frente Popular.']
+        ],
+        quiz: [
+          { q: '¿Qué rasgo define la Constitución de 1931?', a: 2, options: ['Monarquía absoluta', 'Estado confesional', 'Estado laico y democrático', 'Dictadura militar'], explain: 'La Constitución de 1931 establece un régimen republicano, democrático y laico.' },
+          { q: '¿Qué día se proclama la Segunda República?', a: 0, options: ['14 de abril de 1931', '18 de julio de 1936', '1 de enero de 1900', '6 de diciembre de 1978'], explain: 'La proclamación republicana se produce el 14 de abril de 1931.' },
+          { q: '¿Qué victoria electoral en 1936 agrava la tensión política?', a: 1, options: ['La de la UCD', 'La del Frente Popular', 'La del PP', 'La de la Falange en solitario'], explain: 'La victoria del Frente Popular antecede al levantamiento militar de julio de 1936.' }
+        ]
+      },
+      {
+        id: 'esp-guerracivil',
+        country: 'España',
+        period: '1900-1945',
+        title: 'La Guerra Civil española',
+        subtitle: 'Golpe militar, país dividido y conflicto internacionalizado.',
+        summary: [
+          'El 17-18 de julio de 1936 comienza el golpe militar que fracasa parcialmente y desemboca en una guerra civil.',
+          'España queda dividida entre el bando republicano y el nacional, con bases sociales, ideológicas y territoriales diferentes.',
+          'El conflicto se internacionaliza con apoyos exteriores a ambos bandos.',
+          'La guerra deja una sociedad devastada y abre el camino a una larga dictadura.'
+        ],
+        vocab: ['Golpe de Estado', 'Republicanos', 'Nacionales', 'Brigadas Internacionales', 'Franco', 'No pasarán', 'Guerra civil'],
+        dates: [
+          ['17 julio 1936', 'Inicio del golpe militar en Marruecos.'],
+          ['18 julio 1936', 'Extensión del levantamiento a la península.'],
+          ['1936-1939', 'Desarrollo de la Guerra Civil.'],
+          ['1939', 'Victoria franquista y final de la guerra.']
+        ],
+        quiz: [
+          { q: '¿Qué desencadena la Guerra Civil española?', a: 3, options: ['Un tratado europeo', 'Una crisis bancaria', 'Una independencia colonial', 'Un golpe militar fallido parcialmente'], explain: 'La guerra nace del golpe militar de julio de 1936, que no triunfa completamente.' },
+          { q: '¿Cómo se llamaba el bando leal a la legalidad republicana?', a: 0, options: ['Republicano', 'Carlista', 'Alfonsino', 'Canovista'], explain: 'El bando republicano defendía la continuidad de la República.' },
+          { q: '¿Fue un conflicto aislado o internacionalizado?', a: 1, options: ['Aislado', 'Internacionalizado', 'Solo económico', 'Solo colonial'], explain: 'La guerra tuvo una dimensión internacional muy importante.' }
+        ]
+      },
+      {
+        id: 'esp-franquismo',
+        country: 'España',
+        period: '1900-1945',
+        title: 'El régimen franquista',
+        subtitle: 'Dictadura, nacionalcatolicismo, represión y evolución interna.',
+        summary: [
+          'El franquismo se legitima por la victoria en la guerra civil, el poder personal del dictador, el ejército, la Iglesia y el anticomunismo.',
+          'Es un régimen antiliberal, corporativista, de partido único y fuerte represión.',
+          'Primero vive una etapa de autarquía y aislamiento; después, una fase tecnócrata de apertura y desarrollo económico.',
+          'En su crisis final aparecen el desgaste político, la oposición y las tensiones del final del régimen.'
+        ],
+        vocab: ['Franquismo', 'Caudillo', 'Nacionalcatolicismo', 'Autarquía', 'Falange', 'Represión', 'Movimiento Nacional'],
+        dates: [
+          ['1939', 'Inicio de la dictadura franquista.'],
+          ['1937-1959', 'Etapa de afirmación, autarquía y consolidación.'],
+          ['1959-1973', 'Etapa tecnócrata y desarrollo económico.'],
+          ['1973-1975', 'Crisis final del régimen.'],
+          ['1975', 'Muerte de Franco.']
+        ],
+        quiz: [
+          { q: '¿Qué ideología resume bien el franquismo?', a: 2, options: ['Liberalismo parlamentario', 'Socialismo democrático', 'Nacionalcatolicismo', 'Federalismo plural'], explain: 'El franquismo se apoya en el nacionalismo español, el catolicismo político y el anticomunismo.' },
+          { q: '¿Cómo se llama la política económica de autosuficiencia de la primera etapa?', a: 1, options: ['Librecambio', 'Autarquía', 'Neoliberalismo', 'Marshallismo'], explain: 'La primera etapa franquista se caracteriza por la autarquía y el aislamiento.' },
+          { q: '¿Qué año marca el final de la dictadura?', a: 0, options: ['1975', '1931', '1958', '1982'], explain: 'La muerte de Franco en 1975 abre la etapa de la transición.' }
+        ]
+      },
+      {
+        id: 'esp-transicion',
+        country: 'España',
+        period: '1945-actualidad',
+        title: 'La Transición y la democracia',
+        subtitle: 'De la muerte de Franco al Estado democrático.',
+        summary: [
+          'La Transición española, entre 1975 y 1982, es el proceso por el que España pasa de la dictadura a la democracia.',
+          'Tras la muerte de Franco se abren tres opciones: continuismo, ruptura y reforma; finalmente triunfa la vía reformista.',
+          'Juan Carlos I, Torcuato Fernández-Miranda y Adolfo Suárez desempeñan un papel central en este cambio.',
+          'El periodo está marcado por el consenso, pero también por violencia política, miedo al golpe de Estado y fuerte inestabilidad.'
+        ],
+        vocab: ['Transición', 'Consenso', 'Reforma política', 'UCD', 'PSOE', 'Constitución de 1978', '23F'],
+        dates: [
+          ['1975', 'Muerte de Franco.'],
+          ['1976', 'Ley para la Reforma Política.'],
+          ['1977', 'Primeras elecciones democráticas.'],
+          ['1978', 'Constitución española.'],
+          ['1981', 'Intento de golpe de Estado del 23F.'],
+          ['1982', 'Victoria del PSOE y consolidación democrática.']
+        ],
+        quiz: [
+          { q: '¿Entre qué años se suele situar la Transición española?', a: 1, options: ['1931-1939', '1975-1982', '1959-1973', '1986-1992'], explain: 'La cronología habitual va desde la muerte de Franco hasta la victoria socialista de 1982.' },
+          { q: '¿Qué ley abrió el marco legal hacia la democracia?', a: 0, options: ['Ley para la Reforma Política', 'Ley Sálica', 'Ley de Vagos y Maleantes', 'Fuero del Trabajo'], explain: 'La Ley para la Reforma Política fue la base jurídica del cambio.' },
+          { q: '¿Qué episodio de 1981 puso en peligro la democracia?', a: 2, options: ['La Semana Trágica', 'La Gloriosa', 'El 23F', 'El Desastre de Annual'], explain: 'El intento de golpe del 23F fue uno de los momentos más críticos de la Transición.' }
+        ]
       }
+    ];
 
-      cartItems.innerHTML = cart.map((item, index) => `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.name}">
-          <div>
-            <strong>${item.name}</strong>
-            <div class="tiny">Qty: ${item.qty}</div>
-            <div class="tiny">€${item.price}</div>
-          </div>
-          <button class="icon-btn" onclick="removeItem(${index})">−</button>
-        </div>
-      `).join('');
+    const container = document.getElementById('topicsContainer');
+    const navList = document.getElementById('navList');
+    const emptyState = document.getElementById('emptyState');
+    const totalTopics = document.getElementById('totalTopics');
+    const totalQuestions = document.getElementById('totalQuestions');
+    const globalScore = document.getElementById('globalScore');
+    const globalBar = document.getElementById('globalBar');
+    const completedTopics = document.getElementById('completedTopics');
 
-      const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      subtotal.textContent = `€${total}`;
+    const searchInput = document.getElementById('searchInput');
+    const countryFilter = document.getElementById('countryFilter');
+    const periodFilter = document.getElementById('periodFilter');
+    const resetBtn = document.getElementById('resetBtn');
+
+    const state = {
+      answers: {},
+      visibleTopics: [...topics]
+    };
+
+    function getQuestionKey(topicId, qIndex) {
+      return `${topicId}__${qIndex}`;
     }
 
-    function addToCart(name, price, image) {
-      const existing = cart.find(item => item.name === name);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ name, price: Number(price), image, qty: 1 });
-      }
-      renderCart();
-      openCart();
-    }
+    function getStats() {
+      const allQuestions = topics.reduce((sum, t) => sum + t.quiz.length, 0);
+      let correct = 0;
+      let completed = 0;
 
-    function removeItem(index) {
-      if (cart[index].qty > 1) {
-        cart[index].qty -= 1;
-      } else {
-        cart.splice(index, 1);
-      }
-      renderCart();
-    }
-
-    window.removeItem = removeItem;
-
-    cartButton.addEventListener('click', openCart);
-    closeCart.addEventListener('click', hideCart);
-    drawerBackdrop.addEventListener('click', hideCart);
-
-    addButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        addToCart(button.dataset.name, button.dataset.price, button.dataset.image);
+      topics.forEach(topic => {
+        let topicDone = true;
+        topic.quiz.forEach((q, i) => {
+          const key = getQuestionKey(topic.id, i);
+          const ans = state.answers[key];
+          if (ans === q.a) correct++;
+          if (ans === undefined) topicDone = false;
+        });
+        if (topicDone) completed++;
       });
+
+      return {
+        totalTopics: topics.length,
+        allQuestions,
+        correct,
+        completed,
+        scorePct: allQuestions ? Math.round((correct / allQuestions) * 100) : 0
+      };
+    }
+
+    function renderStats() {
+      const s = getStats();
+      totalTopics.textContent = s.totalTopics;
+      totalQuestions.textContent = s.allQuestions;
+      globalScore.textContent = `${s.scorePct}%`;
+      globalBar.style.width = `${s.scorePct}%`;
+      completedTopics.textContent = s.completed;
+    }
+
+    function renderNav(list) {
+      navList.innerHTML = list.map(t => `
+        <a href="#${t.id}" class="nav-link">${t.country} · ${t.title}</a>
+      `).join('');
+    }
+
+    function renderTopics(list) {
+      container.innerHTML = '';
+      emptyState.style.display = list.length ? 'none' : 'block';
+
+      list.forEach(topic => {
+        const topicEl = document.createElement('article');
+        topicEl.className = 'block';
+        topicEl.id = topic.id;
+
+        topicEl.innerHTML = `
+          <div class="block-header">
+            <div class="block-tag">${topic.country} · ${topic.period.replaceAll('-', ' ')}</div>
+            <h2>${topic.title}</h2>
+            <div class="block-sub">${topic.subtitle}</div>
+          </div>
+          <div class="block-body">
+            <div class="card summary">
+              <h4>Resumen del tema</h4>
+              <ul>${topic.summary.map(item => `<li>${item}</li>`).join('')}</ul>
+            </div>
+
+            <div class="grid-2">
+              <div class="card">
+                <h4>Vocabulario clave</h4>
+                <div class="chips">${topic.vocab.map(v => `<span class="chip">${v}</span>`).join('')}</div>
+              </div>
+
+              <div class="card">
+                <h4>Fechas destacadas</h4>
+                <div class="dates">
+                  ${topic.dates.map(([year, text]) => `
+                    <div class="date-row">
+                      <div class="date-year">${year}</div>
+                      <div class="date-text">${text}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h4>Mini examen tipo test</h4>
+              <div class="quiz" data-topic="${topic.id}">
+                ${topic.quiz.map((q, qIndex) => {
+                  const key = getQuestionKey(topic.id, qIndex);
+                  const selected = state.answers[key];
+                  return `
+                    <div class="question">
+                      <h5>${qIndex + 1}. ${q.q}</h5>
+                      <div class="options">
+                        ${q.options.map((opt, optIndex) => {
+                          let extraClass = '';
+                          if (selected !== undefined) {
+                            if (optIndex === q.a) extraClass = 'correct';
+                            else if (optIndex === selected) extraClass = 'incorrect';
+                          }
+                          return `
+                            <label class="option ${extraClass}">
+                              <input type="radio" name="${key}" value="${optIndex}" ${selected === optIndex ? 'checked' : ''} ${selected !== undefined ? 'disabled' : ''} />
+                              <span>${opt}</span>
+                            </label>
+                          `;
+                        }).join('')}
+                      </div>
+                      <div class="feedback" style="display:${selected !== undefined ? 'block' : 'none'}">
+                        ${selected === q.a ? '✅ Correcto. ' : '❌ Respuesta revisada. '}${q.explain}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(topicEl);
+      });
+
+      attachQuizEvents();
+      activateNavOnScroll();
+    }
+
+    function attachQuizEvents() {
+      container.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const [topicId, qIndexStr] = e.target.name.split('__');
+          const qIndex = Number(qIndexStr);
+          state.answers[e.target.name] = Number(e.target.value);
+          render();
+          const block = document.getElementById(topicId);
+          if (block) block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      });
+    }
+
+    function filterTopics() {
+      const text = searchInput.value.trim().toLowerCase();
+      const country = countryFilter.value;
+      const period = periodFilter.value;
+
+      state.visibleTopics = topics.filter(topic => {
+        const haystack = [
+          topic.country,
+          topic.title,
+          topic.subtitle,
+          ...topic.summary,
+          ...topic.vocab,
+          ...topic.dates.map(d => d.join(' '))
+        ].join(' ').toLowerCase();
+
+        const textOk = !text || haystack.includes(text);
+        const countryOk = country === 'all' || topic.country === country;
+        const periodOk = period === 'all' || topic.period === period;
+        return textOk && countryOk && periodOk;
+      });
+    }
+
+    function activateNavOnScroll() {
+      const blocks = [...document.querySelectorAll('.block')];
+      const links = [...document.querySelectorAll('.nav-link')];
+      if (!blocks.length || !links.length) return;
+
+      const onScroll = () => {
+        let current = blocks[0]?.id;
+        blocks.forEach(block => {
+          const rect = block.getBoundingClientRect();
+          if (rect.top <= 180) current = block.id;
+        });
+        links.forEach(link => {
+          const active = link.getAttribute('href') === `#${current}`;
+          link.classList.toggle('active', active);
+        });
+      };
+
+      onScroll();
+      window.onscroll = onScroll;
+    }
+
+    function render() {
+      filterTopics();
+      renderStats();
+      renderNav(state.visibleTopics);
+      renderTopics(state.visibleTopics);
+    }
+
+    searchInput.addEventListener('input', render);
+    countryFilter.addEventListener('change', render);
+    periodFilter.addEventListener('change', render);
+    resetBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      countryFilter.value = 'all';
+      periodFilter.value = 'all';
+      render();
     });
+
+    render();
   </script>
 </body>
 </html>
