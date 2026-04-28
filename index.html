@@ -1,1237 +1,224 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Broggos Agency · Webs y Automatizaciones para Negocios Locales</title>
-  <meta name="description" content="Broggos Agency — Webs profesionales y automatizaciones con IA para negocios locales. Entrega en 1–2 semanas, precio cerrado."/>
-  <meta name="robots" content="index,follow"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:locale" content="es_ES"/>
-  <meta property="og:title" content="Broggos Agency · Webs y Automatizaciones para Negocios Locales"/>
-  <meta property="og:description" content="Broggos Agency — Webs profesionales y automatizaciones con IA para negocios locales. Entrega en 1–2 semanas, precio cerrado."/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroExpert - Práctica de Geografía</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+        }
 
-  <!-- ══════════════════════════════════════════════════════════════
-    FAVICON — pon estos archivos en la MISMA carpeta que index.html
-    Nombres exactos que debes usar:
-      favicon.ico          → icono principal (16×16 y 32×32 dentro)
-      favicon-32.png       → PNG 32×32 px
-      favicon-16.png       → PNG 16×16 px
-      apple-touch-icon.png → PNG 180×180 px (iPhone/iPad)
-      site.webmanifest     → archivo de manifiesto (ver abajo)
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
 
-    Si usas un generador (recomendado: https://realfavicongenerator.net)
-    sube tu logo y descarga el pack completo, copia todos los archivos
-    a la misma carpeta que index.html y ya funciona.
-  ══════════════════════════════════════════════════════════════ -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-  <link rel="manifest" href="site.webmanifest"/>
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
 
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"ProfessionalService","name":"Broggos Agency",
-  "url":"https://broggosagency.com","description":"Webs y automatizaciones para negocios locales.",
-  "email":"broggosagency@gmail.com","contactPoint":{"@type":"ContactPoint","email":"broggosagency@gmail.com","contactType":"customer service"}}
-  </script>
+        .menu-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    #pillNav{transition:transform .4s cubic-bezier(.4,0,.2,1),opacity .4s ease;}
-    #pillNav.nav-hidden{transform:translateY(-160%);opacity:0;pointer-events:none;}
-    .modal-box{animation:mIn .22s cubic-bezier(.34,1.2,.64,1) both;}
-    @keyframes mIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
-    [data-faq-answer]{display:none;}
-    [data-faq-answer].faq-open{display:block;}
-    #cookieBanner{transition:transform .4s ease,opacity .4s ease;}
-    #cookieBanner.ck-hide{transform:translateY(130%);opacity:0;pointer-events:none;}
-    @keyframes btnWiggle{0%,100%{transform:translateX(0)}10%{transform:translateX(-3px) rotate(-1deg)}20%{transform:translateX(3px) rotate(1deg)}30%{transform:translateX(-2px)}40%{transform:translateX(2px)}50%{transform:translateX(0)}}
-    .btn-wiggle{animation:btnWiggle 4s ease-in-out 3s infinite;}
-  </style>
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-mode { background: var(--primary); color: white; }
+        .btn-mode:hover { background: var(--secondary); }
+        .btn-mode.active { background: var(--secondary); border: 2px solid var(--primary); }
+
+        #game-area {
+            margin-top: 20px;
+            min-height: 300px;
+        }
+
+        .flag-display {
+            font-size: 80px;
+            margin: 20px 0;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            padding: 15px;
+        }
+
+        .option-btn:hover { background: #e9ecef; }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            height: 24px;
+        }
+
+        .hidden { display: none; }
+    </style>
 </head>
-<body class="bg-white text-slate-900 antialiased">
-<!-- ═══ COOKIE BANNER (RGPD / LOPD-GDD) ═══ -->
-<div id="cookieBanner" class="fixed bottom-0 left-0 right-0 z-[999] p-3 sm:p-4">
-  <div class="max-w-3xl mx-auto bg-slate-900 text-white rounded-2xl shadow-2xl border border-white/10 px-5 py-4">
-    <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-      <div class="flex-1 min-w-0">
-        <p class="text-sm font-semibold mb-1">Este sitio usa cookies</p>
-        <p class="text-xs text-slate-300 leading-relaxed">Usamos cookies técnicas necesarias y, con tu consentimiento, cookies para analizar visitas. Consulta nuestra <button type="button" onclick="showLegal('lc')" class="underline hover:text-white">política de cookies</button>.</p>
-      </div>
-      <div class="flex gap-2 flex-wrap flex-shrink-0">
-        <button id="ckReject" type="button" class="px-4 py-2 rounded-full border border-white/25 text-xs text-slate-300 hover:text-white hover:border-white transition-colors">Solo técnicas</button>
-        <button id="ckConfig" type="button" class="px-4 py-2 rounded-full border border-white/25 text-xs text-slate-300 hover:text-white hover:border-white transition-colors">Configurar</button>
-        <button id="ckAccept" type="button" class="px-5 py-2 rounded-full bg-white text-slate-900 text-xs font-bold hover:bg-slate-100 transition-colors">Aceptar todo</button>
-      </div>
-    </div>
-    <div id="ckPanel" class="hidden mt-4 pt-4 border-t border-white/10 space-y-3">
-      <label class="flex items-start gap-3 cursor-default">
-        <input type="checkbox" checked disabled class="mt-0.5 w-4 h-4 flex-shrink-0"/>
-        <div><p class="text-xs font-semibold">Cookies técnicas (necesarias)</p><p class="text-[11px] text-slate-400">Imprescindibles para el funcionamiento del sitio. No se pueden desactivar.</p></div>
-      </label>
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input id="ckAnalytics" type="checkbox" class="mt-0.5 accent-white w-4 h-4 flex-shrink-0"/>
-        <div><p class="text-xs font-semibold">Cookies analíticas</p><p class="text-[11px] text-slate-400">Miden el uso del sitio (visitas, páginas). Nos ayudan a mejorarlo.</p></div>
-      </label>
-      <button id="ckSave" type="button" class="px-5 py-2 rounded-full bg-white text-slate-900 text-xs font-bold hover:bg-slate-100 transition-colors">Guardar preferencias</button>
-    </div>
-  </div>
-</div>
+<body>
 
-<!-- ═══ PILL NAV ═══ -->
-<div id="pillNav" class="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-
-  <!-- DESKTOP: más ancho, más alto, fuente más grande -->
-  <!-- CAMBIO: bg-slate-900 para que sea del mismo color que el fondo del hero -->
-  <div class="hidden md:flex w-full max-w-4xl bg-slate-900 rounded-full shadow-2xl border border-white/15 px-5 py-3.5 items-center justify-between gap-3">
-    <a href="#inicio" class="flex items-center gap-2.5 flex-shrink-0">
-      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
-        <svg class="w-4.5 h-4.5 text-slate-900" style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="9" stroke-width="2"/>
-          <path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="text-white text-base font-light tracking-tight">Broggos Agency</span>
-    </a>
-    <nav class="flex items-center gap-0.5">
-      <a href="#services"      class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Servicios</a>
-      <a href="#mantenimiento" class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Mantenimiento</a>
-      <a href="#proceso"       class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Proceso</a>
-      <a href="#faq"           class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">FAQ</a>
-      <a href="#contacto"      class="text-white/85 hover:text-white hover:bg-white/15 px-4 py-2 rounded-full text-sm transition-all font-light">Contacto</a>
-    </nav>
-    <div class="flex items-center gap-2">
-      <a href="https://wa.me/34608574225?text=Hola%2C%20quiero%20info%20sobre%20Broggos%20Agency" target="_blank"
-         class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium bg-[#25D366] text-white hover:bg-[#1fad55] transition-colors whitespace-nowrap">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-        WhatsApp
-      </a>
-      <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita"
-         class="flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 transition-colors shadow-sm whitespace-nowrap">
-        Llamada gratis
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-  </div>
-
-  <!-- MOBILE: fondo sólido opaco, sin transparencias -->
-  <div class="flex md:hidden w-full max-w-sm bg-slate-900 rounded-full shadow-2xl border border-slate-700 px-3 py-2.5 items-center justify-between">
-    <a href="#inicio" class="flex items-center gap-2">
-      <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0">
-        <svg style="width:14px;height:14px" class="text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="9" stroke-width="2"/>
-          <path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <span class="text-white text-sm font-light">Broggos Agency</span>
-    </a>
-    <div class="flex items-center gap-2">
-      <a href="https://wa.me/34608574225?text=Hola" target="_blank" aria-label="WhatsApp"
-         class="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center">
-        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-      </a>
-      <button id="hamBtn" type="button" aria-label="Menú"
-         class="w-9 h-9 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-white">
-        <svg id="hamIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg id="closeIcon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- Mobile dropdown: sólido, perfectamente legible -->
-  <div id="mobileMenu" class="hidden md:hidden absolute top-[58px] left-2 right-2 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
-    <nav class="p-3 space-y-0.5">
-      <a href="#services"      class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Servicios</a>
-      <a href="#mantenimiento" class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Mantenimiento</a>
-      <a href="#proceso"       class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Proceso</a>
-      <a href="#faq"           class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">FAQ</a>
-      <a href="#contacto"      class="flex px-4 py-3 rounded-xl text-sm font-medium text-white hover:bg-slate-800 transition-colors">Contacto</a>
-    </nav>
-    <div class="p-3 space-y-2 border-t border-slate-700">
-      <a href="https://wa.me/34608574225?text=Hola%2C%20quiero%20info%20sobre%20Broggos%20Agency" target="_blank"
-         class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold bg-[#25D366] text-white">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-        WhatsApp
-      </a>
-      <a href="mailto:broggosagency@gmail.com?subject=Consulta%20Broggos%20Agency"
-         class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-medium bg-slate-800 text-white hover:bg-slate-700 transition-colors">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        broggosagency@gmail.com
-      </a>
-      <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita"
-         class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold bg-white text-slate-900 hover:bg-slate-100 transition-colors">
-        Reservar llamada gratuita →
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ HOME PAGE ═══ -->
-<main id="homePage">
-
-<!-- HERO -->
-<section id="inicio" class="pt-32 sm:pt-40 pb-16 sm:pb-20 px-4 bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-white">
-  <div class="max-w-5xl mx-auto text-center">
-    <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium bg-white/10 border border-white/20 mb-6 tracking-wide">Agencia digital · Negocios locales</span>
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-5">
-      Tu negocio merece
-      <span class="italic font-normal block mt-1">una presencia que vende</span>
-    </h1>
-    <p class="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-      Webs profesionales y automatizaciones con IA. Entrega en <strong class="text-white font-semibold">1–2 semanas</strong>, precio cerrado, <strong class="text-white font-semibold">pago en cuotas disponible</strong>.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center flex-wrap">
-      <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita" class="btn-wiggle flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-slate-900 hover:bg-slate-100 text-sm font-bold shadow-lg transition-colors">
-        Reservar llamada gratuita<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      </a>
-      <a href="https://wa.me/34608574225?text=Hola%2C%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20Broggos%20Agency" target="_blank"
-         class="flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#25D366] text-white hover:bg-[#1fad55] text-sm font-medium shadow-lg transition-colors">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.10-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-        WhatsApp
-      </a>
-      <a href="mailto:broggosagency@gmail.com" class="flex items-center gap-2 px-6 py-3.5 rounded-full border border-slate-600 text-sm font-medium text-slate-200 hover:border-white hover:text-white transition-colors">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        broggosagency@gmail.com
-      </a>
-    </div>
-    <p class="text-slate-500 text-xs mt-4">20 min · Sin compromiso · Respuesta &lt;24h</p>
-    <div class="mt-12 pt-8 border-t border-white/10 grid grid-cols-3 gap-4 max-w-sm mx-auto">
-      <div><p class="text-3xl font-light">1–2</p><p class="text-slate-400 text-xs mt-1">semanas entrega</p></div>
-      <div><p class="text-3xl font-light">0€</p><p class="text-slate-400 text-xs mt-1">primera consulta</p></div>
-      <div><p class="text-3xl font-light">100%</p><p class="text-slate-400 text-xs mt-1">atención personal</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services" class="py-16 sm:py-20 px-4 bg-white">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
-      <div>
-        <h2 class="text-2xl sm:text-4xl font-light mb-2">Servicios para digitalizar tu negocio</h2>
-        <p class="text-slate-500 text-sm max-w-lg">Webs profesionales y automatizaciones con IA. Todos con posibilidad de pago en cuotas.</p>
-      </div>
-      <p class="text-slate-400 text-xs">Entrega 1–2 semanas · Precio cerrado · Pago en cuotas disponible</p>
-    </div>
-
-    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Webs profesionales</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web Básica</h3><p class="text-slate-500 text-xs">1 página esencial</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">449€</span></div>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>1 página completa</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Diseño adaptado a móvil</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Google Maps integrado</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="web-basica" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
+    <div class="container">
+        <h1>🇪🇺 EuroExpert</h1>
+        <p>Selecciona un modo de juego:</p>
+        
+        <div class="menu-btns">
+            <button class="btn-mode" onclick="setMode('flashcards')">Flashcards</button>
+            <button class="btn-mode" onclick="setMode('quiz')">Quiz (Opciones)</button>
+            <button class="btn-mode" onclick="setMode('escribir')">Escribir</button>
+            <button class="btn-mode" onclick="nextQuestion()">Saltar ⏭️</button>
         </div>
-      </article>
 
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web Profesional</h3><p class="text-slate-500 text-xs">Diseño personalizado</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">597€</span></div>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>3–5 páginas a medida</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Formularios de contacto</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>SEO básico incluido</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="web-pro" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border-2 border-slate-900 bg-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">⭐ Más solicitada · Mejor valor</span>
-        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web con Reservas</h3><p class="text-slate-500 text-xs">Citas online automatizadas</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">897€</span></div>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Sistema de reservas integrado</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Confirmaciones automáticas</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Calendario sincronizado</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="web-reservas" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <div class="flex items-start justify-between mb-3"><div><h3 class="text-base font-light mb-0.5">Web con Catálogo</h3><p class="text-slate-500 text-xs">Escaparate con filtros</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">697€</span></div>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Catálogo con filtros</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Fichas de producto</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Diseño visual de impacto</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="web-catalogo" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-    </div>
-
-    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Automatizaciones e inteligencia artificial</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Asistente WhatsApp 24/7</h3><p class="text-slate-500 text-xs">Respuestas 24/7</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">249€</span></div>
-        <p class="text-xs text-slate-400 mb-3">o 69€/mes · <span class="text-emerald-600 font-semibold">solo 2,30€/día</span></p>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Respuestas automáticas 24/7</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Menú interactivo de opciones</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Info del negocio al instante</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="whatsapp" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Agente Web IA</h3><p class="text-slate-500 text-xs">Asistente inteligente</p></div><span class="text-sm font-bold text-slate-900 ml-2 whitespace-nowrap">297€</span></div>
-        <p class="text-xs text-slate-400 mb-3">o 69€/mes · <span class="text-emerald-600 font-semibold">solo 2,30€/día</span></p>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Respuestas inteligentes personalizadas</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Captación de leads</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Integración directa en tu web</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="chatbot" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col relative">
-        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">🔥 Más popular · Oferta limitada</span>
-        <div class="mb-1"><h3 class="text-base font-light mb-0.5">Recepcionista IA Premium</h3><p class="text-slate-500 text-xs">Teléfono 24/7 por IA</p></div>
-        <p class="text-sm font-bold text-slate-900 mb-1">Desde 197€/mes</p>
-        <p class="text-xs text-slate-400 mb-3"><span class="text-emerald-600 font-semibold">solo 6,57€/día</span></p>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Atención 24/7 sin personal</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Gestión automática de citas</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Precio según volumen</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="agente-ia" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Cuota mensual adaptada</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">📅 Nuevo servicio</span>
-        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Sistema de Reservas Automático</h3><p class="text-slate-500 text-xs">Citas gestionadas sin esfuerzo</p></div></div>
-        <div class="flex items-baseline gap-1 mb-1"><span class="text-sm font-bold text-slate-900">149€</span><span class="text-xs text-slate-400">setup</span></div>
-        <p class="text-xs text-slate-400 mb-3">+ <span class="text-emerald-600 font-semibold">39€/mes</span></p>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Confirmación automática por WhatsApp</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Recordatorio 24h antes de la cita</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Sincronización con Google Calendar</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="reservas-auto" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">🎯 Alta conversión</span>
-        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Seguimiento Automático de Leads</h3><p class="text-slate-500 text-xs">Ningún cliente interesado se escapa</p></div></div>
-        <div class="flex items-baseline gap-1 mb-1"><span class="text-sm font-bold text-slate-900">199€</span><span class="text-xs text-slate-400">setup</span></div>
-        <p class="text-xs text-slate-400 mb-3">+ <span class="text-emerald-600 font-semibold">49€/mes</span></p>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Email automático a las 24h del contacto</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Seguimiento por WhatsApp a los 3 días</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Recordatorio final personalizado a los 7 días</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="seguimiento-leads" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">⭐ Más reseñas = más clientes</span>
-        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Recopilador de Reseñas Google</h3><p class="text-slate-500 text-xs">Acumula reseñas en Google sin esfuerzo</p></div></div>
-        <div class="flex items-baseline gap-1 mb-1"><span class="text-sm font-bold text-slate-900">99€</span><span class="text-xs text-slate-400">setup</span></div>
-        <p class="text-xs text-slate-400 mb-3">+ <span class="text-emerald-600 font-semibold">29€/mes</span></p>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Petición automática tras cada servicio</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Link directo a Google My Business</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Feedback negativo redirigido en privado</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="resenas-google" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-
-      <article class="group rounded-2xl border border-slate-200 bg-white p-6 hover:border-slate-900 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <span class="text-[9px] font-bold uppercase tracking-widest bg-slate-900 text-white px-2.5 py-0.5 rounded-full self-start mb-3">📊 Incluido en mantenimiento</span>
-        <div class="flex items-start justify-between mb-2"><div><h3 class="text-base font-light mb-0.5">Reporte Mensual Automático</h3><p class="text-slate-500 text-xs">Tu cliente recibe resultados cada mes</p></div></div>
-        <p class="text-sm font-bold text-slate-900 mb-3">+20€/mes al plan de mantenimiento</p>
-        <ul class="space-y-1.5 text-xs text-slate-600 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Datos de visitas y rendimiento web</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Resumen generado con IA personalizado</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Envío automático el día 1 de cada mes</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="reporte-mensual" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-slate-900 text-white hover:bg-slate-700 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Se añade al plan de mantenimiento</span>
-        </div>
-      </article>
-
-      <article class="rounded-2xl border-2 border-slate-900 bg-slate-900 text-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
-        <span class="text-[9px] font-bold uppercase tracking-widest bg-yellow-400 text-slate-900 px-2.5 py-0.5 rounded-full self-start mb-2">Ahorra más de 1.000€ · Pack completo</span>
-        <div class="flex items-start justify-between mb-1"><div><h3 class="text-base font-light mb-0.5">Pack Todo en Uno</h3><p class="text-slate-300 text-xs">Web + automatizaciones</p></div><span class="text-sm font-bold text-white ml-2 whitespace-nowrap"><span class="line-through text-slate-400 text-xs font-normal mr-1">2.999€</span>1.997€</span></div>
-        <p class="text-xs text-slate-400 mb-3">Valor individual de los servicios: 2.999€</p>
-        <ul class="space-y-1.5 text-xs text-slate-300 mb-4 flex-1">
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Web profesional incluida</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>WhatsApp + Chatbot IA + Reservas</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Seguimiento de leads automático</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Reseñas Google automatizadas</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Reporte mensual incluido</li>
-          <li class="flex items-center gap-2"><span class="w-4 h-4 rounded-full bg-white text-slate-900 flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Soporte post-entrega</li>
-        </ul>
-        <div class="flex flex-col gap-2 mt-auto">
-          <button type="button" data-open-service="pack-todo" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-900 hover:bg-slate-100 transition-colors">Ver detalles<svg class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-          <span class="text-[10px] text-slate-400 text-center">Posibilidad de pagar en cuotas</span>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- MANTENIMIENTO -->
-<section id="mantenimiento" class="py-16 sm:py-20 px-4 bg-slate-50">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-10">
-      <span class="inline-block text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Servicio mensual</span>
-      <h2 class="text-2xl sm:text-4xl font-light mb-3">Plan de mantenimiento web</h2>
-      <p class="text-slate-500 text-sm max-w-xl mx-auto">Tu web siempre actualizada, segura y con soporte. Empieza desde <strong class="text-slate-900">29€/mes</strong> — <span class="text-emerald-600 font-semibold">menos de 1€/día</span> — y activa solo lo que necesitas.</p>
-      <div class="w-16 h-px bg-slate-900 mx-auto mt-6"></div>
-    </div>
-
-    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-      <div class="bg-slate-900 px-6 py-5 flex items-center justify-between">
-        <div>
-          <p class="text-white text-lg font-light">Plan mensual personalizado</p>
-          <p class="text-slate-400 text-xs mt-0.5">Sin permanencia · Cancela cuando quieras</p>
-        </div>
-        <div class="text-right">
-          <p class="text-white text-3xl font-light transition-all"><span id="mntTotal">30</span>€<span class="text-slate-400 text-base">/mes</span></p>
-          <p class="text-slate-500 text-[10px] uppercase tracking-wide">precio total</p>
-        </div>
-      </div>
-
-      <div class="px-6 pt-5 pb-4 border-b border-slate-100">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Siempre incluido · base 29€/mes</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Dominio personalizado (.es o .com)</div>
-          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Alojamiento web de alta velocidad</div>
-          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Certificado SSL (HTTPS)</div>
-          <div class="flex items-center gap-2.5 text-sm text-slate-700"><span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[9px] flex-shrink-0">✓</span>Monitoreo de disponibilidad 24/7</div>
-        </div>
-      </div>
-
-      <div class="px-6 py-5">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-4">Extras — activa los que necesites</p>
-        <div class="space-y-3">
-          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
-            <div class="flex items-center gap-3">
-              <input type="checkbox" data-extra="10" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
-              <div><p class="text-sm font-medium text-slate-900">Revisiones y actualizaciones de contenido</p><p class="text-xs text-slate-500">Cambios de textos, imágenes y precios cuando lo necesites</p></div>
+        <div id="game-area">
+            <div id="display-container">
+                <div class="flag-display" id="flag">🚩</div>
+                <h2 id="country-name" class="hidden">País</h2>
             </div>
-            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+10€</span>
-          </label>
-          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
-            <div class="flex items-center gap-3">
-              <input type="checkbox" data-extra="15" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
-              <div><p class="text-sm font-medium text-slate-900">Soporte prioritario</p><p class="text-xs text-slate-500">Respuesta garantizada en menos de 4 horas en horario laboral</p></div>
-            </div>
-            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+15€</span>
-          </label>
-          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
-            <div class="flex items-center gap-3">
-              <input type="checkbox" data-extra="10" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
-              <div><p class="text-sm font-medium text-slate-900">Copias de seguridad diarias</p><p class="text-xs text-slate-500">Backup automático cada 24h con restauración incluida</p></div>
-            </div>
-            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+10€</span>
-          </label>
-          <label class="flex items-center justify-between p-4 rounded-xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-all has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50 has-[:checked]:shadow-sm group">
-            <div class="flex items-center gap-3">
-              <input type="checkbox" data-extra="20" class="mntCheck accent-slate-900 w-4 h-4 flex-shrink-0"/>
-              <div><p class="text-sm font-medium text-slate-900">Informe mensual de rendimiento</p><p class="text-xs text-slate-500">Visitas, páginas más vistas y resumen de actividad mensual</p></div>
-            </div>
-            <span class="text-sm font-bold ml-4 flex-shrink-0 bg-slate-100 group-has-[:checked]:bg-slate-900 group-has-[:checked]:text-white text-slate-900 px-2.5 py-1 rounded-full transition-colors">+20€</span>
-          </label>
+
+            <div id="interaction-area">
+                </div>
+            
+            <div class="feedback" id="feedback"></div>
         </div>
-
-        <div class="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <p class="text-xs text-slate-500">Total mensual estimado</p>
-            <p class="text-3xl font-light text-slate-900"><span id="mntTotalBottom">30</span>€<span class="text-sm text-slate-500">/mes</span></p>
-            <p class="text-[10px] text-slate-400 mt-0.5">Sin permanencia · Cancela cuando quieras</p>
-          </div>
-          <div class="flex gap-2 flex-wrap">
-            <a href="https://wa.me/34608574225?text=Hola%2C%20me%20interesa%20el%20plan%20de%20mantenimiento%20web" target="_blank"
-               class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-sm font-medium hover:bg-[#1fad55] transition-colors">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-              Contratar por WhatsApp
-            </a>
-            <a href="mailto:broggosagency@gmail.com?subject=Plan%20mantenimiento%20Broggos%20Agency"
-               class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-700 text-sm font-medium hover:border-slate-900 hover:bg-slate-50 transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              Enviar email
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESO -->
-<section id="proceso" class="py-16 sm:py-20 px-4 bg-white">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-10">
-      <h2 class="text-2xl sm:text-4xl font-light mb-2">De cero a online en cuatro pasos</h2>
-      <p class="text-slate-500 text-sm max-w-md mx-auto">Un proceso claro, con un punto de contacto directo en todo momento.</p>
-      <div class="w-16 h-px bg-slate-900 mx-auto mt-5"></div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">1</span>
-        <h3 class="text-base font-semibold mb-1.5">Llamada de descubrimiento</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">20 minutos para entender tu negocio, tus clientes y lo que necesitas. Sin tecnicismos, sin presión.</p>
-        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">Gratuito · 20 minutos</p>
-      </article>
-      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">2</span>
-        <h3 class="text-base font-semibold mb-1.5">Propuesta con precio cerrado</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Recibes alcance, plazo y precio final en un documento claro. Con opción de pago en cuotas. Sin sorpresas.</p>
-        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">En 24–48 horas</p>
-      </article>
-      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">3</span>
-        <h3 class="text-base font-semibold mb-1.5">Diseño y desarrollo</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Me encargo de todo. Solo necesito la info básica de tu negocio. Te muestro el avance antes de publicar para que valides.</p>
-        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">1–2 semanas</p>
-      </article>
-      <article class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-        <span class="inline-flex w-9 h-9 rounded-full bg-slate-900 text-white items-center justify-center text-sm font-light mb-4">4</span>
-        <h3 class="text-base font-semibold mb-1.5">Entrega y soporte</h3>
-        <p class="text-slate-500 text-sm leading-relaxed">Tu web en marcha. Incluye soporte post-entrega y formación básica para gestionar el contenido tú mismo.</p>
-        <p class="text-[10px] text-slate-400 mt-3 uppercase tracking-wider font-semibold">Soporte incluido</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" class="py-16 sm:py-20 px-4 bg-slate-50">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-10">
-      <h2 class="text-2xl sm:text-4xl font-light mb-2">Preguntas frecuentes</h2>
-      <p class="text-slate-500 text-sm max-w-md mx-auto">Todo lo que suelen preguntar antes de empezar.</p>
-      <div class="w-16 h-px bg-slate-900 mx-auto mt-5"></div>
-    </div>
-    <div class="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-hidden">
-      <article>
-        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
-          <span class="font-medium text-base pr-4">¿Cuánto tarda en estar lista la web?</span>
-          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Entre 1 y 2 semanas para proyectos estándar. El plazo exacto lo acordamos en la propuesta antes de empezar, y nunca arranco sin que lo tengas claro.</div>
-      </article>
-      <article>
-        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
-          <span class="font-medium text-base pr-4">¿Puedo pagar en cuotas?</span>
-          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Sí. Todos los proyectos tienen posibilidad de pago fraccionado. Lo habitual es 50% al inicio y 50% en la entrega, aunque podemos acordar otras fórmulas. Consúltame sin compromiso.</div>
-      </article>
-      <article>
-        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
-          <span class="font-medium text-base pr-4">¿Cuánto cuesta exactamente una web?</span>
-          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Precios fijos: Web Básica 449€, Profesional 597€, con Reservas 897€ (la más solicitada), con Catálogo 697€. Si dudas qué opción necesitas, lo vemos en la llamada gratuita y te doy el precio exacto antes de empezar.</div>
-      </article>
-      <article>
-        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
-          <span class="font-medium text-base pr-4">¿Necesito saber de tecnología?</span>
-          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>No. Me encargo de dominio, alojamiento, diseño y puesta en marcha. Solo necesito la info básica de tu negocio. Al entregar te enseño a gestionar contenidos sin código.</div>
-      </article>
-      <article>
-        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
-          <span class="font-medium text-base pr-4">¿Qué pasa si el resultado no me convence?</span>
-          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Incluyo revisiones hasta que el resultado te guste. Siempre muestro referencias antes de empezar y aprobamos el diseño antes del desarrollo final.</div>
-      </article>
-      <article>
-        <button type="button" class="w-full px-6 py-5 text-left flex justify-between items-center group" data-faq-toggle>
-          <span class="font-medium text-base pr-4">¿La web necesita textos legales?</span>
-          <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-300" data-faq-chevron fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </button>
-        <div class="px-6 pb-5 text-slate-500 text-sm leading-relaxed" data-faq-answer>Si la web recoge datos de usuarios (formulario de contacto, newsletter…) necesita aviso legal, política de privacidad y política de cookies. En Broggos Agency incluyo una base legal orientativa en todas las webs. Para que sea completamente válida, te recomiendo revisarla con un asesor una vez tengas el proyecto registrado.</div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACTO -->
-<section id="contacto" class="py-16 sm:py-20 px-4 bg-white">
-  <div class="max-w-6xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
-      <div class="space-y-5">
-        <h2 class="text-2xl sm:text-4xl font-light">Reserva tu llamada gratuita</h2>
-        <p class="text-slate-500 text-sm max-w-md">20 minutos para analizar tu negocio, ver qué encaja y cuánto costaría. Al final sabes exactamente lo que necesitas.</p>
-        <div class="space-y-3">
-          <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
-            <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">20'</div>
-            <div><p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Duración</p><p class="text-sm font-medium text-slate-900">20 min · Al grano, sin rodeos</p></div>
-          </div>
-          <div class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
-            <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm flex-shrink-0">✓</div>
-            <div><p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Sin compromiso</p><p class="text-sm text-slate-700">Si no encajamos, te lo digo con honestidad</p></div>
-          </div>
-        </div>
-        <div class="pt-2">
-          <p class="text-[10px] text-slate-400 mb-3 uppercase tracking-wider font-bold">Contacto directo</p>
-          <div class="flex gap-3 flex-wrap">
-            <a href="https://wa.me/34608574225?text=Hola%2C%20quiero%20reservar%20una%20llamada%20gratuita" target="_blank"
-               class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-sm font-medium hover:bg-[#1fad55] transition-colors shadow-sm">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-              WhatsApp
-            </a>
-            <a href="mailto:broggosagency@gmail.com?subject=Consulta%20servicios%20Broggos%20Agency"
-               class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-700 text-sm font-medium hover:border-slate-900 hover:bg-slate-50 transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              broggosagency@gmail.com
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
-        <h3 class="text-lg font-light mb-2">Reserva cita directamente</h3>
-        <p class="text-slate-500 text-sm mb-5">Elige el servicio, la fecha y la hora. Confirmo en menos de 2 horas.</p>
-        <a href="mailto:broggosagency@gmail.com?subject=Reservar%20llamada%20gratuita" class="flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-slate-900 text-white hover:bg-slate-800 text-sm font-bold w-full mb-3 transition-colors">
-          Abrir calendario de reservas<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        </a>
-        <p class="text-slate-400 text-xs">Sin compromiso · 20 min · Gratis</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LEGAL SECTIONS (hidden, shown via footer) -->
-<div id="legalWrap" class="hidden bg-white border-t border-slate-100">
-  <div class="max-w-4xl mx-auto px-4 py-14 space-y-10 text-sm text-slate-600 leading-relaxed">
-    <div class="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-700">
-      <strong>Aviso:</strong> Broggos Agency es un proyecto en fase de constitución. Los textos legales incluidos son una base orientativa. Se recomienda revisarlos con un asesor legal antes de operar comercialmente.
     </div>
 
-    <div id="la">
-      <h2 class="text-xl font-semibold text-slate-900 mb-4">Aviso Legal</h2>
-      <p class="mb-3">En cumplimiento de la Ley 34/2002, de Servicios de la Sociedad de la Información:</p>
-      <ul class="space-y-2 list-none">
-        <li><strong>Titular:</strong> Matias Broggi y Gonzalo Garcia (Broggos Agency — proyecto en fase de constitución)</li>
-        <li><strong>DNI titular principal:</strong> 46421671N</li>
-        <li><strong>Localización:</strong> Barcelona, España</li>
-        <li><strong>Email:</strong> broggosagency@gmail.com</li>
-        <li><strong>Actividad:</strong> Diseño web y automatizaciones digitales para negocios locales</li>
-      </ul>
-      <p class="mt-4">Los precios publicados en este sitio son orientativos e incluyen todos los impuestos aplicables. La contratación se formaliza mediante propuesta escrita aceptada por el cliente.</p>
-    </div>
+    <script>
+        // Datos de ejemplo (puedes añadir los 50 países de Europa aquí)
+        const countries = [
+            { name: "España", flag: "🇪🇸" },
+            { name: "Francia", flag: "🇫🇷" },
+            { name: "Alemania", flag: "🇩🇪" },
+            { name: "Italia", flag: "🇮🇹" },
+            { name: "Portugal", flag: "🇵🇹" },
+            { name: "Reino Unido", flag: "🇬🇧" },
+            { name: "Grecia", flag: "🇬🇷" },
+            { name: "Países Bajos", flag: "🇳🇱" },
+            { name: "Suecia", flag: "🇸🇪" },
+            { name: "Noruega", flag: "🇳🇴" },
+            { name: "Polonia", flag: "🇵🇱" },
+            { name: "Bélgica", flag: "🇧🇪" }
+        ];
 
-    <div id="lp">
-      <h2 class="text-xl font-semibold text-slate-900 mb-4">Política de Privacidad</h2>
-      <p class="mb-3">De conformidad con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPD-GDD):</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Responsable del tratamiento</h3>
-      <p>Matias Broggi y Gonzalo Garcia · broggosagency@gmail.com · Barcelona, España</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Datos que recabamos y finalidad</h3>
-      <ul class="space-y-2 list-disc list-inside">
-        <li><strong>Formulario de contacto y reservas:</strong> nombre, teléfono, email y datos del negocio. Finalidad: gestionar la solicitud de información o cita.</li>
-        <li><strong>Newsletter:</strong> email. Finalidad: envío de comunicaciones comerciales sobre servicios de Broggos Agency. Puedes darte de baja en cualquier momento.</li>
-      </ul>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Base jurídica</h3>
-      <p>Consentimiento del interesado (Art. 6.1.a RGPD) para la newsletter, y ejecución de medidas precontractuales (Art. 6.1.b RGPD) para el formulario de contacto.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Conservación</h3>
-      <p>Los datos se conservarán mientras sean necesarios para la finalidad indicada y durante los plazos legalmente exigibles. Para la newsletter, hasta que solicites la baja.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Destinatarios</h3>
-      <p>Los datos personales recabados no serán cedidos a terceros salvo obligación legal. Únicamente se comparten con prestadores técnicos necesarios (proveedor de email, hosting), con quienes se han formalizado los acuerdos de tratamiento correspondientes.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Tus derechos</h3>
-      <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a broggosagency@gmail.com. También puedes reclamar ante la <a href="https://www.aepd.es" target="_blank" class="underline hover:text-slate-900">Agencia Española de Protección de Datos</a>.</p>
-    </div>
+        let currentMode = 'flashcards';
+        let currentCountry = {};
 
-    <div id="lc">
-      <h2 class="text-xl font-semibold text-slate-900 mb-4">Política de Cookies</h2>
-      <p class="mb-3">Este sitio utiliza cookies conforme a la LSSI-CE y las directrices de la AEPD (guía de cookies, enero 2024).</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">¿Qué son las cookies?</h3>
-      <p>Pequeños ficheros de datos almacenados en tu dispositivo que permiten recordar información sobre tu visita.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Cookies que utilizamos</h3>
-      <div class="overflow-x-auto mt-2">
-        <table class="w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
-          <thead class="bg-slate-50"><tr>
-            <th class="px-3 py-2 text-left font-semibold text-slate-700">Cookie</th>
-            <th class="px-3 py-2 text-left font-semibold text-slate-700">Tipo</th>
-            <th class="px-3 py-2 text-left font-semibold text-slate-700">Finalidad</th>
-            <th class="px-3 py-2 text-left font-semibold text-slate-700">Duración</th>
-          </tr></thead>
-          <tbody class="divide-y divide-slate-100">
-            <tr><td class="px-3 py-2">broggos_ck</td><td class="px-3 py-2">Técnica</td><td class="px-3 py-2">Guarda tus preferencias de cookies</td><td class="px-3 py-2">1 año</td></tr>
-            <tr><td class="px-3 py-2">_ga, _gid</td><td class="px-3 py-2">Analítica (Google)</td><td class="px-3 py-2">Mide visitas y comportamiento de navegación (solo si aceptas)</td><td class="px-3 py-2">2 años / 24h</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Cómo gestionarlas</h3>
-      <p>Puedes aceptar, rechazar o configurar las cookies mediante el panel de consentimiento. También puedes eliminarlas desde la configuración de tu navegador. Desactivar las técnicas puede afectar al funcionamiento del sitio.</p>
-    </div>
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active'));
+            nextQuestion();
+        }
 
-    <div id="lt">
-      <h2 class="text-xl font-semibold text-slate-900 mb-4">Condiciones de Prestación de Servicios</h2>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Objeto</h3>
-      <p>Estas condiciones regulan la contratación de servicios de diseño web, automatización y mantenimiento ofrecidos bajo la marca Broggos Agency.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Proceso de contratación</h3>
-      <p>La contratación se formaliza mediante propuesta escrita aceptada por el cliente (por escrito o email). Hasta dicha aceptación no existe relación contractual vinculante.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Precios y pago</h3>
-      <p>Los precios indicados en el sitio web son orientativos e incluyen todos los impuestos. El precio definitivo se establece en la propuesta formal enviada al cliente. El pago puede fraccionarse (habitual: 50% inicio + 50% entrega). Los servicios de mantenimiento mensual se facturan al inicio de cada período.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Plazos de entrega</h3>
-      <p>Los plazos indicados (1–2 semanas) son estimaciones para proyectos estándar. El plazo definitivo se establece en la propuesta y puede variar según complejidad y velocidad de feedback del cliente.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Revisiones incluidas</h3>
-      <p>Cada proyecto incluye rondas de revisión hasta alcanzar el resultado acordado. Las modificaciones que excedan el alcance inicial podrán implicar un coste adicional acordado por escrito.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Propiedad del resultado</h3>
-      <p>Una vez completado el pago íntegro, el cliente adquiere los derechos de uso sobre el resultado entregado. Broggos Agency puede mencionar el proyecto en su portfolio salvo acuerdo expreso en contrario.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Responsabilidad</h3>
-      <p>Broggos Agency no se responsabiliza de daños por uso incorrecto del servicio, ni de contenidos aportados por el cliente que puedan infringir derechos de terceros. El cliente es responsable de la veracidad y legalidad del contenido que aporta.</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Contacto</h3>
-      <p>Para cualquier consulta sobre estas condiciones: broggosagency@gmail.com</p>
-      <h3 class="font-semibold text-slate-800 mt-4 mb-2">Legislación aplicable</h3>
-      <p>Estas condiciones se rigen por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales del domicilio del prestador.</p>
-    </div>
+        function nextQuestion() {
+            currentCountry = countries[Math.floor(Math.random() * countries.length)];
+            const flagEl = document.getElementById('flag');
+            const nameEl = document.getElementById('country-name');
+            const interactEl = document.getElementById('interaction-area');
+            const feedback = document.getElementById('feedback');
 
-    <button type="button" onclick="document.getElementById('legalWrap').classList.add('hidden'); window.scrollTo({top:0,behavior:'smooth'});"
-       class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-slate-600 text-sm hover:border-slate-900 transition-colors">
-      ↑ Cerrar textos legales
-    </button>
-  </div>
-</div>
+            flagEl.textContent = currentCountry.flag;
+            nameEl.textContent = currentCountry.name;
+            feedback.textContent = "";
+            interactEl.innerHTML = "";
 
-<!-- FOOTER -->
-<footer class="bg-slate-900 border-t border-slate-800 py-10 px-4">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
-      <div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-            <svg style="width:14px;height:14px" class="text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <span class="text-white text-sm font-light">Broggos Agency</span>
-        </div>
-        <p class="text-slate-400 text-xs leading-relaxed">Webs profesionales y automatizaciones IA para negocios locales.</p>
-      </div>
-      <div>
-        <p class="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-3">Contacto</p>
-        <div class="space-y-2">
-          <a href="https://wa.me/34608574225" target="_blank" class="flex items-center gap-2 text-slate-300 hover:text-[#25D366] text-xs transition-colors">
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-            WhatsApp
-          </a>
-          <a href="mailto:broggosagency@gmail.com" class="flex items-center gap-2 text-slate-300 hover:text-white text-xs transition-colors">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            broggosagency@gmail.com
-          </a>
-        </div>
-      </div>
-      <div>
-        <p class="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-3">Legal</p>
-        <div class="space-y-2">
-          <button type="button" onclick="showLegal('la')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Aviso Legal</button>
-          <button type="button" onclick="showLegal('lp')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Política de Privacidad</button>
-          <button type="button" onclick="showLegal('lc')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Política de Cookies</button>
-          <button type="button" onclick="showLegal('lt')" class="block text-slate-300 hover:text-white text-xs transition-colors text-left">Condiciones del Servicio</button>
-        </div>
-      </div>
-    </div>
-    <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
-      <p class="text-slate-500 text-xs">© 2025 Broggos Agency · Todos los derechos reservados</p>
-      <p class="text-slate-600 text-[10px]">Diseñado y desarrollado por Broggos Agency</p>
-    </div>
-  </div>
-</footer>
-</main>
+            if (currentMode === 'flashcards') {
+                nameEl.classList.add('hidden');
+                interactEl.innerHTML = `<button class="btn-mode" onclick="document.getElementById('country-name').classList.remove('hidden')">Mostrar Nombre</button>`;
+            } 
+            else if (currentMode === 'quiz') {
+                nameEl.classList.add('hidden');
+                const options = generateOptions(currentCountry.name);
+                const grid = document.createElement('div');
+                grid.className = 'options-grid';
+                options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = opt;
+                    btn.onclick = () => checkAnswer(opt);
+                    grid.appendChild(btn);
+                });
+                interactEl.appendChild(grid);
+            } 
+            else if (currentMode === 'escribir') {
+                nameEl.classList.add('hidden');
+                interactEl.innerHTML = `
+                    <input type="text" id="write-input" placeholder="¿Qué país es?" autocomplete="off">
+                    <br>
+                    <button class="btn-mode" onclick="checkWrite()">Comprobar</button>
+                `;
+                document.getElementById('write-input').focus();
+            }
+        }
 
-<!-- BOOKING PAGE -->
-<div id="projectPage" class="hidden">
-  <div class="max-w-5xl mx-auto px-4 pt-6 flex justify-end">
-    <button type="button" data-go-home class="px-5 py-2 rounded-full bg-white text-slate-900 text-sm font-bold shadow-sm border border-slate-200 hover:bg-slate-50 transition-colors">
-      Volver a la web
-    </button>
-  </div>
+        function generateOptions(correct) {
+            let opts = [correct];
+            while(opts.length < 4) {
+                let randomC = countries[Math.floor(Math.random() * countries.length)].name;
+                if(!opts.includes(randomC)) opts.push(randomC);
+            }
+            return opts.sort(() => Math.random() - 0.5);
+        }
 
-  <main class="pt-6 pb-16 px-4 bg-slate-50 min-h-screen">
-    <div class="max-w-2xl mx-auto">
-      <div class="text-center mb-8">
-        <h1 class="text-2xl sm:text-3xl font-light mb-2">Reserva tu llamada gratuita</h1>
-        <p class="text-slate-500 text-sm">Elige servicio, fecha y hora. Confirmo en menos de 2 horas.</p>
-        <div class="w-12 h-px bg-slate-900 mx-auto mt-4"></div>
-      </div>
-      <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-        <div class="bg-slate-900 px-6 py-4 flex items-center justify-between">
-          <span class="text-white text-sm font-light" id="calStepTitle">Elige el servicio</span>
-          <div class="flex gap-1.5">
-            <div class="w-2 h-2 rounded-full bg-white" id="dot1"></div>
-            <div class="w-2 h-2 rounded-full bg-white/30" id="dot2"></div>
-            <div class="w-2 h-2 rounded-full bg-white/30" id="dot3"></div>
-          </div>
-        </div>
-        <div class="p-5 sm:p-6">
-          <!-- Step 1 -->
-          <div id="cStep1">
-            <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-4 font-bold">Paso 1 de 3 — Servicio</p>
-            <div class="space-y-2">
+        function checkAnswer(selected) {
+            const feedback = document.getElementById('feedback');
+            if(selected === currentCountry.name) {
+                feedback.textContent = "✅ ¡Correcto!";
+                feedback.style.color = "green";
+                setTimeout(nextQuestion, 1000);
+            } else {
+                feedback.textContent = "❌ Inténtalo de nuevo";
+                feedback.style.color = "red";
+            }
+        }
 
-              <!-- CAMBIO: de radio a checkbox para permitir seleccionar varios -->
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Web Básica (450€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Web Básica</p><p class="text-sm text-slate-500">1 página esencial</p></div></div>
-                <span class="text-base font-bold text-slate-900">450€</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Web Profesional (600€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Web Profesional</p><p class="text-sm text-slate-500">3–5 páginas</p></div></div>
-                <span class="text-base font-bold text-slate-900">600€</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Web con Reservas (900€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Web con Reservas</p><p class="text-sm text-slate-500">Sistema de reservas integrado</p></div></div>
-                <span class="text-base font-bold text-slate-900">900€</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Asistente WhatsApp 24/7 (249€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Asistente WhatsApp 24/7</p><p class="text-sm text-slate-500">Respuestas 24/7</p></div></div>
-                <span class="text-base font-bold text-slate-900">249€</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Sistema de Reservas Automático (149€ setup + 39€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Sistema de Reservas Automático</p><p class="text-sm text-slate-500">149€ setup + 39€/mes</p></div></div>
-                <span class="text-base font-bold text-slate-900">149€+</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Seguimiento Automático de Leads (199€ setup + 49€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Seguimiento Automático de Leads</p><p class="text-sm text-slate-500">199€ setup + 49€/mes</p></div></div>
-                <span class="text-base font-bold text-slate-900">199€+</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Recopilador de Reseñas Google (99€ setup + 29€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Recopilador de Reseñas Google</p><p class="text-sm text-slate-500">99€ setup + 29€/mes</p></div></div>
-                <span class="text-base font-bold text-slate-900">99€+</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Reporte Mensual Automático (+20€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Reporte Mensual Automático</p><p class="text-sm text-slate-500">+20€/mes</p></div></div>
-                <span class="text-base font-bold text-slate-900">+20€/mes</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Pack Todo en Uno (1.997€)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Pack Todo en Uno</p><p class="text-sm text-slate-500">Web + automatizaciones</p></div></div>
-                <span class="text-base font-bold text-slate-900">1.997€</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Plan de mantenimiento (30€/mes)" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">Plan de mantenimiento</p><p class="text-sm text-slate-500">Desde 30€/mes</p></div></div>
-                <span class="text-base font-bold text-slate-900">30€/mes</span>
-              </label>
-              <label class="flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-slate-900 cursor-pointer transition-colors has-[:checked]:border-slate-900 has-[:checked]:bg-slate-50">
-                <div class="flex items-center gap-3"><input type="checkbox" name="svc" value="Asesoramiento general" class="accent-slate-900 w-4 h-4"><div><p class="text-base font-medium">No lo tengo claro</p><p class="text-sm text-slate-500">Quiero asesoramiento</p></div></div>
-                <span class="text-base font-bold text-slate-900">Gratis</span>
-              </label>
+        function checkWrite() {
+            const val = document.getElementById('write-input').value.trim();
+            if(val.toLowerCase() === currentCountry.name.toLowerCase()) {
+                checkAnswer(currentCountry.name);
+            } else {
+                checkAnswer("incorrecto");
+            }
+        }
 
-            </div>
-            <div class="flex justify-end mt-5">
-              <button id="nextBtn1" type="button" onclick="calStep(2)" disabled class="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors disabled:bg-slate-200 disabled:cursor-not-allowed">
-                Siguiente<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div id="cStep2" class="hidden">
-            <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-4 font-bold">Paso 2 de 3 — Fecha y hora</p>
-            <div id="calSummary2" class="text-xs text-slate-500 bg-slate-50 rounded-xl px-4 py-2 mb-4"></div>
-            <div class="flex items-center justify-between mb-3">
-              <button type="button" onclick="prevMo()" class="w-8 h-8 rounded-full border border-slate-200 hover:border-slate-900 flex items-center justify-center text-slate-600 transition-colors">‹</button>
-              <p class="text-sm font-semibold" id="calMonthLabel"></p>
-              <button type="button" onclick="nextMo()" class="w-8 h-8 rounded-full border border-slate-200 hover:border-slate-900 flex items-center justify-center text-slate-600 transition-colors">›</button>
-            </div>
-            <div class="grid grid-cols-7 text-center mb-1">
-              <span class="text-[10px] text-slate-400 font-bold py-1">Lu</span><span class="text-[10px] text-slate-400 font-bold py-1">Ma</span><span class="text-[10px] text-slate-400 font-bold py-1">Mi</span><span class="text-[10px] text-slate-400 font-bold py-1">Ju</span><span class="text-[10px] text-slate-400 font-bold py-1">Vi</span><span class="text-[10px] text-slate-400 font-bold py-1">Sa</span><span class="text-[10px] text-slate-400 font-bold py-1">Do</span>
-            </div>
-            <div class="grid grid-cols-7 gap-1 mb-4" id="calGrid"></div>
-            <div id="timeSection" class="hidden">
-              <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-2 font-bold">Horario disponible</p>
-              <div class="grid grid-cols-4 gap-2" id="timeGrid"></div>
-            </div>
-            <div class="flex justify-between mt-5">
-              <button type="button" onclick="calStep(1)" class="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium border border-slate-200 text-slate-600 hover:border-slate-900 transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>Atrás</button>
-              <button id="nextBtn2" type="button" onclick="calStep(3)" disabled class="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors disabled:bg-slate-200 disabled:cursor-not-allowed">Siguiente<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div id="cStep3" class="hidden">
-            <p class="text-[10px] uppercase tracking-widest text-slate-400 mb-4 font-bold">Paso 3 de 3 — Tus datos</p>
-            <div id="calSummary3" class="text-xs text-slate-500 bg-slate-50 rounded-xl px-4 py-2 mb-4"></div>
-            <div class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Nombre *</label><input id="cName" type="text" placeholder="María García" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl" oninput="chkCal()"></div>
-                <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Teléfono *</label><input id="cPhone" type="tel" placeholder="+34 600 000 000" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl" oninput="chkCal()"></div>
-              </div>
-              <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Email *</label><input id="cEmail" type="email" placeholder="maria@tunegocio.es" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl" oninput="chkCal()"></div>
-              <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Negocio (opcional)</label><input id="cBiz" type="text" placeholder="Restaurante La Paloma" class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl"></div>
-              <div><label class="block text-xs font-bold text-slate-800 mb-1.5">Comentarios</label><textarea id="cNotes" rows="3" placeholder="Cuéntame brevemente en qué punto está tu negocio..." class="w-full px-4 py-3 border border-slate-200 focus:border-slate-900 focus:outline-none text-sm rounded-xl resize-none"></textarea></div>
-              <p class="text-[10px] text-slate-400 leading-relaxed">Al enviar aceptas nuestra <button type="button" onclick="showLegal('lp')" class="underline hover:text-slate-700">política de privacidad</button>. Tus datos se usarán únicamente para gestionar la solicitud de cita.</p>
-            </div>
-            <div class="flex justify-between mt-5">
-              <button type="button" onclick="calStep(2)" class="flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-medium border border-slate-200 text-slate-600 hover:border-slate-900 transition-colors"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>Atrás</button>
-              <button id="confirmBtn" type="button" onclick="confirmCal()" disabled class="flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors disabled:bg-slate-200 disabled:cursor-not-allowed">Confirmar llamada<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l14-7-7 14-2-5-5-2z"/></svg></button>
-            </div>
-          </div>
-
-          <!-- Success -->
-          <div id="cStepOk" class="hidden text-center py-8">
-            <div class="w-14 h-14 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto mb-4 text-emerald-600 text-xl">✓</div>
-            <h3 class="text-xl font-light mb-2">¡Reserva confirmada!</h3>
-            <p class="text-slate-500 text-sm max-w-xs mx-auto" id="okMsg">Te confirmo en breve.</p>
-            <a href="#" id="waBtn" target="_blank" class="inline-flex items-center gap-2 mt-5 px-6 py-3 rounded-full bg-[#25D366] text-white text-sm font-medium hover:bg-[#1fad55] transition-colors">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-              Confirmar por WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-</div>
-
-<!-- SERVICE MODAL -->
-<div id="svcModal" class="fixed inset-0 z-[60] hidden items-center justify-center px-4 py-6">
-  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="modalOverlay"></div>
-  <div class="relative max-w-md w-full bg-white rounded-2xl shadow-2xl flex flex-col max-h-[88vh] modal-box">
-    <div class="bg-slate-900 px-5 pt-5 pb-4 rounded-t-2xl flex-shrink-0">
-      <div class="flex items-start justify-between gap-3">
-        <div class="flex-1">
-          <span id="mTag" class="block text-[10px] font-bold uppercase tracking-widest text-white/40 mb-1.5"></span>
-          <h3 id="mTitle" class="text-xl font-light text-white leading-snug"></h3>
-          <p id="mPrice" class="text-sm text-white/50 mt-0.5 font-medium"></p>
-        </div>
-        <button id="closeModalBtn" type="button" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/60 hover:text-white transition-colors flex-shrink-0">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="overflow-y-auto flex-1 px-5 py-5 space-y-4">
-      <p id="mDesc" class="text-sm text-slate-700 leading-relaxed"></p>
-      <div>
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Qué incluye</p>
-        <ul id="mPoints" class="space-y-2.5"></ul>
-      </div>
-      <div class="bg-slate-50 rounded-xl px-4 py-3.5">
-        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1.5">Ideal para</p>
-        <p id="mFor" class="text-xs text-slate-600 leading-relaxed"></p>
-      </div>
-    </div>
-    <div class="border-t border-slate-100 px-5 py-4 flex-shrink-0 flex flex-col sm:flex-row gap-2">
-      <button type="button" id="mContract" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-colors text-xs font-bold">Contratar<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
-      <a id="mWaBtn" href="#" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] text-white hover:bg-[#1fad55] transition-colors text-xs font-medium">
-        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.16c-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.20-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.70.25-1.29.17-1.41-.07-.12-.27-.20-.57-.35zm-5.48 7.47a8.07 8.07 0 01-4.12-1.13l-.3-.18-3.07.87.88-3-.19-.31A8.06 8.06 0 013.92 12c0-4.45 3.62-8.08 8.08-8.08s8.08 3.63 8.08 8.08-3.63 8.08-8.08 8.08z"/></svg>
-        WhatsApp
-      </a>
-      <a id="mMailBtn" href="#" class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:border-slate-900 hover:bg-slate-50 transition-colors text-xs font-medium">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        Email
-      </a>
-    </div>
-  </div>
-</div>
-
-<script>
-(() => {
-// ── PAGES ──────────────────────────────────────────────
-const home = document.getElementById('homePage');
-const proj = document.getElementById('projectPage');
-
-function goProject(){
-  closeSvcModal();
-  home.classList.add('hidden');
-  proj.classList.remove('hidden');
-  document.getElementById('pillNav')?.classList.add('hidden'); // ocultar header en booking
-  window.scrollTo({top:0});
-}
-function goHome(){
-  proj.classList.add('hidden');
-  home.classList.remove('hidden');
-  document.getElementById('pillNav')?.classList.remove('hidden'); // mostrar header al volver
-  window.scrollTo({top:0});
-}
-document.querySelectorAll('[data-go-project]').forEach(b=>b.addEventListener('click',goProject));
-document.querySelectorAll('[data-go-home]').forEach(b=>b.addEventListener('click',goHome));
-
-// ── PILL NAV scroll-hide ───────────────────────────────
-const nav = document.getElementById('pillNav');
-let lastY = 0;
-window.addEventListener('scroll',()=>{
-  const y = window.scrollY;
-  nav.classList.toggle('nav-hidden', y > lastY && y > 100);
-  lastY = y;
-},{passive:true});
-
-// ── MOBILE MENU ────────────────────────────────────────
-const hamBtn = document.getElementById('hamBtn');
-const mMenu = document.getElementById('mobileMenu');
-const hamIcon = document.getElementById('hamIcon');
-const closeIcon = document.getElementById('closeIcon');
-function closeMM(){ mMenu.classList.add('hidden'); hamIcon.classList.remove('hidden'); closeIcon.classList.add('hidden'); }
-hamBtn&&hamBtn.addEventListener('click',e=>{
-  e.stopPropagation();
-  const open=!mMenu.classList.contains('hidden');
-  mMenu.classList.toggle('hidden',open);
-  hamIcon.classList.toggle('hidden',!open);
-  closeIcon.classList.toggle('hidden',open);
-});
-document.addEventListener('click',e=>{ if(!nav.contains(e.target)) closeMM(); });
-mMenu&&mMenu.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',closeMM));
-
-// ── FAQ ────────────────────────────────────────────────
-document.querySelectorAll('[data-faq-toggle]').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const ans=btn.parentElement.querySelector('[data-faq-answer]');
-    const ch=btn.querySelector('[data-faq-chevron]');
-    const open=ans.classList.contains('faq-open');
-    document.querySelectorAll('[data-faq-answer]').forEach(e=>e.classList.remove('faq-open'));
-    document.querySelectorAll('[data-faq-chevron]').forEach(c=>c.classList.remove('rotate-180'));
-    if(!open){ ans.classList.add('faq-open'); ch.classList.add('rotate-180'); }
-  });
-});
-
-// ── LEGAL ──────────────────────────────────────────────
-window.showLegal = function(id){
-  const wrap=document.getElementById('legalWrap');
-  const target=document.getElementById(id);
-  if(!wrap||!target) return;
-  wrap.classList.remove('hidden');
-  setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),60);
-};
-
-// ── MAINTENANCE PRICE ──────────────────────────────────
-function updateMnt(){
-  let t=29;
-  document.querySelectorAll('.mntCheck').forEach(cb=>{ if(cb.checked) t+=parseInt(cb.dataset.extra||0); });
-  ['mntTotal','mntTotalBottom'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=t;
-  });
-}
-document.querySelectorAll('.mntCheck').forEach(cb=>cb.addEventListener('change',updateMnt));
-
-// ── SERVICE MODAL DATA ─────────────────────────────────
-const SVC={
-  'web-basica':{tag:'Web profesional',title:'Web Básica',price:'449€ · Pago único o en cuotas',
-    desc:'La solución más directa para que tu negocio tenga presencia online. Una página bien diseñada, adaptada a móvil, con todo lo que un cliente necesita: quiénes sois, qué ofrecéis, dónde estáis y cómo contactar. Entrega en 1–2 semanas.',
-    forWhom:'Negocios que arrancan, locales sin web o cualquier proyecto que quiere dar el primer paso digital sin complicaciones.',
-    points:['1 página completa (inicio, servicios, contacto)','Diseño moderno adaptado a móvil','Formulario de contacto integrado','Google Maps integrado','SEO básico para búsquedas locales','Textos legales base incluidos','Entrega en 1–2 semanas']},
-  'web-pro':{tag:'Web profesional',title:'Web Profesional',price:'597€ · Pago único o en cuotas',
-    desc:'Con varias secciones y diseño completamente personalizado, transmite confianza desde el primer segundo y convierte visitas en clientes. SEO básico para mejorar tu visibilidad en Google.',
-    forWhom:'Negocios con varios servicios que quieren destacar frente a la competencia y reflejar su identidad de marca.',
-    points:['3–5 páginas personalizadas','Diseño a medida de tu imagen de marca','Formularios de contacto avanzados','Integración con redes sociales','SEO básico incluido','Adaptado a todos los dispositivos','Textos legales base incluidos']},
-  'web-reservas':{tag:'Web + reservas',title:'Web con Reservas',price:'897€ · Pago único o en cuotas (antes 1.000€)',
-    desc:'Tu web hace el trabajo de recepcionista. Los clientes ven disponibilidad, eligen su cita y reciben confirmación automática. Sin llamadas innecesarias, sin huecos vacíos por olvidos.',
-    forWhom:'Restaurantes, peluquerías, clínicas, centros de estética y cualquier negocio que gestione citas.',
-    points:['Todo lo de Web Profesional','Sistema de reservas online integrado','Confirmaciones automáticas por email','Gestión de disponibilidad y horarios','Recordatorios opcionales','Textos legales base incluidos']},
-  'web-catalogo':{tag:'Web + catálogo',title:'Web con Catálogo',price:'697€ · Pago único o en cuotas',
-    desc:'Muestra tu oferta completa con filtros y categorías de forma visual e impactante. Sin tienda online ni pasarela de pago: un escaparate digital que inspira y genera consultas.',
-    forWhom:'Tiendas, talleres y distribuidores con amplia gama de productos que quieren presentarla profesionalmente.',
-    points:['Catálogo de productos/servicios con filtros','Fichas individuales con fotos y descripción','Diseño visual de alto impacto','SEO básico incluido','Adaptado a móvil','Textos legales base incluidos']},
-  'whatsapp':{tag:'Automatización',title:'Asistente WhatsApp 24/7',price:'249€ único · o 69€/mes',
-    desc:'Respuestas automáticas en tu número de WhatsApp actual para que tus clientes reciban respuesta al instante, incluso a las 3 de la mañana. Sin cambiar de número ni de app.',
-    forWhom:'Negocios que reciben muchas consultas por WhatsApp y pierden tiempo respondiendo siempre lo mismo, o que quieren atender fuera del horario.',
-    points:['Respuestas automáticas 24/7 en tu número actual','Menú interactivo de opciones','Info del negocio al instante','Confirmación y recordatorio de citas','Mensajes personalizados por tipo de consulta','Configuración en menos de 48h']},
-  'chatbot':{tag:'Automatización IA',title:'Agente Web IA',price:'297€ único · o 69€/mes (solo 2,30€/día)',
-    desc:'Un asistente inteligente en tu web que responde preguntas en tiempo real, guía a los visitantes y recoge datos de contacto aunque no estés disponible. Aprende sobre tu negocio y responde como si fueras tú.',
-    forWhom:'Webs con tráfico que quieren captar más leads o mejorar la experiencia del visitante sin trabajo adicional.',
-    points:['Respuestas inteligentes personalizadas','Captación de leads automática','Disponible 24/7','Personalización de tono y estilo','Integración en cualquier web','Panel de métricas de uso']},
-  'agente-ia':{tag:'IA avanzada',title:'Recepcionista IA Premium',price:'Desde 197€/mes · solo 6,57€/día',
-    desc:'El teléfono de tu negocio atendido las 24 horas. Da información, gestiona citas y transfiere solo las llamadas que realmente lo necesitan. El precio escala con tu volumen de llamadas.',
-    forWhom:'Restaurantes, clínicas, academias y negocios con alto volumen de llamadas donde el teléfono no para.',
-    points:['Atención 24/7 sin coste de personal','Voz natural con IA conversacional','Gestión de citas por voz','Transferencia de llamadas cuando se necesita','Desde 197€/mes para pequeños negocios','Precio adaptado según volumen']},
-  'reservas-auto':{tag:'Automatización',title:'Sistema de Reservas Automático',price:'149€ setup + 39€/mes',
-    desc:'Olvídate de gestionar citas manualmente. Tus clientes reservan solos en cualquier momento del día, reciben confirmación automática y recordatorios antes de su cita. Cero llamadas, cero huecos vacíos por olvidos.',
-    forWhom:'Peluquerías, clínicas, centros de estética, consultorios y cualquier negocio que trabaje con citas.',
-    points:['Calendario de reservas online 24/7','Confirmaciones automáticas por WhatsApp o email','Recordatorios 24h antes de la cita','Gestión de disponibilidad y horarios','Integración con tu web existente','Configuración en menos de 72h']},
-  'seguimiento-leads':{tag:'Automatización',title:'Seguimiento Automático de Leads',price:'199€ setup + 49€/mes',
-    desc:'Cada nuevo contacto que llega a tu negocio recibe seguimiento automático por email o WhatsApp. Sin dejar escapar ninguna oportunidad, sin que tengas que acordarte de hacer el seguimiento manualmente.',
-    forWhom:'Negocios que generan leads online (formularios, anuncios, redes sociales) y quieren maximizar la conversión.',
-    points:['Seguimiento automático tras cada nuevo contacto','Secuencias de mensajes personalizados','Notificaciones al equipo de ventas','Integración con formularios web','Panel de estado de cada lead','Configuración inicial incluida']},
-  'resenas-google':{tag:'Reputación',title:'Recopilador de Reseñas Google',price:'99€ setup + 29€/mes',
-    desc:'Más reseñas en Google = más clientes. Enviamos mensajes automáticos a tus clientes después de cada visita o servicio pidiéndoles que valoren su experiencia. Sin esfuerzo por tu parte.',
-    forWhom:'Cualquier negocio local que quiera mejorar su reputación online y aparecer más arriba en Google Maps.',
-    points:['Solicitudes automáticas de reseña por WhatsApp o email','Momento óptimo de envío tras el servicio','Plantillas de mensaje personalizadas','Seguimiento de respuestas','Informes mensuales de reputación','Activación en menos de 48h']},
-  'reporte-mensual':{tag:'Analítica',title:'Reporte Mensual Automático',price:'+20€/mes · Incluido en mantenimiento',
-    desc:'Cada mes recibes un informe automático con las métricas más importantes de tu negocio: visitas a la web, consultas recibidas, citas gestionadas y más. Todo en un PDF claro y sin tecnicismos.',
-    forWhom:'Propietarios de negocios que quieren estar al día de cómo va su presencia digital sin tener que interpretar datos complejos.',
-    points:['Informe mensual automático en PDF','Visitas web y páginas más vistas','Formularios y consultas recibidas','Rendimiento de automatizaciones activas','Comparativa mes anterior','Recomendaciones de mejora incluidas']},
-  'pack-todo':{tag:'Pack completo',title:'Pack Todo en Uno',price:'1.997€ · Ahorra más de 1.000€ vs. servicios por separado',
-    desc:'La forma más completa de digitalizar tu negocio en un solo proyecto. Web profesional + todas las automatizaciones integradas y funcionando desde el día uno.',
-    forWhom:'Negocios que quieren dar el salto digital de golpe y aprovechar todas las herramientas sin gestionarlas por separado.',
-    points:['Web profesional incluida','WhatsApp + Chatbot IA + Reservas','Seguimiento de leads automático','Reseñas Google automatizadas','Reporte mensual incluido','Soporte post-entrega']}
-};
-
-function openModal(key){
-  const d=SVC[key]; if(!d) return;
-  document.getElementById('mTag').textContent=d.tag;
-  document.getElementById('mTitle').textContent=d.title;
-  document.getElementById('mPrice').textContent=d.price;
-  document.getElementById('mDesc').textContent=d.desc;
-  document.getElementById('mFor').textContent=d.forWhom;
-  const ul=document.getElementById('mPoints'); ul.innerHTML='';
-  d.points.forEach(p=>{
-    const li=document.createElement('li'); li.className='flex items-start gap-2.5';
-    li.innerHTML='<span class="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full bg-slate-900 text-white flex items-center justify-center text-[9px]">✓</span><span class="text-sm text-slate-700 leading-snug">'+p+'</span>';
-    ul.appendChild(li);
-  });
-  const wa=encodeURIComponent('Hola, me interesa el servicio de '+d.title+'. ¿Podéis darme más info?');
-  const ml=encodeURIComponent(d.title);
-  document.getElementById('mWaBtn').href='https://wa.me/34608574225?text='+wa;
-  document.getElementById('mMailBtn').href='mailto:broggosagency@gmail.com?subject=Consulta%20sobre%20'+ml;
-  const modal=document.getElementById('svcModal');
-  modal.classList.remove('hidden'); modal.classList.add('flex');
-  document.body.style.overflow='hidden';
-}
-function closeSvcModal(){
-  const modal=document.getElementById('svcModal');
-  modal.classList.add('hidden'); modal.classList.remove('flex');
-  document.body.style.overflow='';
-}
-window.closeSvcModal=closeSvcModal;
-document.querySelectorAll('[data-open-service]').forEach(btn=>btn.addEventListener('click',()=>openModal(btn.dataset.openService)));
-document.getElementById('closeModalBtn').addEventListener('click',closeSvcModal);
-document.getElementById('modalOverlay').addEventListener('click',closeSvcModal);
-document.getElementById('mContract').addEventListener('click',()=>{ closeSvcModal(); goProject(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeSvcModal(); });
-
-// ── CALENDAR ───────────────────────────────────────────
-// CAMBIO: multi-selección de servicios (array)
-let selSvc=[], selDate=null, selTime=null;
-let calY=new Date().getFullYear(), calM=new Date().getMonth();
-const NOW=new Date();
-const TIMES=['09:00','09:30','10:00','10:30','11:00','11:30','12:00','16:00','16:30','17:00','17:30','18:00'];
-const BLOCKED=['09:30','11:00','16:30'];
-const MN=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
-function refreshSvcSelection(){
-  selSvc=[...document.querySelectorAll('input[name="svc"]:checked')].map(i=>i.value);
-  document.getElementById('nextBtn1').disabled = selSvc.length===0;
-}
-document.querySelectorAll('input[name="svc"]').forEach(i=>{
-  i.addEventListener('change',refreshSvcSelection);
-});
-
-function svcText(){
-  return selSvc.length ? selSvc.join(', ') : '';
-}
-
-window.calStep=function(n){
-  [1,2,3,'Ok'].forEach(i=>{ const el=document.getElementById('cStep'+i); if(el) el.classList.add('hidden'); });
-  document.getElementById('cStep'+n).classList.remove('hidden');
-  ['dot1','dot2','dot3'].forEach((id,i)=>{
-    document.getElementById(id).className='w-2 h-2 rounded-full '+(i<n?'bg-white':'bg-white/30');
-  });
-  const titles={1:'Elige el servicio',2:'Fecha y hora',3:'Tus datos'};
-  document.getElementById('calStepTitle').textContent=titles[n]||'';
-  if(n===2){
-    document.getElementById('calSummary2').innerHTML='Servicio(s): <strong class="text-slate-900">'+svcText()+'</strong>';
-    renderCal();
-  }
-  if(n===3){
-    const ds=selDate.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
-    document.getElementById('calSummary3').innerHTML='<strong class="text-slate-900">'+svcText()+'</strong> &nbsp;·&nbsp; '+ds+' a las <strong class="text-slate-900">'+selTime+'</strong>';
-    chkCal();
-  }
-};
-
-function renderCal(){
-  document.getElementById('calMonthLabel').textContent=MN[calM]+' '+calY;
-  const grid=document.getElementById('calGrid'); grid.innerHTML='';
-  const fd=new Date(calY,calM,1).getDay(), off=fd===0?6:fd-1;
-  const dm=new Date(calY,calM+1,0).getDate();
-  const today=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
-  for(let i=0;i<off;i++){ const d=document.createElement('div'); d.className='h-8'; grid.appendChild(d); }
-  for(let d=1;d<=dm;d++){
-    const btn=document.createElement('button'); btn.type='button'; btn.textContent=d;
-    const dt=new Date(calY,calM,d);
-    const isWk=dt.getDay()===0||dt.getDay()===6;
-    const isPast=dt<today;
-    if(isPast||isWk){ btn.className='h-8 w-full text-xs text-slate-200 cursor-not-allowed'; btn.disabled=true; }
-    else{
-      const isSel=selDate&&dt.toDateString()===selDate.toDateString();
-      const isTd=dt.toDateString()===today.toDateString();
-      btn.className='h-8 w-full text-xs rounded-lg transition-colors '+(isSel?'bg-slate-900 text-white font-bold':isTd?'font-bold border border-slate-300 hover:bg-slate-50':'text-slate-700 hover:bg-slate-100');
-      btn.addEventListener('click',()=>pickDate(dt));
-    }
-    grid.appendChild(btn);
-  }
-}
-
-function pickDate(dt){
-  selDate=dt; selTime=null; document.getElementById('nextBtn2').disabled=true;
-  renderCal();
-  document.getElementById('timeSection').classList.remove('hidden');
-  const tg=document.getElementById('timeGrid'); tg.innerHTML='';
-  TIMES.forEach(t=>{
-    const btn=document.createElement('button'); btn.type='button'; btn.textContent=t;
-    if(BLOCKED.includes(t)){ btn.className='px-2 py-2 rounded-lg border border-slate-100 text-xs text-slate-200 line-through cursor-not-allowed'; btn.disabled=true; }
-    else{
-      btn.className='px-2 py-2 rounded-lg border border-slate-200 text-xs text-slate-700 hover:border-slate-900 hover:bg-slate-50 transition-colors';
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('#timeGrid button:not(:disabled)').forEach(b=>{ b.className='px-2 py-2 rounded-lg border border-slate-200 text-xs text-slate-700 hover:border-slate-900 hover:bg-slate-50 transition-colors'; });
-        btn.className='px-2 py-2 rounded-lg border-2 border-slate-900 bg-slate-900 text-white text-xs font-bold';
-        selTime=t; document.getElementById('nextBtn2').disabled=false;
-      });
-    }
-    tg.appendChild(btn);
-  });
-}
-
-window.prevMo=()=>{ calM--; if(calM<0){calM=11;calY--;} renderCal(); };
-window.nextMo=()=>{ calM++; if(calM>11){calM=0;calY++;} renderCal(); };
-
-window.chkCal=function(){
-  const ok=document.getElementById('cName')?.value.trim()&&document.getElementById('cPhone')?.value.trim()&&document.getElementById('cEmail')?.value.trim();
-  const btn=document.getElementById('confirmBtn'); if(btn) btn.disabled=!ok;
-};
-
-window.confirmCal=function(){
-  [1,2,3].forEach(i=>{ const el=document.getElementById('cStep'+i); if(el) el.classList.add('hidden'); });
-  document.getElementById('cStepOk').classList.remove('hidden');
-  document.getElementById('calStepTitle').textContent='Reserva confirmada';
-  ['dot1','dot2','dot3'].forEach(id=>{ document.getElementById(id).className='w-2 h-2 rounded-full bg-white'; });
-  const nm=document.getElementById('cName').value.trim();
-  const ph=document.getElementById('cPhone').value.trim();
-  const bz=document.getElementById('cBiz').value.trim();
-  const ds=selDate.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
-  document.getElementById('okMsg').textContent='Reserva para el '+ds+' a las '+selTime+'. Te confirmo en breve, '+nm+'.';
-  const msg=encodeURIComponent('Hola, soy '+nm+(bz?' de '+bz:'')+'. He reservado llamada para el '+ds+' a las '+selTime+' sobre: '+svcText()+'. Mi teléfono: '+ph+'.');
-  document.getElementById('waBtn').href='https://wa.me/34608574225?text='+msg;
-};
-
-// ── COOKIES ───────────────────────────────────────────
-const CKKEY='broggos_ck';
-function setCkPref(v){ try{localStorage.setItem(CKKEY,v);}catch(e){} }
-function getCkPref(){ try{return localStorage.getItem(CKKEY);}catch(e){return null;} }
-const banner=document.getElementById('cookieBanner');
-if(getCkPref()){ banner.classList.add('ck-hide'); }
-document.getElementById('ckAccept').addEventListener('click',()=>{ setCkPref('all'); banner.classList.add('ck-hide'); });
-document.getElementById('ckReject').addEventListener('click',()=>{ setCkPref('technical'); banner.classList.add('ck-hide'); });
-document.getElementById('ckConfig').addEventListener('click',()=>{ document.getElementById('ckPanel').classList.toggle('hidden'); });
-document.getElementById('ckSave').addEventListener('click',()=>{
-  const analytics=document.getElementById('ckAnalytics').checked;
-  setCkPref(analytics?'all':'technical'); banner.classList.add('ck-hide');
-});
-
-})();
-</script>
+        // Iniciar juego
+        setMode('flashcards');
+    </script>
 </body>
 </html>
