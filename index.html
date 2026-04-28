@@ -3,222 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroExpert - Práctica de Geografía</title>
+    <title>Mapa Interactivo de Europa</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
+            --bg: #f0f2f5;
+            --land: #d1d8e0;
+            --water: #a5d8ff;
+            --correct: #2ecc71;
+            --wrong: #e74c3c;
+            --selected: #3498db;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--water);
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
-            padding: 20px;
         }
 
-        .container {
-            max-width: 600px;
-            width: 100%;
+        .header {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .menu-btns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-mode { background: var(--primary); color: white; }
-        .btn-mode:hover { background: var(--secondary); }
-        .btn-mode.active { background: var(--secondary); border: 2px solid var(--primary); }
-
-        #game-area {
-            margin-top: 20px;
-            min-height: 300px;
-        }
-
-        .flag-display {
-            font-size: 80px;
-            margin: 20px 0;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .option-btn {
-            background: #f8f9fa;
-            border: 2px solid #dee2e6;
+            width: 100%;
             padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
         }
 
-        .option-btn:hover { background: #e9ecef; }
-
-        input[type="text"] {
-            width: 80%;
-            padding: 12px;
-            font-size: 18px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
+        #game-container {
+            position: relative;
+            width: 90vw;
+            height: 70vh;
+            margin: 20px;
         }
 
-        .feedback {
-            margin-top: 15px;
+        /* Estilo de los países en el SVG */
+        svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+        }
+
+        path {
+            fill: var(--land);
+            stroke: #fff;
+            stroke-width: 0.5;
+            transition: fill 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        path:hover {
+            fill: #b2bec3;
+        }
+
+        .info-panel {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 300px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .target-country {
+            font-size: 24px;
             font-weight: bold;
-            height: 24px;
+            color: var(--selected);
+            margin: 10px 0;
         }
 
-        .hidden { display: none; }
+        .score { font-size: 18px; margin-bottom: 10px; }
+        
+        .correct { fill: var(--correct) !important; }
+        .wrong { fill: var(--wrong) !important; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>🇪🇺 EuroExpert</h1>
-        <p>Selecciona un modo de juego:</p>
+<div class="header">
+    <h1>🌍 Europa: Localiza el País</h1>
+    <div class="score">Aciertos: <span id="points">0</span> | Fallos: <span id="errors">0</span></div>
+</div>
+
+<div id="game-container">
+    <svg viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+        <path id="España" d="M150,600 L250,600 L280,750 L120,750 Z" />
+        <path id="Portugal" d="M120,600 L150,600 L120,750 L100,750 Z" />
+        <path id="Francia" d="M250,600 L400,600 L430,450 L280,450 Z" />
+        <path id="Italia" d="M430,600 L480,600 L550,750 L500,750 L430,650 Z" />
+        <path id="Alemania" d="M400,450 L500,450 L500,300 L400,300 Z" />
+        <path id="Reino Unido" d="M250,400 L320,400 L320,300 L250,300 Z" />
+        <path id="Grecia" d="M550,750 L650,750 L600,800 Z" />
+        <path id="Noruega" d="M450,250 L500,250 L480,50 Z" />
+    </svg>
+</div>
+
+<div class="info-panel">
+    <div id="instruction">Busca este país:</div>
+    <div id="target-name" class="target-country">Cargando...</div>
+    <button onclick="resetGame()" style="margin-top:10px; padding:8px 15px; cursor:pointer;">Reiniciar</button>
+</div>
+
+<script>
+    const countries = ["España", "Francia", "Alemania", "Italia", "Portugal", "Reino Unido", "Grecia", "Noruega"];
+    let targetCountry = "";
+    let points = 0;
+    let errors = 0;
+
+    function initGame() {
+        const paths = document.querySelectorAll('path');
+        paths.forEach(p => {
+            p.addEventListener('click', function() {
+                checkChoice(this);
+            });
+        });
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        // Limpiar colores temporales
+        document.querySelectorAll('path').forEach(p => {
+            if(!p.classList.contains('correct')) {
+                p.style.fill = "";
+            }
+        });
+
+        // Elegir país aleatorio que no haya sido acertado ya
+        const available = countries.filter(c => !document.getElementById(c).classList.contains('correct'));
         
-        <div class="menu-btns">
-            <button class="btn-mode" onclick="setMode('flashcards')">Flashcards</button>
-            <button class="btn-mode" onclick="setMode('quiz')">Quiz (Opciones)</button>
-            <button class="btn-mode" onclick="setMode('escribir')">Escribir</button>
-            <button class="btn-mode" onclick="nextQuestion()">Saltar ⏭️</button>
-        </div>
+        if(available.length === 0) {
+            document.getElementById('target-name').textContent = "¡HAS GANADO! 🎉";
+            return;
+        }
 
-        <div id="game-area">
-            <div id="display-container">
-                <div class="flag-display" id="flag">🚩</div>
-                <h2 id="country-name" class="hidden">País</h2>
-            </div>
+        targetCountry = available[Math.floor(Math.random() * available.length)];
+        document.getElementById('target-name').textContent = targetCountry;
+    }
 
-            <div id="interaction-area">
-                </div>
-            
-            <div class="feedback" id="feedback"></div>
-        </div>
-    </div>
-
-    <script>
-        // Datos de ejemplo (puedes añadir los 50 países de Europa aquí)
-        const countries = [
-            { name: "España", flag: "🇪🇸" },
-            { name: "Francia", flag: "🇫🇷" },
-            { name: "Alemania", flag: "🇩🇪" },
-            { name: "Italia", flag: "🇮🇹" },
-            { name: "Portugal", flag: "🇵🇹" },
-            { name: "Reino Unido", flag: "🇬🇧" },
-            { name: "Grecia", flag: "🇬🇷" },
-            { name: "Países Bajos", flag: "🇳🇱" },
-            { name: "Suecia", flag: "🇸🇪" },
-            { name: "Noruega", flag: "🇳🇴" },
-            { name: "Polonia", flag: "🇵🇱" },
-            { name: "Bélgica", flag: "🇧🇪" }
-        ];
-
-        let currentMode = 'flashcards';
-        let currentCountry = {};
-
-        function setMode(mode) {
-            currentMode = mode;
-            document.querySelectorAll('.btn-mode').forEach(b => b.classList.remove('active'));
+    function checkChoice(element) {
+        if (element.id === targetCountry) {
+            element.classList.add('correct');
+            points++;
+            document.getElementById('points').textContent = points;
             nextQuestion();
-        }
-
-        function nextQuestion() {
-            currentCountry = countries[Math.floor(Math.random() * countries.length)];
-            const flagEl = document.getElementById('flag');
-            const nameEl = document.getElementById('country-name');
-            const interactEl = document.getElementById('interaction-area');
-            const feedback = document.getElementById('feedback');
-
-            flagEl.textContent = currentCountry.flag;
-            nameEl.textContent = currentCountry.name;
-            feedback.textContent = "";
-            interactEl.innerHTML = "";
-
-            if (currentMode === 'flashcards') {
-                nameEl.classList.add('hidden');
-                interactEl.innerHTML = `<button class="btn-mode" onclick="document.getElementById('country-name').classList.remove('hidden')">Mostrar Nombre</button>`;
-            } 
-            else if (currentMode === 'quiz') {
-                nameEl.classList.add('hidden');
-                const options = generateOptions(currentCountry.name);
-                const grid = document.createElement('div');
-                grid.className = 'options-grid';
-                options.forEach(opt => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.textContent = opt;
-                    btn.onclick = () => checkAnswer(opt);
-                    grid.appendChild(btn);
-                });
-                interactEl.appendChild(grid);
-            } 
-            else if (currentMode === 'escribir') {
-                nameEl.classList.add('hidden');
-                interactEl.innerHTML = `
-                    <input type="text" id="write-input" placeholder="¿Qué país es?" autocomplete="off">
-                    <br>
-                    <button class="btn-mode" onclick="checkWrite()">Comprobar</button>
-                `;
-                document.getElementById('write-input').focus();
+        } else {
+            if (!element.classList.contains('correct')) {
+                element.style.fill = "#e74c3c"; // Feedback visual de error
+                errors++;
+                document.getElementById('errors').textContent = errors;
+                setTimeout(() => { if(!element.classList.contains('correct')) element.style.fill = ""; }, 500);
             }
         }
+    }
 
-        function generateOptions(correct) {
-            let opts = [correct];
-            while(opts.length < 4) {
-                let randomC = countries[Math.floor(Math.random() * countries.length)].name;
-                if(!opts.includes(randomC)) opts.push(randomC);
-            }
-            return opts.sort(() => Math.random() - 0.5);
-        }
+    function resetGame() {
+        points = 0;
+        errors = 0;
+        document.getElementById('points').textContent = "0";
+        document.getElementById('errors').textContent = "0";
+        document.querySelectorAll('path').forEach(p => p.classList.remove('correct'));
+        nextQuestion();
+    }
 
-        function checkAnswer(selected) {
-            const feedback = document.getElementById('feedback');
-            if(selected === currentCountry.name) {
-                feedback.textContent = "✅ ¡Correcto!";
-                feedback.style.color = "green";
-                setTimeout(nextQuestion, 1000);
-            } else {
-                feedback.textContent = "❌ Inténtalo de nuevo";
-                feedback.style.color = "red";
-            }
-        }
+    initGame();
+</script>
 
-        function checkWrite() {
-            const val = document.getElementById('write-input').value.trim();
-            if(val.toLowerCase() === currentCountry.name.toLowerCase()) {
-                checkAnswer(currentCountry.name);
-            } else {
-                checkAnswer("incorrecto");
-            }
-        }
-
-        // Iniciar juego
-        setMode('flashcards');
-    </script>
 </body>
 </html>
