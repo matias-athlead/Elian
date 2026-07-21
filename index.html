@@ -3,628 +3,999 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Makam crea vídeos inmobiliarios premium con inteligencia artificial para propiedades en venta o alquiler." />
-  <title>Makam — Vídeos inmobiliarios con IA</title>
+  <meta name="description" content="JP edition — Agencia de edición de vídeo asistida por IA. Sube tus clips, personaliza el estilo y recibe un vídeo listo para publicar." />
+  <title>JP edition — AI Video Editing</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#f4f1eb;
-      --surface:#fbfaf7;
-      --ink:#151515;
-      --muted:#6d6a64;
-      --line:rgba(21,21,21,.12);
-      --gold:#9a7b49;
-      --dark:#121212;
-      --white:#fff;
+      --bg:#f4eee6;
+      --paper:#fffaf4;
+      --ink:#211b17;
+      --muted:#7a6e64;
+      --line:#ded2c5;
+      --accent:#c96f45;
+      --accent-dark:#9f4f2d;
+      --sand:#e8d7c4;
+      --dark:#2a211c;
+      --success:#4c735c;
       --radius:28px;
-      --shadow:0 24px 70px rgba(18,18,18,.10);
+      --shadow:0 22px 60px rgba(48,32,22,.10);
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
       color:var(--ink);
-      background:
-        radial-gradient(circle at top right, rgba(154,123,73,.11), transparent 34%),
-        linear-gradient(180deg,#f8f6f2 0%,var(--bg) 100%);
-      line-height:1.55;
+      font-family:"Manrope",sans-serif;
+      overflow-x:hidden;
     }
 
     a{color:inherit;text-decoration:none}
-    button,input{font:inherit}
-    .wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
 
-    .header{
-      position:sticky;
-      top:18px;
-      z-index:20;
-      padding-top:18px;
+    .shell{
+      width:min(1180px,calc(100% - 32px));
+      margin:0 auto;
     }
 
-    .nav{
+    .nav-wrap{
+      position:sticky;
+      top:16px;
+      z-index:50;
+      padding-top:16px;
+    }
+
+    nav{
+      background:rgba(255,250,244,.88);
+      backdrop-filter:blur(18px);
+      border:1px solid rgba(50,35,25,.08);
+      border-radius:999px;
+      padding:10px 12px 10px 20px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:20px;
-      padding:12px 14px 12px 22px;
-      border:1px solid rgba(255,255,255,.55);
-      background:rgba(251,250,247,.82);
-      backdrop-filter:blur(18px);
-      box-shadow:0 12px 40px rgba(0,0,0,.08);
-      border-radius:999px;
+      box-shadow:0 8px 30px rgba(40,28,20,.07);
     }
 
     .brand{
+      font-family:"Archivo Black",sans-serif;
+      letter-spacing:-1.4px;
+      font-size:1.1rem;
+    }
+
+    .brand span{color:var(--accent)}
+
+    .nav-links{
       display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-size:.95rem;
-    }
-
-    .brand-mark{
-      width:30px;height:30px;border-radius:50%;
-      display:grid;place-items:center;
-      background:var(--dark);color:white;
-      font-family:Georgia,serif;
-      font-size:.9rem;
-    }
-
-    .nav-links{display:flex;gap:26px;align-items:center;color:var(--muted);font-size:.93rem}
-    .nav-links a:hover{color:var(--ink)}
-    .btn{
-      border:0;
-      border-radius:999px;
-      padding:13px 20px;
-      cursor:pointer;
-      transition:.25s ease;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:9px;
+      gap:26px;
+      color:var(--muted);
+      font-size:.92rem;
       font-weight:700;
     }
-    .btn-dark{background:var(--dark);color:white}
-    .btn-dark:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(0,0,0,.15)}
-    .btn-light{background:rgba(255,255,255,.82);border:1px solid var(--line)}
-    .btn-light:hover{background:white}
+
+    .nav-links a:hover{color:var(--ink)}
+
+    .nav-cta,.btn-primary{
+      background:var(--dark);
+      color:#fff;
+      border:none;
+      border-radius:999px;
+      padding:13px 20px;
+      font-weight:800;
+      transition:.25s ease;
+    }
+
+    .nav-cta:hover,.btn-primary:hover{
+      transform:translateY(-2px);
+      background:#000;
+    }
 
     .hero{
-      padding:108px 0 78px;
+      min-height:88vh;
       display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:56px;
+      grid-template-columns:1.08fr .92fr;
+      gap:48px;
       align-items:center;
+      padding:85px 0 70px;
     }
 
     .eyebrow{
       display:inline-flex;
-      align-items:center;
       gap:10px;
-      padding:8px 12px;
+      align-items:center;
       border:1px solid var(--line);
+      padding:9px 14px;
       border-radius:999px;
       color:var(--muted);
-      background:rgba(255,255,255,.55);
-      font-size:.8rem;
+      font-weight:800;
+      font-size:.78rem;
       text-transform:uppercase;
-      letter-spacing:.12em;
+      letter-spacing:.08em;
+      background:rgba(255,255,255,.35);
     }
-    .dot{width:7px;height:7px;background:var(--gold);border-radius:50%}
 
-    h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500;line-height:1.02;margin:0}
-    h1{font-size:clamp(3.4rem,7vw,7.4rem);letter-spacing:-.055em;margin-top:26px}
-    h1 em{font-style:italic;color:var(--gold)}
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 5px rgba(201,111,69,.12);
+    }
+
+    h1,h2,h3{
+      font-family:"Archivo Black",sans-serif;
+      margin:0;
+      letter-spacing:-.04em;
+    }
+
+    h1{
+      font-size:clamp(4rem,8vw,8.7rem);
+      line-height:.86;
+      margin-top:24px;
+      max-width:850px;
+    }
+
+    .accent-word{
+      color:var(--accent);
+      display:block;
+    }
+
     .hero-copy p{
-      max-width:650px;
+      font-size:1.08rem;
+      line-height:1.75;
       color:var(--muted);
-      font-size:1.18rem;
-      margin:26px 0 30px;
+      max-width:640px;
+      margin:28px 0 32px;
     }
-    .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
-    .micro{margin-top:18px;color:var(--muted);font-size:.86rem}
 
-    .visual{
-      position:relative;
-      min-height:580px;
-      border-radius:38px;
-      overflow:hidden;
-      background:
-        linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.45)),
-        linear-gradient(135deg,#d6c7b2,#7b6a59);
-      box-shadow:var(--shadow);
-      isolation:isolate;
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
     }
-    .visual:before{
+
+    .btn-primary{
+      padding:16px 24px;
+      font-size:.98rem;
+    }
+
+    .btn-secondary{
+      border:1px solid var(--line);
+      background:transparent;
+      border-radius:999px;
+      padding:16px 22px;
+      font-weight:800;
+      color:var(--ink);
+    }
+
+    .btn-secondary:hover{background:var(--paper)}
+
+    .hero-card{
+      min-height:620px;
+      border-radius:40px;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(255,244,226,.9), transparent 27%),
+        linear-gradient(145deg,#c06d48,#8d4d35 65%,#4b3027);
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      padding:30px;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      width:300px;height:300px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:50%;
+      right:-85px;
+      top:80px;
+    }
+
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      width:180px;height:180px;
+      background:rgba(255,255,255,.10);
+      border-radius:35px;
+      left:36px;
+      bottom:38px;
+      transform:rotate(10deg);
+    }
+
+    .mock-top{
+      position:relative;
+      z-index:2;
+      display:flex;
+      justify-content:space-between;
+      color:white;
+      font-size:.8rem;
+      font-weight:800;
+      letter-spacing:.04em;
+    }
+
+    .video-frame{
+      width:72%;
+      aspect-ratio:9/16;
+      border-radius:28px;
+      background:#1b1817;
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-48%);
+      border:8px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      box-shadow:0 24px 60px rgba(31,18,12,.35);
+    }
+
+    .video-frame .grad{
+      position:absolute;inset:0;
+      background:
+        linear-gradient(180deg,rgba(24,18,15,.08),rgba(24,18,15,.56)),
+        radial-gradient(circle at 30% 20%,#f5cdb2,transparent 22%),
+        radial-gradient(circle at 68% 38%,#b98a66,transparent 25%),
+        linear-gradient(140deg,#e7b693,#7a503d);
+    }
+
+    .play{
+      position:absolute;
+      left:50%;top:50%;
+      transform:translate(-50%,-50%);
+      width:72px;height:72px;
+      border-radius:50%;
+      background:rgba(255,250,244,.92);
+      display:grid;place-items:center;
+      color:var(--accent-dark);
+      font-size:1.6rem;
+      padding-left:5px;
+    }
+
+    .frame-caption{
+      position:absolute;
+      bottom:22px;left:20px;right:20px;
+      color:#fff;
+    }
+
+    .frame-caption strong{
+      display:block;
+      font-size:1.4rem;
+      font-family:"Archivo Black",sans-serif;
+      line-height:1;
+    }
+
+    .frame-caption small{opacity:.78}
+
+    .pill-float{
+      position:absolute;
+      z-index:3;
+      background:rgba(255,250,244,.94);
+      border-radius:18px;
+      padding:13px 16px;
+      font-weight:800;
+      font-size:.82rem;
+      box-shadow:0 12px 32px rgba(20,10,5,.18);
+    }
+
+    .pill-1{right:24px;top:120px}
+    .pill-2{left:20px;bottom:120px}
+    .pill-3{right:28px;bottom:55px}
+
+    .logos-strip{
+      padding:22px 0 80px;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      color:#9a8c80;
+      font-weight:800;
+      font-size:.85rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    section{padding:95px 0}
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:40px;
+      margin-bottom:42px;
+    }
+
+    .section-head h2{
+      font-size:clamp(2.8rem,5vw,5.4rem);
+      line-height:.95;
+      max-width:760px;
+    }
+
+    .section-head p{
+      max-width:430px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .step{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:30px;
+      min-height:260px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition:.25s ease;
+    }
+
+    .step:hover{
+      transform:translateY(-5px);
+      box-shadow:var(--shadow);
+    }
+
+    .step-num{
+      width:44px;height:44px;
+      border-radius:50%;
+      display:grid;place-items:center;
+      background:var(--sand);
+      font-weight:900;
+    }
+
+    .step h3{font-size:1.5rem;margin:32px 0 10px}
+    .step p{color:var(--muted);line-height:1.65;margin:0}
+
+    .builder-wrap{
+      background:var(--dark);
+      border-radius:42px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .builder{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:20px;
+    }
+
+    .form-panel,.summary{
+      border-radius:30px;
+      padding:30px;
+    }
+
+    .form-panel{background:var(--paper)}
+    .summary{
+      background:#382b24;
+      color:#fff;
+      position:sticky;
+      top:100px;
+      height:max-content;
+    }
+
+    .form-panel h3,.summary h3{font-size:2rem;margin-bottom:22px}
+
+    .field{margin-bottom:24px}
+    .field label{
+      display:block;
+      font-size:.85rem;
+      font-weight:900;
+      margin-bottom:10px;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .upload{
+      border:1.5px dashed #cbbdad;
+      background:#f9f1e7;
+      border-radius:22px;
+      padding:32px;
+      text-align:center;
+      transition:.2s ease;
+    }
+
+    .upload:hover{border-color:var(--accent);background:#f5e7d9}
+    .upload input{display:none}
+    .upload-icon{
+      width:54px;height:54px;
+      margin:0 auto 12px;
+      display:grid;place-items:center;
+      border-radius:50%;
+      background:var(--accent);
+      color:#fff;
+      font-size:1.4rem;
+    }
+
+    .upload strong{display:block}
+    .upload small{color:var(--muted)}
+
+    .range-row{
+      display:grid;
+      grid-template-columns:1fr 90px;
+      gap:14px;
+      align-items:center;
+    }
+
+    input[type="range"]{
+      width:100%;
+      accent-color:var(--accent);
+    }
+
+    .range-value{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      text-align:center;
+      font-weight:900;
+      background:#fff;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .chip input{display:none}
+    .chip span{
+      display:inline-flex;
+      padding:11px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      font-weight:800;
+      font-size:.88rem;
+      background:#fff;
+    }
+
+    .chip input:checked + span{
+      background:var(--dark);
+      color:#fff;
+      border-color:var(--dark);
+    }
+
+    select,textarea,input[type="text"],input[type="email"]{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 15px;
+      background:#fff;
+      outline:none;
+      color:var(--ink);
+    }
+
+    textarea{min-height:120px;resize:vertical}
+    select:focus,textarea:focus,input:focus{border-color:var(--accent)}
+
+    .summary .tag{
+      display:inline-block;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:.75rem;
+      font-weight:900;
+      color:#e6d9cf;
+      margin-bottom:24px;
+    }
+
+    .summary-list{
+      display:grid;
+      gap:17px;
+      margin-bottom:30px;
+    }
+
+    .sum-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      border-bottom:1px solid rgba(255,255,255,.09);
+      padding-bottom:13px;
+      color:#d8c9bf;
+    }
+
+    .sum-row strong{color:#fff}
+
+    .price{
+      font-family:"Archivo Black",sans-serif;
+      font-size:3.2rem;
+      letter-spacing:-.05em;
+      margin:8px 0 2px;
+    }
+
+    .price-note{
+      color:#baa99d;
+      font-size:.8rem;
+      line-height:1.5;
+      margin-bottom:20px;
+    }
+
+    .summary .btn-primary{
+      width:100%;
+      background:var(--accent);
+    }
+
+    .summary .btn-primary:hover{background:#de7f53}
+
+    .trust{
+      margin-top:18px;
+      display:flex;
+      gap:14px;
+      color:#a9978d;
+      font-size:.76rem;
+      line-height:1.5;
+    }
+
+    .showcase{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .work{
+      aspect-ratio:4/5;
+      border-radius:28px;
+      overflow:hidden;
+      position:relative;
+      background:#b98569;
+      box-shadow:inset 0 -100px 120px rgba(35,20,14,.25);
+    }
+
+    .work:nth-child(2){background:#7f8c70}
+    .work:nth-child(3){background:#b79a70}
+
+    .work::before{
       content:"";
       position:absolute;inset:0;
       background:
-        linear-gradient(90deg,transparent 0 17%,rgba(255,255,255,.28) 17% 18%,transparent 18% 63%,rgba(255,255,255,.2) 63% 64%,transparent 64%),
-        linear-gradient(0deg,transparent 0 58%,rgba(255,255,255,.22) 58% 59%,transparent 59%);
-      opacity:.62;
+        radial-gradient(circle at 40% 24%,rgba(255,255,255,.45),transparent 15%),
+        linear-gradient(150deg,transparent 0 55%,rgba(30,18,13,.24) 100%);
     }
-    .villa{
+
+    .work-info{
       position:absolute;
-      inset:22% 9% 11%;
-      border-radius:10px 10px 0 0;
-      background:linear-gradient(155deg,#eee7dc,#bca88d);
-      box-shadow:0 30px 50px rgba(0,0,0,.22);
-    }
-    .villa:before{
-      content:"";
-      position:absolute;
-      left:-6%;right:-6%;top:-8%;height:14%;
-      background:#2a2a2a;
-      transform:skewX(-12deg);
-    }
-    .window{
-      position:absolute;
-      top:18%;bottom:16%;
-      width:25%;
-      background:linear-gradient(180deg,#7aa1af,#273f48);
-      border:10px solid #1f1f1f;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);
-    }
-    .w1{left:8%}.w2{left:38%}.w3{right:8%}
-    .pool{
-      position:absolute;
-      left:4%;right:4%;bottom:3%;height:20%;
-      border-radius:50% 50% 12px 12px;
-      background:linear-gradient(180deg,#88c7d2,#2d6978);
-      border:7px solid rgba(255,255,255,.5);
-    }
-    .visual-overlay{
-      position:absolute;inset:auto 24px 24px 24px;
-      padding:22px;
-      border-radius:22px;
-      background:rgba(15,15,15,.72);
-      backdrop-filter:blur(10px);
-      color:white;
-      display:flex;align-items:end;justify-content:space-between;gap:20px;
-    }
-    .visual-overlay strong{font-family:Georgia,serif;font-size:1.45rem}
-    .visual-overlay span{color:rgba(255,255,255,.68);font-size:.88rem}
-    .play{
-      width:54px;height:54px;border-radius:50%;background:white;color:#111;
-      display:grid;place-items:center;font-size:1.2rem;flex:0 0 auto;
+      bottom:24px;left:24px;right:24px;
+      color:#fff;
     }
 
-    section{padding:92px 0}
-    .section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:38px}
-    .section-head h2{font-size:clamp(2.5rem,5vw,5rem);letter-spacing:-.04em;max-width:760px}
-    .section-head p{max-width:440px;color:var(--muted);margin:0}
-
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{
-      background:rgba(255,255,255,.66);
-      border:1px solid rgba(255,255,255,.7);
-      border-radius:var(--radius);
-      padding:30px;
-      box-shadow:0 16px 45px rgba(30,24,15,.06);
+    .work-info strong{
+      font-family:"Archivo Black",sans-serif;
+      font-size:1.4rem;
+      display:block;
     }
-    .num{color:var(--gold);font-size:.78rem;letter-spacing:.15em;text-transform:uppercase}
-    .card h3{font-size:2rem;margin:35px 0 14px}
-    .card p{color:var(--muted);margin:0}
-
-    .pricing-shell{
-      display:grid;
-      grid-template-columns:.9fr 1.1fr;
-      gap:22px;
-      background:var(--dark);
-      color:white;
-      padding:22px;
-      border-radius:38px;
-      box-shadow:var(--shadow);
-    }
-    .pricing-intro{padding:32px}
-    .pricing-intro h2{font-size:clamp(2.5rem,4.5vw,4.7rem);letter-spacing:-.04em}
-    .pricing-intro p{color:rgba(255,255,255,.62);max-width:500px}
-    .benefits{display:grid;gap:12px;margin-top:32px}
-    .benefit{display:flex;gap:12px;align-items:center;color:rgba(255,255,255,.78)}
-    .check{width:22px;height:22px;border-radius:50%;background:rgba(154,123,73,.2);color:#d5b982;display:grid;place-items:center;font-size:.75rem}
-
-    .calculator{
-      background:var(--surface);
-      color:var(--ink);
-      border-radius:28px;
-      padding:34px;
-    }
-    .calc-top{display:flex;justify-content:space-between;align-items:start;gap:20px}
-    .calc-top h3{font-size:2.2rem}
-    .badge{padding:7px 10px;border-radius:999px;background:#ede7dc;color:#7f6339;font-size:.76rem;font-weight:800}
-    .range-wrap{margin:36px 0 25px}
-    .range-label{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}
-    .range-label strong{font-size:3rem;font-family:Georgia,serif;font-weight:500}
-    .range-label span{color:var(--muted)}
-    input[type=range]{
-      width:100%;appearance:none;height:8px;border-radius:999px;
-      background:linear-gradient(90deg,var(--gold) 0 20%,#ded9cf 20% 100%);
-      outline:none;
-    }
-    input[type=range]::-webkit-slider-thumb{
-      appearance:none;width:26px;height:26px;border-radius:50%;
-      background:var(--dark);border:5px solid white;box-shadow:0 2px 10px rgba(0,0,0,.25);cursor:pointer;
-    }
-    .price-box{
-      display:flex;justify-content:space-between;align-items:end;
-      border-top:1px solid var(--line);padding-top:24px;
-    }
-    .price-box small{display:block;color:var(--muted)}
-    .total{font-family:Georgia,serif;font-size:4rem;line-height:1}
-    .saving{color:#6e744f;font-weight:800;font-size:.9rem;margin-top:8px}
-    .pricing-note{font-size:.8rem;color:var(--muted);margin:18px 0 0}
-
-    .showcase{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
-    .showcase-card{
-      min-height:390px;border-radius:32px;padding:30px;position:relative;overflow:hidden;
-      background:#ddd1c1;
-    }
-    .showcase-card.dark{background:#1a1a1a;color:white}
-    .showcase-card h3{font-size:2.5rem;max-width:420px}
-    .showcase-card p{max-width:420px;color:var(--muted)}
-    .showcase-card.dark p{color:rgba(255,255,255,.6)}
-    .screen{
-      position:absolute;left:30px;right:30px;bottom:-30px;height:210px;
-      border:9px solid #111;border-radius:18px 18px 0 0;
-      background:linear-gradient(150deg,#d1c0a7,#5f5144);
-      box-shadow:0 16px 30px rgba(0,0,0,.2);
-    }
-    .phone{
-      position:absolute;right:45px;bottom:-35px;width:180px;height:310px;
-      border:8px solid #ece7de;border-radius:32px;
-      background:linear-gradient(160deg,#7b6f63,#1d1b19);
-      transform:rotate(5deg);
-      box-shadow:0 18px 50px rgba(0,0,0,.35);
-    }
-
-    .faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px}
-    .faq h2{font-size:clamp(2.5rem,4vw,4.5rem)}
-    details{border-top:1px solid var(--line);padding:20px 0}
-    details:last-child{border-bottom:1px solid var(--line)}
-    summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between}
-    summary::-webkit-details-marker{display:none}
-    details p{color:var(--muted);max-width:680px}
 
     .cta{
-      margin-bottom:80px;
-      background:linear-gradient(135deg,#161616,#2b2926);
-      color:white;border-radius:40px;padding:70px 34px;text-align:center;
+      background:var(--accent);
+      border-radius:38px;
+      padding:56px;
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:40px;
+      color:#fff;
     }
-    .cta h2{font-size:clamp(3rem,6vw,6.3rem);letter-spacing:-.05em;max-width:900px;margin:auto}
-    .cta p{color:rgba(255,255,255,.64);max-width:620px;margin:22px auto 30px}
 
-    footer{padding:30px 0 95px;color:var(--muted)}
-    .footer-row{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
-    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    .cta h2{
+      font-size:clamp(2.8rem,5vw,5.7rem);
+      line-height:.92;
+      max-width:760px;
+    }
+
+    .cta .btn-primary{
+      white-space:nowrap;
+      background:#fff;
+      color:var(--accent-dark);
+    }
+
+    footer{
+      padding:38px 0 55px;
+      color:var(--muted);
+      font-size:.85rem;
+    }
+
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+      flex-wrap:wrap;
+      border-top:1px solid var(--line);
+      padding-top:24px;
+    }
+
+    .mini-links{display:flex;gap:20px;flex-wrap:wrap}
 
     .cookie{
-      position:fixed;left:20px;right:20px;bottom:20px;z-index:30;
-      max-width:650px;margin:auto;
-      display:none;align-items:center;justify-content:space-between;gap:20px;
-      padding:18px 20px;border-radius:22px;background:#141414;color:white;
-      box-shadow:0 15px 50px rgba(0,0,0,.28);
+      position:fixed;
+      left:18px;right:18px;bottom:18px;
+      max-width:610px;
+      margin:auto;
+      background:#211b17;
+      color:#fff;
+      z-index:80;
+      border-radius:22px;
+      padding:18px;
+      box-shadow:0 24px 60px rgba(0,0,0,.2);
+      display:flex;
+      gap:18px;
+      align-items:center;
     }
-    .cookie p{margin:0;color:rgba(255,255,255,.68);font-size:.88rem}
 
-    .modal{
-      position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40;
-      display:none;place-items:center;padding:20px;
+    .cookie p{margin:0;color:#d8cbc2;font-size:.8rem;line-height:1.5}
+    .cookie button{
+      border:none;border-radius:999px;
+      padding:10px 15px;font-weight:900;
+      white-space:nowrap;
     }
-    .modal-box{
-      width:min(720px,100%);max-height:80vh;overflow:auto;
-      background:var(--surface);border-radius:28px;padding:30px;box-shadow:var(--shadow);
-    }
-    .modal-head{display:flex;justify-content:space-between;gap:20px;align-items:center}
-    .modal-head h3{font-size:2rem}
-    .close{border:0;background:#ece8df;width:38px;height:38px;border-radius:50%;cursor:pointer}
 
-    @media(max-width:900px){
+    @media(max-width:920px){
       .nav-links{display:none}
-      .hero,.pricing-shell,.showcase,.faq{grid-template-columns:1fr}
-      .hero{padding-top:75px}
-      .visual{min-height:500px}
-      .steps{grid-template-columns:1fr}
-      .section-head{display:block}
-      .section-head p{margin-top:18px}
+      .hero,.builder{grid-template-columns:1fr}
+      .hero{padding-top:65px}
+      .hero-card{min-height:560px}
+      .steps,.showcase{grid-template-columns:1fr}
+      .section-head,.cta{align-items:flex-start;flex-direction:column}
+      .summary{position:relative;top:auto}
+      .logos-strip{justify-content:flex-start}
     }
+
     @media(max-width:580px){
-      .wrap{width:min(100% - 20px,1180px)}
-      h1{font-size:3.4rem}
-      .hero{gap:30px}
-      .visual{min-height:430px}
-      .visual-overlay{inset:auto 14px 14px 14px}
-      .pricing-intro,.calculator{padding:25px}
-      .price-box{align-items:start;flex-direction:column;gap:16px}
-      .total{font-size:3.3rem}
-      .cookie{align-items:flex-start;flex-direction:column}
+      .shell{width:min(100% - 20px,1180px)}
+      nav{padding-left:15px}
+      h1{font-size:3.8rem}
+      .hero-card{min-height:500px;border-radius:28px}
+      .video-frame{width:78%}
+      section{padding:72px 0}
+      .builder-wrap{padding:10px;border-radius:30px}
+      .form-panel,.summary{padding:22px;border-radius:23px}
+      .cta{padding:32px;border-radius:28px}
+      .cookie{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
+
 <body>
-  <header class="header wrap">
-    <nav class="nav">
-      <a class="brand" href="#inicio">
-        <span class="brand-mark">M</span>
-        Makam
-      </a>
-      <div class="nav-links">
-        <a href="#como-funciona">Cómo funciona</a>
-        <a href="#precios">Precios</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <a href="#precios" class="btn btn-dark">Crear mi vídeo</a>
-    </nav>
-  </header>
+  <div class="nav-wrap">
+    <div class="shell">
+      <nav>
+        <a class="brand" href="#">JP <span>edition</span></a>
+        <div class="nav-links">
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#crear">Crear vídeo</a>
+          <a href="#trabajos">Trabajos</a>
+        </div>
+        <a class="nav-cta" href="#crear">Empezar</a>
+      </nav>
+    </div>
+  </div>
 
   <main>
-    <section class="hero wrap" id="inicio">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="dot"></span> Vídeo inmobiliario con IA</div>
-        <h1>Haz que cada propiedad se sienta <em>irrepetible.</em></h1>
-        <p>
-          Creamos vídeos premium con inteligencia artificial para viviendas en venta o alquiler.
-          Tú nos envías las fotos; Makam las convierte en una experiencia visual diseñada para captar atención y generar visitas.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-dark" href="#precios">Calcular precio</a>
-          <a class="btn btn-light" href="#como-funciona">Ver cómo funciona</a>
-        </div>
-        <div class="micro">Entrega digital · Formato vertical y horizontal · Ideal para portales y redes sociales</div>
-      </div>
-
-      <div class="visual" aria-label="Vista conceptual de una villa de lujo">
-        <div class="villa">
-          <div class="window w1"></div><div class="window w2"></div><div class="window w3"></div>
-          <div class="pool"></div>
-        </div>
-        <div class="visual-overlay">
-          <div>
-            <strong>Villa Mediterránea</strong><br>
-            <span>Vídeo vertical · 35 segundos · Estilo cinematic</span>
-          </div>
-          <div class="play">▶</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap" id="como-funciona">
-      <div class="section-head">
-        <h2>De fotografías estáticas a una presentación que vende.</h2>
-        <p>Un servicio simple, rápido y creado exclusivamente para profesionales y propietarios del sector inmobiliario.</p>
-      </div>
-      <div class="steps">
-        <article class="card">
-          <div class="num">01 · Envío</div>
-          <h3>Sube tus fotos</h3>
-          <p>Nos envías las mejores imágenes de la propiedad, la ubicación y el enfoque comercial.</p>
-        </article>
-        <article class="card">
-          <div class="num">02 · Producción</div>
-          <h3>Creamos con IA</h3>
-          <p>Transformamos las imágenes en secuencias fluidas, elegantes y optimizadas para captar atención.</p>
-        </article>
-        <article class="card">
-          <div class="num">03 · Entrega</div>
-          <h3>Publica y vende</h3>
-          <p>Recibes el vídeo listo para Instagram, TikTok, WhatsApp, portales inmobiliarios y campañas digitales.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="wrap" id="precios">
-      <div class="pricing-shell">
-        <div class="pricing-intro">
-          <div class="eyebrow" style="border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:rgba(255,255,255,.65)">
-            <span class="dot"></span> Packs flexibles
-          </div>
-          <h2 style="margin-top:24px">Cuantos más vídeos, mejor precio.</h2>
-          <p>Selecciona la cantidad que necesitas. El descuento se aplica automáticamente y puedes usar los vídeos para distintas propiedades.</p>
-          <div class="benefits">
-            <div class="benefit"><span class="check">✓</span> Hasta 45 segundos por vídeo</div>
-            <div class="benefit"><span class="check">✓</span> Música y montaje incluidos</div>
-            <div class="benefit"><span class="check">✓</span> Formato vertical u horizontal</div>
-            <div class="benefit"><span class="check">✓</span> Una revisión incluida</div>
+    <div class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="dot"></span> edición humana + IA</div>
+          <h1>YOUR CLIPS.<span class="accent-word">OUR EDIT.</span></h1>
+          <p>
+            Sube tus clips, elige la duración, el formato y el estilo. En JP edition combinamos
+            criterio creativo con herramientas de IA como Higgsfield para transformar tu material
+            en vídeos listos para TikTok, Reels, campañas, producto o contenido de marca.
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#crear">Crear mi vídeo</a>
+            <a class="btn-secondary" href="#como-funciona">Ver cómo funciona</a>
           </div>
         </div>
 
-        <div class="calculator">
-          <div class="calc-top">
+        <div class="hero-card">
+          <div class="mock-top">
+            <span>JP / AI STUDIO</span>
+            <span>01 — 03</span>
+          </div>
+          <div class="video-frame">
+            <div class="grad"></div>
+            <div class="play">▶</div>
+            <div class="frame-caption">
+              <strong>MAKE IT MOVE.</strong>
+              <small>Fashion campaign / 00:30</small>
+            </div>
+          </div>
+          <div class="pill-float pill-1">9:16 · Social</div>
+          <div class="pill-float pill-2">AI Motion ✓</div>
+          <div class="pill-float pill-3">Color grade · Warm</div>
+        </div>
+      </section>
+
+      <div class="logos-strip">
+        <span>Reels</span>
+        <span>TikTok</span>
+        <span>Ads</span>
+        <span>Fashion</span>
+        <span>Real Estate</span>
+        <span>Product</span>
+      </div>
+    </div>
+
+    <section id="como-funciona">
+      <div class="shell">
+        <div class="section-head">
+          <h2>DE CLIPS SUELTOS A UNA PIEZA QUE IMPACTA.</h2>
+          <p>
+            El proceso está diseñado para que puedas definir el resultado sin tener que saber editar.
+            Tú eliges la dirección; nosotros construimos la pieza.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-num">01</div>
             <div>
-              <h3>Configura tu pack</h3>
-              <p style="color:var(--muted);margin:8px 0 0">El precio disminuye por volumen.</p>
+              <h3>SUBE</h3>
+              <p>Arrastra tus clips, fotos o referencias. Cuanto más material, más posibilidades creativas.</p>
             </div>
-            <div class="badge" id="tierBadge">Pack Esencial</div>
-          </div>
-
-          <div class="range-wrap">
-            <div class="range-label">
-              <span>Número de vídeos</span>
-              <strong id="videoCount">3</strong>
-            </div>
-            <input id="videoRange" type="range" min="1" max="30" value="3" />
-          </div>
-
-          <div class="price-box">
+          </article>
+          <article class="step">
+            <div class="step-num">02</div>
             <div>
-              <small>Precio total estimado</small>
-              <div class="total"><span id="totalPrice">177</span>€</div>
-              <div class="saving" id="savingText">Ahorras 12 € con este pack</div>
+              <h3>PERSONALIZA</h3>
+              <p>Selecciona duración, formato, ritmo, estética, música, textos y nivel de intervención con IA.</p>
             </div>
-            <button class="btn btn-dark" id="orderBtn">Solicitar pack</button>
+          </article>
+          <article class="step">
+            <div class="step-num">03</div>
+            <div>
+              <h3>RECIBE</h3>
+              <p>Nosotros editamos, generamos planos o motion con IA cuando aporta valor y entregamos el master final.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="crear">
+      <div class="shell">
+        <div class="section-head">
+          <h2>CONSTRUYE TU VÍDEO.</h2>
+          <p>Configura tu pieza en menos de dos minutos. El precio se actualiza según duración y nivel de edición.</p>
+        </div>
+
+        <div class="builder-wrap">
+          <div class="builder">
+            <div class="form-panel">
+              <h3>Tu proyecto</h3>
+
+              <div class="field">
+                <label>1. Sube tus clips</label>
+                <label class="upload" for="files">
+                  <div class="upload-icon">↑</div>
+                  <strong id="uploadText">Arrastra o selecciona tus archivos</strong>
+                  <small>MP4, MOV, JPG, PNG · hasta 5 GB</small>
+                  <input id="files" type="file" multiple accept="video/*,image/*">
+                </label>
+              </div>
+
+              <div class="field">
+                <label>2. Duración final</label>
+                <div class="range-row">
+                  <input id="duration" type="range" min="15" max="180" step="15" value="30">
+                  <div class="range-value"><span id="durationValue">30</span>s</div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>3. Formato</label>
+                <div class="chips">
+                  <label class="chip">
+                    <input type="radio" name="format" value="9:16 Vertical" checked>
+                    <span>9:16 Vertical</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="format" value="1:1 Square">
+                    <span>1:1 Square</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="format" value="16:9 Horizontal">
+                    <span>16:9 Horizontal</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>4. Estilo</label>
+                <select id="style">
+                  <option>Cinematic warm</option>
+                  <option>Fast social edit</option>
+                  <option>Luxury minimal</option>
+                  <option>Fashion editorial</option>
+                  <option>UGC / Native social</option>
+                  <option>Real estate cinematic</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label>5. Intensidad IA</label>
+                <div class="chips">
+                  <label class="chip">
+                    <input type="radio" name="ai" value="Light" checked>
+                    <span>Light</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="ai" value="Creative">
+                    <span>Creative</span>
+                  </label>
+                  <label class="chip">
+                    <input type="radio" name="ai" value="Full AI">
+                    <span>Full AI</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label>6. Instrucciones</label>
+                <textarea id="notes" placeholder="Ej: quiero un vídeo elegante, transiciones limpias, música electrónica suave, textos muy mínimos y un final con mi logo..."></textarea>
+              </div>
+
+              <div class="field">
+                <label>Email de entrega</label>
+                <input type="email" placeholder="tu@email.com">
+              </div>
+            </div>
+
+            <aside class="summary">
+              <div class="tag">RESUMEN EN TIEMPO REAL</div>
+              <h3>Tu edición</h3>
+
+              <div class="summary-list">
+                <div class="sum-row"><span>Duración</span><strong id="sumDuration">30 s</strong></div>
+                <div class="sum-row"><span>Formato</span><strong id="sumFormat">9:16 Vertical</strong></div>
+                <div class="sum-row"><span>Estilo</span><strong id="sumStyle">Cinematic warm</strong></div>
+                <div class="sum-row"><span>IA</span><strong id="sumAI">Light</strong></div>
+              </div>
+
+              <small>Desde</small>
+              <div class="price" id="price">49€</div>
+              <div class="price-note">
+                Precio orientativo. El presupuesto final puede variar si el material requiere reconstrucción, VFX o generación avanzada adicional.
+              </div>
+
+              <button class="btn-primary" id="orderBtn">Enviar proyecto</button>
+
+              <div class="trust">
+                <span>✓ 1 revisión incluida</span>
+                <span>✓ Exportación Full HD / 4K</span>
+              </div>
+            </aside>
           </div>
-          <p class="pricing-note">Precios sin IVA. La solicitud no implica pago inmediato. Confirmaremos el material, formato y plazo antes de comenzar.</p>
         </div>
       </div>
     </section>
 
-    <section class="wrap">
-      <div class="section-head">
-        <h2>Una imagen de marca a la altura de cada inmueble.</h2>
-        <p>Contenido sobrio y aspiracional para inmobiliarias, agencias boutique, promotoras y propietarios particulares.</p>
-      </div>
-      <div class="showcase">
-        <div class="showcase-card">
-          <h3>Contenido preparado para publicar</h3>
-          <p>Vídeos diseñados para destacar en portales, campañas, redes y presentaciones comerciales.</p>
-          <div class="screen"></div>
+    <section id="trabajos">
+      <div class="shell">
+        <div class="section-head">
+          <h2>EDITAMOS PARA QUE PAREZCA CARO.</h2>
+          <p>Una dirección visual limpia, ritmo intencional y uso de IA solo cuando mejora la pieza.</p>
         </div>
-        <div class="showcase-card dark">
-          <h3>Luxury first</h3>
-          <p>Movimientos suaves, ritmo editorial y una estética que aumenta la percepción de valor.</p>
-          <div class="phone"></div>
+
+        <div class="showcase">
+          <div class="work">
+            <div class="work-info">
+              <strong>FASHION / 00:22</strong>
+              <span>Campaign edit</span>
+            </div>
+          </div>
+          <div class="work">
+            <div class="work-info">
+              <strong>REAL ESTATE / 00:45</strong>
+              <span>Luxury property film</span>
+            </div>
+          </div>
+          <div class="work">
+            <div class="work-info">
+              <strong>PRODUCT / 00:30</strong>
+              <span>Social launch</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="wrap faq" id="faq">
-      <div><h2>Preguntas frecuentes</h2></div>
-      <div>
-        <details open>
-          <summary>¿Qué necesito enviar?<span>+</span></summary>
-          <p>Entre 8 y 20 fotografías de buena calidad, el nombre o referencia de la propiedad, su ubicación y el formato deseado.</p>
-        </details>
-        <details>
-          <summary>¿Cuánto tarda la entrega?<span>+</span></summary>
-          <p>El plazo habitual es de 2 a 4 días laborables por vídeo. Para packs grandes se acuerda un calendario de entregas.</p>
-        </details>
-        <details>
-          <summary>¿Puedo incluir mi logotipo?<span>+</span></summary>
-          <p>Sí. Podemos incorporar el logotipo, colores corporativos, textos comerciales y datos de contacto.</p>
-        </details>
-        <details>
-          <summary>¿Sirve para alquiler vacacional?<span>+</span></summary>
-          <p>Sí. El servicio funciona para venta, alquiler residencial, alquiler vacacional, obra nueva y promoción inmobiliaria.</p>
-        </details>
+    <section>
+      <div class="shell">
+        <div class="cta">
+          <h2>YOU SHOOT.<br>WE MAKE IT HIT.</h2>
+          <a href="#crear" class="btn-primary">Subir mis clips</a>
+        </div>
       </div>
-    </section>
-
-    <section class="wrap cta">
-      <h2>Convierte una propiedad en una historia que merece ser vista.</h2>
-      <p>Makam crea una pieza visual premium a partir de tus fotografías, lista para presentar, promocionar y vender.</p>
-      <a href="#precios" class="btn btn-light">Crear mi primer vídeo</a>
     </section>
   </main>
 
-  <footer class="wrap">
-    <div class="footer-row">
-      <div>© 2026 Makam. Vídeos inmobiliarios con IA.</div>
-      <div class="footer-links">
-        <a href="#" data-modal="terms">Términos</a>
-        <a href="#" data-modal="privacy">Privacidad</a>
-        <a href="#" data-modal="cookies">Cookies</a>
+  <footer>
+    <div class="shell footer-grid">
+      <div>
+        <div class="brand">JP <span>edition</span></div>
+        <div style="margin-top:8px">AI-assisted video editing studio.</div>
       </div>
+      <div class="mini-links">
+        <a href="#">Instagram</a>
+        <a href="#">Privacidad</a>
+        <a href="#">Términos</a>
+        <a href="mailto:hello@jpedition.studio">Contacto</a>
+      </div>
+      <div>© 2026 JP edition</div>
     </div>
   </footer>
 
   <div class="cookie" id="cookieBanner">
-    <p>Usamos cookies técnicas básicas para recordar tus preferencias y mejorar la navegación. No utilizamos cookies publicitarias.</p>
-    <button class="btn btn-light" id="acceptCookies">Aceptar</button>
-  </div>
-
-  <div class="modal" id="legalModal">
-    <div class="modal-box">
-      <div class="modal-head">
-        <h3 id="modalTitle">Información legal</h3>
-        <button class="close" id="closeModal">×</button>
-      </div>
-      <div id="modalContent" style="color:var(--muted);margin-top:22px"></div>
-    </div>
+    <p>
+      Usamos cookies esenciales para que la web funcione correctamente y, con tu permiso,
+      analítica básica para mejorar la experiencia.
+    </p>
+    <button onclick="document.getElementById('cookieBanner').remove()">Aceptar</button>
   </div>
 
   <script>
-    const range = document.getElementById('videoRange');
-    const countEl = document.getElementById('videoCount');
-    const totalEl = document.getElementById('totalPrice');
-    const savingEl = document.getElementById('savingText');
-    const badgeEl = document.getElementById('tierBadge');
-    const orderBtn = document.getElementById('orderBtn');
-
-    function unitPrice(qty){
-      if(qty >= 20) return 42;
-      if(qty >= 10) return 47;
-      if(qty >= 5) return 53;
-      if(qty >= 3) return 59;
-      return 63;
-    }
-
-    function tierName(qty){
-      if(qty >= 20) return 'Pack Signature';
-      if(qty >= 10) return 'Pack Agency';
-      if(qty >= 5) return 'Pack Portfolio';
-      if(qty >= 3) return 'Pack Esencial';
-      return 'Vídeo individual';
-    }
+    const duration = document.getElementById('duration');
+    const durationValue = document.getElementById('durationValue');
+    const sumDuration = document.getElementById('sumDuration');
+    const price = document.getElementById('price');
+    const sumFormat = document.getElementById('sumFormat');
+    const sumStyle = document.getElementById('sumStyle');
+    const sumAI = document.getElementById('sumAI');
+    const style = document.getElementById('style');
+    const files = document.getElementById('files');
+    const uploadText = document.getElementById('uploadText');
 
     function updatePrice(){
-      const qty = Number(range.value);
-      const price = unitPrice(qty);
-      const total = qty * price;
-      const regular = qty * 63;
-      const saving = regular - total;
-      countEl.textContent = qty;
-      totalEl.textContent = total;
-      badgeEl.textContent = tierName(qty);
-      savingEl.textContent = saving > 0 ? `Ahorras ${saving} € con este pack` : 'Precio por vídeo: 63 €';
-      const progress = ((qty - 1) / 29) * 100;
-      range.style.background = `linear-gradient(90deg, var(--gold) 0 ${progress}%, #ded9cf ${progress}% 100%)`;
+      const seconds = parseInt(duration.value);
+      let base = 39 + (seconds / 15) * 5;
+
+      const ai = document.querySelector('input[name="ai"]:checked').value;
+      if(ai === 'Creative') base += 25;
+      if(ai === 'Full AI') base += 55;
+
+      price.textContent = Math.round(base) + '€';
     }
 
-    range.addEventListener('input', updatePrice);
-    updatePrice();
-
-    orderBtn.addEventListener('click', () => {
-      const qty = Number(range.value);
-      const total = qty * unitPrice(qty);
-      const subject = encodeURIComponent(`Solicitud Makam — ${qty} vídeos`);
-      const body = encodeURIComponent(`Hola Makam,\n\nQuiero solicitar un pack de ${qty} vídeos inmobiliarios por un precio estimado de ${total} € + IVA.\n\nNombre:\nEmpresa:\nTeléfono:\nComentarios:\n`);
-      window.location.href = `mailto:hola@makam.es?subject=${subject}&body=${body}`;
+    duration.addEventListener('input', () => {
+      durationValue.textContent = duration.value;
+      sumDuration.textContent = duration.value + ' s';
+      updatePrice();
     });
 
-    const legalText = {
-      terms: {
-        title: 'Términos y condiciones',
-        content: `<p>Makam presta servicios de creación y edición de vídeos inmobiliarios mediante herramientas digitales e inteligencia artificial.</p>
-        <p>El cliente declara tener autorización para utilizar las fotografías, logotipos y textos entregados. Los precios mostrados son orientativos y no incluyen IVA. El servicio comienza tras confirmar el material, el alcance y el presupuesto.</p>
-        <p>Se incluye una ronda de ajustes menores. Cambios de concepto, nuevo material o versiones adicionales podrán presupuestarse aparte.</p>`
-      },
-      privacy: {
-        title: 'Política de privacidad',
-        content: `<p>Los datos enviados se utilizarán exclusivamente para responder solicitudes, preparar presupuestos y prestar el servicio contratado.</p>
-        <p>No se cederán datos a terceros salvo obligación legal o proveedores técnicos necesarios para la prestación del servicio. Puedes solicitar acceso, rectificación o eliminación escribiendo a hola@makam.es.</p>`
-      },
-      cookies: {
-        title: 'Política de cookies',
-        content: `<p>Esta web utiliza únicamente cookies técnicas y almacenamiento local para recordar la aceptación del aviso de cookies y facilitar funciones básicas.</p>
-        <p>No se utilizan cookies publicitarias ni de seguimiento de terceros en esta versión de la web.</p>`
-      }
-    };
-
-    const modal = document.getElementById('legalModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalContent = document.getElementById('modalContent');
-
-    document.querySelectorAll('[data-modal]').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const item = legalText[link.dataset.modal];
-        modalTitle.textContent = item.title;
-        modalContent.innerHTML = item.content;
-        modal.style.display = 'grid';
+    document.querySelectorAll('input[name="format"]').forEach(el => {
+      el.addEventListener('change', () => {
+        sumFormat.textContent = document.querySelector('input[name="format"]:checked').value;
       });
     });
 
-    document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
-    modal.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+    document.querySelectorAll('input[name="ai"]').forEach(el => {
+      el.addEventListener('change', () => {
+        sumAI.textContent = document.querySelector('input[name="ai"]:checked').value;
+        updatePrice();
+      });
+    });
 
-    const cookieBanner = document.getElementById('cookieBanner');
-    if(!localStorage.getItem('makamCookies')) cookieBanner.style.display = 'flex';
-    document.getElementById('acceptCookies').onclick = () => {
-      localStorage.setItem('makamCookies','accepted');
-      cookieBanner.style.display = 'none';
-    };
+    style.addEventListener('change', () => {
+      sumStyle.textContent = style.value;
+    });
+
+    files.addEventListener('change', () => {
+      const count = files.files.length;
+      uploadText.textContent = count
+        ? `${count} archivo${count > 1 ? 's' : ''} seleccionado${count > 1 ? 's' : ''}`
+        : 'Arrastra o selecciona tus archivos';
+    });
+
+    document.getElementById('orderBtn').addEventListener('click', () => {
+      alert('Demo lista. En una versión real, este botón enviaría los archivos y la configuración a tu backend / CRM.');
+    });
+
+    updatePrice();
   </script>
 </body>
 </html>
